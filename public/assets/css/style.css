@@ -1,0 +1,12 @@
+.bg-contact {
+    background-image: url("/assets/images/contact_bg.jpg");
+}
+.bg-prosedur-pengajuan {
+    background-image: url("/assets/images/bg_gradient.jpg");
+}
+
+.bg-pdf {
+    background-image: url("/assets/images/pdf-logo.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
