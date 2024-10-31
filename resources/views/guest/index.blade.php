@@ -80,10 +80,7 @@
     <script>
         $(document).ready(function() {
             $(".accordion-header").click(function() {
-                // Toggle the visibility of the content
                 $(this).next(".accordion-content").slideToggle(200);
-
-                // Rotate the icon
                 $(this).find(".accordion-icon").toggleClass("transform rotate-180");
             });
         });

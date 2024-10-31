@@ -1,6 +1,6 @@
-<nav class="my-4 p-4 bg-white shadow-md rounded-md lg:m-0 lg:w-[30%]" x-data="{ isOpen: true }">
+<nav class="p-4 bg-white shadow-md rounded-md" x-data="{ isOpen: true }">
     <div>
-        <div class="flex justify-end mb-4">
+        <div class="mb-4">
             <button @click="isOpen = !isOpen" type="button"
                 class="relative inline-flex items-center justify-center rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-white"
                 aria-controls="mobile-menu" aria-expanded="false">
@@ -19,7 +19,7 @@
                 </svg>
             </button>
         </div>
-        <div class="flex justify-center gap-2" :class="{ 'flex-col': isOpen, 'flex-row': !isOpen }">
+        <div class="flex justify-center gap-2 md:flex-col" :class="{ 'flex-col': isOpen, 'flex-row': !isOpen }">
             <a href="{{ route('submission.index') }}" :class="{ 'border-none': isOpen, 'hover:bg-white': !isOpen }"
                 class="flex items-center {{ request()->routeIs(['submission.index', 'submission.author1', 'submission.author2', 'submission.jenisCiptaan', 'submission.subJenisCiptaan', 'submission.uploadFile', 'submission.pernyataan']) ? 'border-amber-600 text-amber-600' : '' }} gap-4 block px-3 py-2 text-base font-medium hover:text-amber-600 border rounded-md hover:bg-gray-100 hover:border-amber-600 duration-200 ease-in-out">
                 <i class="bi bi-file-earmark-arrow-up-fill text-xl"></i>
