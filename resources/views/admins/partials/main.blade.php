@@ -10,20 +10,21 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
 <body class="relative min-h-full">
-    @include('guest.partials.navbar')
-    <div class="min-h-full">
-        <main>
-            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                @yield('content')
+    <div class="flex min-h-full">
+        @include('admins.partials.navbar')
+        <main class="flex-1 bg-blue-100 overflow-y-auto h-[100vh] relative">
+            @include('admins.partials.header')
+            <div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
+                @yield('admin-content')
             </div>
         </main>
     </div>
-    @include('guest.partials.footer')
 </body>
 
 </html>

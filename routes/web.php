@@ -96,3 +96,15 @@ Route::get('users/detail-feedback', function () {
 Route::get('users/sertificate', function () {
     return view('users.sertificate.index');
 })->name('sertificate.index');
+
+
+
+// ADMINS
+Route::get('admin/index', function () {
+    return view('admins.dashboard.index');
+})->name('admin.dashboard.index');
+
+// applicant
+Route::get('admin/rekap-data-pemohon', function () {
+    return view('admins.applicant.index');
+})->name('admin.applicant.index');

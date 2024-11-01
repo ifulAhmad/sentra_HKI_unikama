@@ -12,7 +12,7 @@
 
 
                 <div class="flex items-center gap-8">
-                    <a href="#"
+                    <a href="{{ route('admin.dashboard.index') }}"
                         class="px-5 py-2 rounded-xl text-blue-700 font-semibold border-2 border-blue-700 hover:bg-blue-700 hover:text-white">&laquo;
                         ADMIN</a>
                     <a href="{{ route('profile.index') }}"
