@@ -18,7 +18,7 @@
 <body class="relative min-h-full">
     <div class="flex min-h-full">
         @include('admins.partials.navbar')
-        <main class="flex-1 bg-blue-100 overflow-y-auto h-[100vh] relative">
+        <main class="flex-1 bg-indigo-100 overflow-y-auto h-[100vh] relative">
             @include('admins.partials.header')
             <div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
                 @yield('admin-content')

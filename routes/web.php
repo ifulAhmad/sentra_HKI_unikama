@@ -108,3 +108,6 @@ Route::get('admin/index', function () {
 Route::get('admin/rekap-data-pemohon', function () {
     return view('admins.applicant.index');
 })->name('admin.applicant.index');
+Route::get('admin/detail-rekap-data-pemohon', function () {
+    return view('admins.applicant.detail');
+})->name('admin.applicant.detail');

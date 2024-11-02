@@ -1,9 +1,18 @@
-<header class="flex items-center justify-between py-3 px-5 sticky top-0 z-[99]">
-  <h1 class="font-semibold uppercase">selamat datang <span class="text-amber-600">Admin</span></h1>
+<header class="flex items-center justify-between bg-indigo-100 py-3 px-5 sticky top-0 z-[99]">
   <form action="" class="flex items-center gap-3">
-    <input type="search" placeholder="Search..." class="w-64 py-1 px-2 bg-blue-100 outline-0 rounded-md border border-blue-300 focus:border-blue-600">
+    <input type="search" placeholder="Search..." class="w-80 py-1 px-2 bg-indigo-100 outline-0 rounded-3xl border border-indigo-300 focus:border-indigo-600">
     <button type="submit">
       <i class="bi bi-search"></i>
     </button>
   </form>
+  <div class=" flex items-center gap-3">
+    <a href="#" class="hover:text-indigo-600">
+      <i class="bi bi-gear text-xl"></i>
+    </a>
+    |
+    <a href="#" class="hover:text-indigo-600">
+      <i class="bi bi-door-open text-xl"></i>
+      Logout
+    </a>
+  </div>
 </header>
