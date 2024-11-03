@@ -35,8 +35,9 @@
                     <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Rekap Data
                         Pemohon</span>
                 </a>
-                <a href="#" :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                    class="flex items-center {{ request()->routeIs(['submission.index', 'submission.author1', 'submission.author2', 'submission.jenisCiptaan', 'submission.subJenisCiptaan', 'submission.uploadFile', 'submission.pernyataan']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
+                <a href="{{ route('admin.notifications.index') }}"
+                    :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
+                    class="flex items-center {{ request()->routeIs('admin.notifications.index') ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
                     <i class="bi bi-bell text-xl"></i>
                     <span :class="{ 'hidden': !isOpen }"
                         class="transition-opacity duration-200 ease-in-out">Notifikasi</span>

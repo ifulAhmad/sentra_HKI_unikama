@@ -12,7 +12,7 @@
                 <p><i class="bi bi-person"></i> 3</p>
                 <p>23 days ago</p>
             </div>
-            <p class="text-end py-1 px-4 rounded-xl bg-yellow-400">Diroses</p>
+            <p class="text-end py-1 text-sm px-4 rounded-xl text-yellow-500 font-semibold">Diproses</p>
         </div>
     </div>
     <div class="flex flex-col md:flex-row gap-3 relative">
@@ -134,7 +134,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-1 bg-white rounded-md shadow-md p-4">
+            <div class="flex-1 bg-white rounded-md shadow-md p-3">
                 <div class="grid grid-cols-2 gap-3">
                     <a href="#" class=" w-full border rounded-md overflow-hidden hover:border-red-600">
                         <div class="bg-pdf h-[150px] bg-top flex items-end">
@@ -171,41 +171,88 @@
         </div>
 
         {{-- comment --}}
-        <div class="md:w-96 sticky top-20 max-h-[400px] overflow-y-auto">
-            <div class="max-w-full mx-auto bg-white rounded-lg shadow-md">
-                <!-- Item -->
-                <div class="border-b border-gray-200">
-                    <button
-                        class="w-full text-left py-2 px-4 font-medium border-b text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
-                        <span>Komentar</span>
-                        <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-                    <div class="accordion-content hidden p-4 text-gray-600">
-                        <div class="flex flex-col gap-2 text-sm border-b pb-2 mb-2">
-                            <div class="flex items-center justify-between">
-                                <h5 class="font-semibold text-gray-800">Administrator</h5>
-                                <small class="text-ggray-600">2 hours ago</small>
+        <div class="md:w-96 sticky top-20 max-h-[500px] overflow-y-auto">
+            <div class="bg-white rounded-md shadow-md p-3 mb-3">
+                <div class="flex-1 rounded-md overflow-hidden text-center mb-3">
+                    <a href="#" class="p-2 block bg-yellow-500 duration-100 hover:bg-yellow-600 text-white">
+                        Izinkan Revisi
+                    </a>
+                </div>
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="flex-1 rounded-md overflow-hidden text-center">
+                        <a href="#" class="p-2 block bg-green-500 duration-100 hover:bg-green-600 text-white">
+                            Download Excel
+                        </a>
+                    </div>
+                    <div class="flex-1 rounded-md overflow-hidden text-center">
+                        <a href="#" class="p-2 block bg-red-500 duration-100 hover:bg-red-600 text-white">
+                            Tolak Pengajuan
+                        </a>
+                    </div>
+                </div>
+
+                <div class="max-w-full mx-auto bg-white">
+                    <!-- Item -->
+                    <div class="border-b border-gray-200 shadow">
+                        <button
+                            class="w-full text-left py-2 px-4 font-medium text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
+                            <span>Berikan Sertifikat</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="accordion-content hidden p-4 text-gray-600">
+                            <div class="mt-4 text-sm">
+                                <form action="" class="flex flex-col gap-2">
+                                    <div class="bg-white p-2 rounded-md flex flex-col gap-4">
+                                        <label id="sertificate_file" class="text-xs text-gray-400">Upload 1 file yang didukung: PDF. Maks 10 MB.</label>
+                                        <input type="file" id="sertificate_file" accept=".pdf"
+                                            class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600" placeholder="file">
+                                    </div>
+                                    <button class="text-white block p-2 font-semibold bg-indigo-600 rounded-md duration-100 hover:bg-indigo-700">Kirim</button>
+                                </form>
                             </div>
-                            <p>Tolong kirim file yang benar anak muda!</p>
                         </div>
-                        <div class="flex flex-col gap-2 text-sm border-b pb-2 mb-2 text-end">
-                            <div class="flex items-center justify-between">
-                                <small class="text-ggray-600">1 hours ago</small>
-                                <h5 class="font-semibold text-gray-800">Saiful Islam</h5>
+                    </div>
+                </div>
+                <div class="max-w-full mx-auto bg-white">
+                    <!-- Item -->
+                    <div class="border-b border-gray-200 shadow">
+                        <button
+                            class="w-full text-left py-2 px-4 font-medium text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
+                            <span>Komentar</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="accordion-content hidden p-4 text-gray-600">
+                            <div class="flex flex-col gap-2 text-sm border-b pb-2 mb-2">
+                                <div class="flex items-center justify-between">
+                                    <h5 class="font-semibold text-gray-800">Administrator</h5>
+                                    <small class="text-ggray-600">2 hours ago</small>
+                                </div>
+                                <p>Tolong kirim file yang benar anak muda!</p>
                             </div>
-                            <p>Siapp komandan!</p>
-                        </div>
-                        <div class="mt-4 text-sm">
-                            <form action="" class="flex items-end gap-2">
-                                <textarea id="autoResizeTextarea" class="py-2 outline-0 border-b w-full focus:border-amber-600 resize-none"
-                                    placeholder="komentar disini..." rows="1" oninput="adjustTextareaHeight(this)"></textarea>
-                                <button class="text-blue-400 hover:underline">Kirim</button>
-                            </form>
+                            <div class="flex flex-col gap-2 text-sm border-b pb-2 mb-2 text-end">
+                                <div class="flex items-center justify-between">
+                                    <small class="text-ggray-600">1 hours ago</small>
+                                    <h5 class="font-semibold text-gray-800">Saiful Islam</h5>
+                                </div>
+                                <p>Siapp komandan!</p>
+                            </div>
+                            <div class="mt-4 text-sm">
+                                <form action="" class="flex items-end gap-2">
+                                    <textarea id="autoResizeTextarea" class="py-2 outline-0 border-b w-full focus:border-amber-600 resize-none"
+                                        placeholder="komentar disini..." rows="1" oninput="adjustTextareaHeight(this)"></textarea>
+                                    <button class="text-blue-400 hover:underline">Kirim</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

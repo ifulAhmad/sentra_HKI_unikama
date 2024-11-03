@@ -111,3 +111,8 @@ Route::get('admin/rekap-data-pemohon', function () {
 Route::get('admin/detail-rekap-data-pemohon', function () {
     return view('admins.applicant.detail');
 })->name('admin.applicant.detail');
+
+// notification
+Route::get('admin/notification', function () {
+    return view('admins.notifications.index');
+})->name('admin.notifications.index');
