@@ -136,33 +136,33 @@
             </div>
             <div class="flex-1 bg-white rounded-md shadow-md p-3">
                 <div class="grid grid-cols-2 gap-3">
-                    <a href="#" class=" w-full border rounded-md overflow-hidden hover:border-red-600">
+                    <a href="#" class=" w-full border rounded-md overflow-hidden hover:border-indigo-600">
                         <div class="bg-pdf h-[150px] bg-top flex items-end">
-                            <div class="bg-red-300 w-full p-2 opacity-95">Surat Pengajuan.pdf
+                            <div class="bg-indigo-100 w-full p-2 opacity-95">Surat Pengajuan.pdf
                             </div>
                         </div>
                     </a>
-                    <a href="#" class=" w-full border rounded-md overflow-hidden hover:border-red-600">
+                    <a href="#" class=" w-full border rounded-md overflow-hidden hover:border-indigo-600">
                         <div class="bg-pdf h-[150px] bg-top flex items-end">
-                            <div class="bg-red-300 w-full p-2 opacity-95">Surat Pengalihan.pdf
+                            <div class="bg-indigo-100 w-full p-2 opacity-95">Surat Pengalihan.pdf
                             </div>
                         </div>
                     </a>
-                    <a href="#" class=" w-full border rounded-md overflow-hidden hover:border-red-600">
+                    <a href="#" class=" w-full border rounded-md overflow-hidden hover:border-indigo-600">
                         <div class="bg-pdf h-[150px] bg-top flex items-end">
-                            <div class="bg-red-300 w-full p-2 opacity-95">Surat 3.pdf
+                            <div class="bg-indigo-100 w-full p-2 opacity-95">Surat 3.pdf
                             </div>
                         </div>
                     </a>
-                    <a href="#" class=" w-full border rounded-md overflow-hidden hover:border-red-600">
+                    <a href="#" class=" w-full border rounded-md overflow-hidden hover:border-indigo-600">
                         <div class="bg-pdf h-[150px] bg-top flex items-end">
-                            <div class="bg-red-300 w-full p-2 opacity-95">Surat 4.pdf
+                            <div class="bg-indigo-100 w-full p-2 opacity-95">Surat 4.pdf
                             </div>
                         </div>
                     </a>
-                    <a href="#" class=" w-full border rounded-md overflow-hidden hover:border-red-600">
+                    <a href="#" class=" w-full border rounded-md overflow-hidden hover:border-indigo-600">
                         <div class="bg-pdf h-[150px] bg-top flex items-end">
-                            <div class="bg-red-300 w-full p-2 opacity-95">Surat 5.pdf
+                            <div class="bg-indigo-100 w-full p-2 opacity-95">Surat 5.pdf
                             </div>
                         </div>
                     </a>

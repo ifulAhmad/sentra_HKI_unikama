@@ -1,7 +1,7 @@
 @extends('users.partials.main')
 
 @section('users-content')
-<div class="bg-gray-100 py-4">
+<div class="bg-indigo-100 py-4">
     <h1 class="text-lg font-semibold">Formulir Pengajuan Hak Cipta</h1>
     <div class="bg-amber-600 h-[4px] rounded w-28 mt-2 mb-4"></div>
 
