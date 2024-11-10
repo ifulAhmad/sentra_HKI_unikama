@@ -4,7 +4,7 @@
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <a href="{{ route('home') }}">
-                        <h1 class="font-bold text-3xl">HKI <span class="text-amber-600">UNIKAMA</span></h1>
+                        <h1 class="font-bold text-3xl">LOGO <span class="text-amber-600">HERE</span></h1>
                     </a>
                 </div>
             </div>
