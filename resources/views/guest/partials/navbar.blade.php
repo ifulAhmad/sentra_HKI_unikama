@@ -14,6 +14,7 @@
                         class=" {{ request()->routeIs('home') ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium"
                         aria-current="page">Beranda</a>
 
+                    <!-- HAK CIPTA -->
                     <div x-data="{ open: false }" class="relative">
                         <button @click="open = !open" type="button"
                             class="inline-flex items-center gap-x-1 text-sm rounded-md px-3 py-2 font-medium  hover:bg-amber-600 hover:text-white"
@@ -27,7 +28,56 @@
                             </svg>
                         </button>
 
-                        <!-- Flyout menu, show/hide based on flyout menu state -->
+                        <div x-show="open" @click.away="open = false"
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-1"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-1"
+                            class="absolute left-1/2 z-10 mt-5 flex w-48 max-w-max -translate-x-1/2 px-4"
+                            style="display: none;">
+                            <div
+                                class="w-screen max-w-md flex-auto overflow-hidden rounded-md bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+                                <div class="py-2">
+                                    <a href="{{ route('pengenalan') }}"
+                                        class="{{ request()->routeIs('pengenalan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }} block px-4 py-2 text-sm"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Tentang Hak Cipta</a>
+
+                                    <a href="{{ route('prosedurPengajuan') }}"
+                                        class="{{ request()->routeIs('prosedurPengajuan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }} block px-4 py-2 text-sm"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Cara Pengajuan</a>
+
+                                    <a href="{{ route('pengajuan') }}"
+                                        class="{{ request()->routeIs('pengajuan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }} block px-4 py-2 text-sm"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Pengajuan</a>
+
+                                    <a href="{{ route('jenisCiptaan') }}"
+                                        class="{{ request()->routeIs('jenisCiptaan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }} block px-4 py-2 text-sm"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Jenis Ciptaan</a>
+
+                                    <a href="{{ route('syaratLampiran') }}"
+                                        class="{{ request()->routeIs('syaratLampiran') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }} block px-4 py-2 text-sm"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Syarat Lampiran</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PATEN MEREK -->
+                    <div x-data="{ open: false }" class="relative">
+                        <button @click="open = !open" type="button"
+                            class="inline-flex items-center gap-x-1 text-sm rounded-md px-3 py-2 font-medium  hover:bg-amber-600 hover:text-white"
+                            aria-expanded="false">
+                            <span>Paten</span>
+                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+                                data-slot="icon">
+                                <path fill-rule="evenodd"
+                                    d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+
                         <div x-show="open" @click.away="open = false"
                             x-transition:enter="transition ease-out duration-200"
                             x-transition:enter-start="opacity-0 translate-y-1"
@@ -41,33 +91,14 @@
                             <div
                                 class="w-screen max-w-md flex-auto overflow-hidden rounded-md bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
                                 <div class="py-2">
-                                    <a href="{{ route('pengenalan') }}"
-                                        class="{{ request()->routeIs('pengenalan') ? 'text-amber-600' : 'hover:bg-gray-100 hover:text-amber-600 text-gray-700' }} block px-4 py-2 text-sm"
-                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Tentang Hak Cipta</a>
-
-                                    <a href="{{ route('prosedurPengajuan') }}"
-                                        class="{{ request()->routeIs('prosedurPengajuan') ? 'text-amber-600' : 'hover:bg-gray-100 hover:text-amber-600 text-gray-700' }} block px-4 py-2 text-sm"
-                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Cara Pengajuan</a>
-
-                                    <a href="{{ route('pengajuan') }}"
-                                        class="{{ request()->routeIs('pengajuan') ? 'text-amber-600' : 'hover:bg-gray-100 hover:text-amber-600 text-gray-700' }} block px-4 py-2 text-sm"
-                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Pengajuan</a>
-
-                                    <a href="{{ route('jenisCiptaan') }}"
-                                        class="{{ request()->routeIs('jenisCiptaan') ? 'text-amber-600' : 'hover:bg-gray-100 hover:text-amber-600 text-gray-700' }} block px-4 py-2 text-sm"
-                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Jenis Ciptaan</a>
-
-                                    <a href="{{ route('syaratLampiran') }}"
-                                        class="{{ request()->routeIs('syaratLampiran') ? 'text-amber-600' : 'hover:bg-gray-100 hover:text-amber-600 text-gray-700' }} block px-4 py-2 text-sm"
-                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Syarat Lampiran</a>
+                                    <a href="{{ route('paten.pengenalan') }}"
+                                        class="{{ request()->routeIs('paten.pengenalan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }} block px-4 py-2 text-sm"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Tentang Paten</a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <a href="{{ route('tarifPelayanan') }}"
-                        class=" {{ request()->routeIs('tarifPelayanan') ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium"
-                        aria-current="page">Tarif Pelayanan</a>
                     <a href="{{ route('pengumuman') }}"
                         class="{{ request()->routeIs('pengumuman') ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium"
                         aria-current="page">Pengumuman</a>
@@ -105,13 +136,13 @@
                             tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
                             <a href="{{ route('submission.index') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-amber-600"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
                                 role="menuitem" tabindex="-1" id="user-menu-item-0">Pengajuan</a>
                             <a href="{{ route('profile.index') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-amber-600"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
                                 role="menuitem" tabindex="-1" id="user-menu-item-1">Profile</a>
                             <a href="{{ route('home') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-amber-600"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
                                 role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
                         </div>
                     </div>
@@ -171,29 +202,26 @@
                     style="display: none;">
 
                     <a href="{{ route('pengenalan') }}"
-                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('pengenalan') ? 'text-amber-600' : 'hover:bg-gray-100 hover:text-amber-600 text-gray-700' }}">Tentang
+                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('pengenalan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }}">Tentang
                         Hak Cipta</a>
 
                     <a href="{{ route('prosedurPengajuan') }}"
-                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('prosedurPengajuan') ? 'text-amber-600' : 'hover:bg-gray-100 hover:text-amber-600 text-gray-700' }}">Cara
+                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('prosedurPengajuan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }}">Cara
                         Pengajuan</a>
 
                     <a href="{{ route('pengajuan') }}"
-                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('pengajuan') ? 'text-amber-600' : 'hover:bg-gray-100 hover:text-amber-600 text-gray-700' }}">Pengajuan</a>
+                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('pengajuan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }}">Pengajuan</a>
 
                     <a href="{{ route('jenisCiptaan') }}"
-                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('jenisCiptaan') ? 'text-amber-600' : 'hover:bg-gray-100 hover:text-amber-600 text-gray-700' }}">Jenis
+                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('jenisCiptaan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }}">Jenis
                         Ciptaan</a>
 
                     <a href="{{ route('syaratLampiran') }}"
-                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('syaratLampiran') ? 'text-amber-600' : 'hover:bg-gray-100 hover:text-amber-600 text-gray-700' }}">Syarat
+                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('syaratLampiran') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }}">Syarat
                         Lampiran</a>
                 </div>
             </div>
 
-            <a href="{{ route('tarifPelayanan') }}"
-                class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('tarifPelayanan') ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }}">Tarif
-                Pelayanan</a>
             <a href="{{ route('pengumuman') }}"
                 class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('pengumuman') ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }}">Pengumuman</a>
             <a href="{{ route('kontak') }}"
@@ -213,13 +241,15 @@
                 </div>
             </div>
             <div class="mt-3 space-y-1 px-2">
-                <a href="#"
-                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Dashboard</a>
-                <a href="#"
-                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Profile</a>
-                <a href="#"
-                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign
-                    out</a>
+                <a href="{{ route('submission.index') }}"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
+                    role="menuitem" tabindex="-1" id="user-menu-item-0">Pengajuan</a>
+                <a href="{{ route('profile.index') }}"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
+                    role="menuitem" tabindex="-1" id="user-menu-item-1">Profile</a>
+                <a href="{{ route('home') }}"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
+                    role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
             </div>
         </div>
     </div>

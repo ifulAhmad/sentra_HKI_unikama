@@ -3,16 +3,6 @@
 use App\Http\Controllers\GuestHakCiptaController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('guest.index');
@@ -25,6 +15,10 @@ Route::prefix('hak-cipta')->group(function () {
     Route::get('jenis-ciptaan', [GuestHakCiptaController::class, 'jenisCiptaan'])->name('jenisCiptaan');
     Route::get('syarat-lampiran', [GuestHakCiptaController::class, 'syaratLampiran'])->name('syaratLampiran');
 });
+
+Route::get('paten/pengenalan', function () {
+    return view('guest.paten.pengenalan');
+})->name('paten.pengenalan');
 
 Route::get('tarif-pelayanan', function () {
     return view('guest.tarif_pelayanan');

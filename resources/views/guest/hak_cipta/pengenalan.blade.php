@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container">
-    <div class="md:flex-row flex gap-6 flex-col items-center bg-gray-100 p-4 min-h-80 rounded-3xl mb-4">
+    <div class="md:flex-row flex gap-6 flex-col items-center bg-indigo-100 p-4 min-h-80 rounded-3xl mb-4">
         <div class="flex-1 text-center my-4">
-            <h1 class="text-5xl font-extrabold text-gray-500 flex flex-col">
+            <h1 class="text-5xl font-extrabold text-indigo-400 flex flex-col">
                 <span>APA ITU</span>
                 <span>HAK CIPTA?</span>
             </h1>
@@ -27,7 +27,7 @@
 
     <div class="md:flex-row-reverse flex gap-6 flex-col items-center p-4 min-h-80 rounded-3xl mb-4">
         <div class="flex-1 text-center my-4">
-            <h1 class="text-5xl font-extrabold text-gray-500 flex flex-col">
+            <h1 class="text-5xl font-extrabold text-indigo-400 flex flex-col">
                 <span>BERIKUT</span>
                 <span>DEFINISINYA</span>
             </h1>
@@ -51,9 +51,9 @@
         </div>
     </div>
 
-    <div class="md:flex-row flex gap-8 flex-col bg-gray-100 items-center p-8 min-h-80 rounded-3xl mb-4">
+    <div class="md:flex-row flex gap-8 flex-col bg-indigo-100 items-center p-8 min-h-80 rounded-3xl mb-4">
         <div class="flex-1 text-center my-4">
-            <h1 class="text-5xl font-extrabold text-gray-500 flex flex-col">
+            <h1 class="text-5xl font-extrabold text-indigo-400 flex flex-col">
                 <span>APA SAJA</span>
                 <span>YANG DILINDUNGI?</span>
             </h1>
