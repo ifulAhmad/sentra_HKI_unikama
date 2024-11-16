@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\GuestHakCiptaController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,9 +35,12 @@ Route::get('kontak', function () {
 
 
 // USERS 
-Route::get('users/profil', function () {
-    return view('users.profile.index');
-})->name('profile.index');
+// profile
+Route::prefix('users')->group(function () {
+    Route::get('profile', [ApplicantController::class, 'index'])->name('profile.index');
+    Route::post('profile/create', [ApplicantController::class, 'addData'])->name('profile.addData');
+    Route::put('profile/update/{applicant:id}', [ApplicantController::class, 'updateData'])->name('profile.updateData');
+});
 
 // pengajuann
 Route::get('users/pengajuan', function () {
