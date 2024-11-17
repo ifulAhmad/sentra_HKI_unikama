@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\GuestHakCiptaController;
+use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -43,9 +44,10 @@ Route::prefix('users')->group(function () {
 });
 
 // pengajuann
-Route::get('users/pengajuan', function () {
-    return view('users.submission.index');
-})->name('submission.index');
+Route::prefix('users')->group(function () {
+    Route::get('pengajuan', [SubmissionController::class, 'index'])->name('submission.index');
+    Route::post('pengajuan', [SubmissionController::class, 'submissionCreate'])->name('submission.create');
+});
 
 Route::get('users/pengajuan-pencipta-satu', function () {
     return view('users.submission.profile_author');

@@ -62,6 +62,10 @@ class ApplicantController extends Controller
 
         $user = User::first();
         $validatedData['user_id'] = $user->id;
+        $applicant->fill($validatedData);
+        if (!$applicant->isDirty()) {
+            return redirect()->back()->with('error', 'tidak ada perubahan');
+        }
         $applicant->update($validatedData);
         $user->nama = $validatedData['nama'];
         $user->update();

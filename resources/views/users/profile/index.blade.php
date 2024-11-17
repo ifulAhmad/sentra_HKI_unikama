@@ -2,18 +2,18 @@
 
 @section('users-content')
 @if (session()->has('success'))
-<div class="notif-success fixed end-3 top-28 min-w-[400px] rounded-md bg-green-100 border border-green-400">
+<div class="notif-success fixed end-3 top-28 min-w-[400px] text-sm rounded-md text-green-600 bg-green-100 border border-green-400">
     <div class="relative p-4 flex justify-between gap-2">
-        <p>{{ session()->get('success') }}</p>
+        <p class="flex items-center gap-2"><i class="bi bi-check-circle-fill"></i> {{ session()->get('success') }}</p>
         <button type="button" id="notif-success" class="text-xl absolute right-2 text-green-400 bottom-7"><i
                 class="bi bi-x"></i></button>
     </div>
 </div>
 @endif
 @if (session()->has('error'))
-<div class="notif-error fixed end-3 top-28 min-w-[400px] rounded-md bg-red-100 border border-red-400">
+<div class="notif-error fixed end-3 top-28 min-w-[400px] text-sm rounded-md bg-red-100 text-red-600 border border-red-400">
     <div class="relative p-4 flex justify-between gap-2">
-        <p>{{ session()->get('error') }}</p>
+        <p class="flex items-center gap-2"><i class="bi bi-exclamation-circle-fill"></i> {{ session()->get('error') }}</p>
         <button type="button" id="notif-error" class="text-xl absolute right-2 text-red-400 bottom-7"><i
                 class="bi bi-x"></i></button>
     </div>
