@@ -48,27 +48,6 @@ Route::prefix('users')->group(function () {
     Route::get('pengajuan', [SubmissionController::class, 'index'])->name('submission.index');
     Route::post('pengajuan', [SubmissionController::class, 'submissionCreate'])->name('submission.create');
 });
-
-Route::get('users/pengajuan-pencipta-satu', function () {
-    return view('users.submission.profile_author');
-})->name('submission.author1');
-
-Route::get('users/pengajuan-pencipta-dua', function () {
-    return view('users.submission.profile_author2');
-})->name('submission.author2');
-
-Route::get('users/pengajuan-jenis-ciptaan', function () {
-    return view('users.submission.jenis_ciptaan');
-})->name('submission.jenisCiptaan');
-
-Route::get('users/pengajuan-sub-jenis-ciptaan', function () {
-    return view('users.submission.sub_jenis_ciptaan');
-})->name('submission.subJenisCiptaan');
-
-Route::get('users/pengajuan-upload-file', function () {
-    return view('users.submission.upload_file');
-})->name('submission.uploadFile');
-
 Route::get('users/pernyataan-pengajuan', function () {
     return view('users.submission.pernyataan');
 })->name('submission.pernyataan');

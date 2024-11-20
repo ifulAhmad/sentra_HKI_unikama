@@ -10,7 +10,7 @@ class ApplicantController extends Controller
 {
     public function index()
     {
-        $user = User::first();
+        $user = User::find(1);
         $applicant = Applicant::where('user_id', $user->id)->first();
         return view('users.profile.index', compact('user', 'applicant'));
     }

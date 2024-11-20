@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Applicant;
+use App\Models\Submission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SubmissionController extends Controller
 {
     public function index()
     {
         $applicant = Applicant::first();
-
         if (!$applicant) {
             return redirect()->route('profile.index')->with('error', 'Anda harus melengkapi data profil terlebih dahulu');
         } else {
-            return view('users.submission.index');
+            return view('users.submission.index', compact('applicant'));
         }
     }
 
@@ -41,6 +42,7 @@ class SubmissionController extends Controller
             'applicant.email.*' => 'required|email',
             'applicant.tgl_lahir.*' => 'required|date',
             'applicant.kontak.*' => 'required|string',
+            'applicant.alamat.*' => 'required|string',
             'applicant.kewarganegaraan.*' => 'required|string',
             'applicant.kode_pos.*' => 'required|string',
         ], [
@@ -48,37 +50,37 @@ class SubmissionController extends Controller
             'applicant.email.*.required' => 'Email harus diisi',
             'applicant.tgl_lahir.*.required' => 'Tanggal lahir harus diisi',
             'applicant.kontak.*.required' => 'Kontak harus diisi',
+            'applicant.alamat.*.required' => 'alamat harus diisi',
             'applicant.kewarganegaraan.*.required' => 'Kewarganegaraan harus diisi',
             'applicant.kode_pos.*.required' => 'Kode pos harus diisi',
         ]);
 
-        // Menyimpan data submission terlebih dahulu
-        dd([
-            'skema' => $validatedSubmission['skema'],
-            'judul' => $validatedSubmission['judul'],
-            'deskripsi' => $validatedSubmission['deskripsi'],
-            'negara' => $validatedSubmission['negara'],
-            'kota' => $validatedSubmission['kota'],
-            'created_at' => now(),
-            'updated_at' => now(),
-        ], $validatedApplicant);
 
-        // Memproses data applicants
+        $submission = Submission::create($validatedSubmission);
         foreach ($validatedApplicant['applicant']['nama'] as $index => $nama) {
-            // Memeriksa jika ada data yang kurang atau tidak sesuai
-            if (isset($validatedApplicant['applicant']['email'][$index])) {
-                dd([
-                    'submission_id' => $submission->id,
-                    'nama' => $nama,
+
+            $applicant = Applicant::firstOrCreate(
+                [
                     'email' => $validatedApplicant['applicant']['email'][$index],
+                ],
+                [
+                    'nama' => $nama,
                     'tgl_lahir' => $validatedApplicant['applicant']['tgl_lahir'][$index],
                     'kontak' => $validatedApplicant['applicant']['kontak'][$index],
+                    'alamat' => $validatedApplicant['applicant']['alamat'][$index],
                     'kewarganegaraan' => $validatedApplicant['applicant']['kewarganegaraan'][$index],
                     'kode_pos' => $validatedApplicant['applicant']['kode_pos'][$index],
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
+                    'user_id' => 1
+                ]
+            );
+
+            DB::table('submission_applicant')->insert([
+                'submission_uuid' => $submission->uuid,
+                'applicant_id' => $applicant->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
+        return redirect()->back()->with('success', 'Submission berhasil ditambahkan');
     }
 }

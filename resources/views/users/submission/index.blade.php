@@ -6,16 +6,50 @@
             <h1 class="text-lg font-semibold">Formulir Pengajuan Hak Cipta</h1>
             <div class="bg-amber-600 h-[4px] rounded w-28 mt-2 mb-4"></div>
 
-            <form action="{{ route('submission.create') }}" method="post" class="">
+            <form action="{{ route('submission.create') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 {{-- Submission --}}
                 <div class="mb-4 text-sm flex flex-col gap-3 p-1">
-                    <div class="shadow-md">
-                        <select name="skema" class="p-3 w-full rounded-t-md border-b-2 outline-0 focus:border-amber-600">
-                            <option disabled selected>Pilih Skema</option>
-                            <option value="lembaga">UNIKAMA, UMK, Lem.Pendidikan, Lem.pemerintahan</option>
-                            <option value="umum">Umum</option>
-                        </select>
+                    <div class="flex items-center justify-between gap-3">
+                        <div class="shadow-md flex-1">
+                            <select name="skema"
+                                class="p-3 w-full rounded-t-md border-b-2 outline-0 focus:border-amber-600">
+                                <option disabled selected>Pilih Skema</option>
+                                <option value="lembaga">UNIKAMA, UMK, Lem.Pendidikan, Lem.pemerintahan</option>
+                                <option value="umum">Umum</option>
+                            </select>
+                        </div>
+                        {{-- Jenis Ciptaan --}}
+                        <div class="shadow-md flex-1">
+                            <select id="jenis_hak_cipta" name="jenis_hak_cipta"
+                                class="p-3 w-full rounded-t-md border-b-2 outline-0 focus:border-amber-600">
+                                <option selected disabled>Pilih Jenis Hak Cipta</option>
+                                <optgroup class="font-semibold" label="Karya Tulis" class="font-semibold">
+                                    <option value="tulis">&bullet; Karya Tulis</option>
+                                </optgroup>
+                                <optgroup class="font-semibold" label="Karya Seni">
+                                    <option value="seni">&bullet; Karya Seni</option>
+                                </optgroup>
+                                <optgroup class="font-semibold" label="Komposisi Musik">
+                                    <option value="komposisi_musik">&bullet; Komposisi Musik</option>
+                                </optgroup>
+                                <optgroup class="font-semibold" label="Karya Audio Visual">
+                                    <option value="audio_visual">&bullet; Karya Audio Visual</option>
+                                </optgroup>
+                                <optgroup class="font-semibold" label="Karya Fotografi">
+                                    <option value="Fotografi">&bullet; Karya Fotografi</option>
+                                </optgroup>
+                                <optgroup class="font-semibold" label="Karya Drama dan Koreografi">
+                                    <option value="drama_koreografi">&bullet; Karya Drama dan Koreografi</option>
+                                </optgroup>
+                                <optgroup class="font-semibold" label="Karya Rekaman">
+                                    <option value="rekaman">&bullet;Karya Rekaman</option>
+                                </optgroup>
+                                <optgroup class="font-semibold" label="Karya Lainnya">
+                                    <option value="lainnya">&bullet; Karya Lainnya</option>
+                                </optgroup>
+                            </select>
+                        </div>
                     </div>
                     <div class="flex flex-col md:flex-row gap-3">
                         <div class="flex-1">
@@ -76,12 +110,10 @@
                 </div>
 
                 {{-- Applicants --}}
-
                 <div class="mb-4">
                     <div class="mx-3 flex items-center justify-between">
                         <div>
                             <h1 class="font-semibold text-lg">Pencipta</h1>
-                            <div class="bg-amber-600 w-28 h-[4px] rounded my-2"></div>
                         </div>
                         {{-- tombol --}}
                         <div class="text-3xl font-extrabold cursor-pointer" id="btn-add-applicant">+</div>
@@ -107,7 +139,8 @@
                                                 <label for="nama" class="font-semibold">Nama Pencipta</label>
                                                 <input type="text" id="nama" name="applicant[nama][]"
                                                     class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
-                                                    placeholder="Nama ..." value="{{ old('applicant.nama.0') }}">
+                                                    placeholder="Nama ..."
+                                                    value="{{ old('applicant.nama.0', $applicant->nama) }}">
                                             </div>
                                         </div>
                                         <div class="flex-1">
@@ -115,7 +148,8 @@
                                                 <label for="email" class="font-semibold">Email</label>
                                                 <input type="email" id="email" name="applicant[email][]"
                                                     class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
-                                                    placeholder="Email ..." value="{{ old('applicant.email.0') }}">
+                                                    placeholder="Email ..."
+                                                    value="{{ old('applicant.email.0', $applicant->email) }}">
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +160,7 @@
                                                 <input type="number" id="kontak" name="applicant[kontak][]"
                                                     class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
                                                     placeholder="Nomor Telepon..."
-                                                    value="{{ old('applicant.kontak.0') }}">
+                                                    value="{{ old('applicant.kontak.0', $applicant->kontak) }}">
                                             </div>
                                         </div>
                                         <div class="flex-1">
@@ -134,7 +168,7 @@
                                                 <label for="tgl_lahir" class="font-semibold">Tanggal Lahir</label>
                                                 <input type="date" id="tgl_lahir" name="applicant[tgl_lahir][]"
                                                     class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
-                                                    value="{{ old('applicant.tgl_lahir.0') }}">
+                                                    value="{{ old('applicant.tgl_lahir.0', $applicant->tgl_lahir) }}">
                                             </div>
                                         </div>
                                         <div class="flex-1">
@@ -144,16 +178,17 @@
                                                     name="applicant[kewarganegaraan][]"
                                                     class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
                                                     placeholder="Kewarganegaraan..."
-                                                    value="{{ old('applicant.kewarganegaraan.0') }}">
+                                                    value="{{ old('applicant.kewarganegaraan.0', $applicant->kewarganegaraan) }}">
                                             </div>
                                         </div>
                                     </div>
                                     <div>
                                         <div class="bg-white shadow-md px-4 py-4 rounded-md flex flex-col gap-7">
-                                            <label for="alamat_lengkap" class="font-semibold">Alamat Lengkap</label>
-                                            <input type="text" id="alamat_lengkap" name="applicant[alamat][]"
+                                            <label for="alamat" class="font-semibold">Alamat Lengkap</label>
+                                            <input type="text" id="alamat" name="applicant[alamat][]"
                                                 class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
-                                                placeholder="Alamat Lengkap..." value="{{ old('applicant.alamat.0') }}">
+                                                placeholder="Alamat Lengkap..."
+                                                value="{{ old('applicant.alamat.0', $applicant->alamat) }}">
                                         </div>
                                     </div>
                                     <div>
@@ -161,7 +196,8 @@
                                             <label for="kode_pos" class="font-semibold">Kode Pos</label>
                                             <input type="text" id="kode_pos" name="applicant[kode_pos][]"
                                                 class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
-                                                placeholder="Kode Pos..." value="{{ old('applicant.kode_pos.0') }}">
+                                                placeholder="Kode Pos..."
+                                                value="{{ old('applicant.kode_pos.0', $applicant->kode_pos) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -170,48 +206,10 @@
                     </div>
                 </div>
 
-
-                {{-- Jenis Ciptaan --}}
-                <div class="flex flex-col gap-5 mb-5 border-b pb-5">
-                    <div class="mx-3">
-                        <label for="jenis_hak_cipta" class="font-semibold text-lg">Jenis Hak Cipta</label>
-                        <div class="bg-amber-600 w-28 h-[4px] rounded my-2"></div>
-                    </div>
-                    <select id="jenis_hak_cipta" name="jenis_hak_cipta"
-                        class="w-full p-4 border rounded-md cursor-pointer shadow-md">
-                        <option selected disabled>Pilih Jenis Hak Cipta</option>
-                        <optgroup class="font-semibold" label="Karya Tulis" class="font-semibold">
-                            <option value="tulis">&bullet; Karya Tulis</option>
-                        </optgroup>
-                        <optgroup class="font-semibold" label="Karya Seni">
-                            <option value="seni">&bullet; Karya Seni</option>
-                        </optgroup>
-                        <optgroup class="font-semibold" label="Komposisi Musik">
-                            <option value="komposisi_musik">&bullet; Komposisi Musik</option>
-                        </optgroup>
-                        <optgroup class="font-semibold" label="Karya Audio Visual">
-                            <option value="audio_visual">&bullet; Karya Audio Visual</option>
-                        </optgroup>
-                        <optgroup class="font-semibold" label="Karya Fotografi">
-                            <option value="Fotografi">&bullet; Karya Fotografi</option>
-                        </optgroup>
-                        <optgroup class="font-semibold" label="Karya Drama dan Koreografi">
-                            <option value="drama_koreografi">&bullet; Karya Drama dan Koreografi</option>
-                        </optgroup>
-                        <optgroup class="font-semibold" label="Karya Rekaman">
-                            <option value="rekaman">&bullet;Karya Rekaman</option>
-                        </optgroup>
-                        <optgroup class="font-semibold" label="Karya Lainnya">
-                            <option value="lainnya">&bullet; Karya Lainnya</option>
-                        </optgroup>
-                    </select>
-                </div>
-
                 {{-- submission files --}}
                 <div class="flex flex-col gap-3 p-1">
                     <div class="mx-3">
                         <h5 class="font-semibold text-lg">Unggah berkas</h5>
-                        <div class="bg-amber-600 w-28 h-[4px] rounded my-2"></div>
                     </div>
                     <div class="bg-white shadow-md px-4 py-4 rounded-md flex flex-col gap-7">
                         <label for="file_pernyataan_karya_cipta" class="font-light">
@@ -302,7 +300,6 @@
 
     <script>
         $(document).ready(function() {
-            // Event untuk membuka dan menutup accordion
             $(document).on('click', '.accordion-header', function() {
                 var $content = $(this).next('.accordion-content');
                 var $icon = $(this).find('.accordion-icon');
@@ -310,34 +307,27 @@
                 $icon.toggleClass('rotate-180');
             });
 
-            // Menambah pencipta baru
-            let penciptaCounter = 2; // Untuk menandai nomor pencipta yang baru
+            let penciptaCounter = 2;
 
             $('#btn-add-applicant').click(function() {
-                var newItem = $('.accordion-item:first').clone(); // Mengkloning item pertama
-
-                // Mengubah label agar sesuai dengan nomor pencipta
+                var newItem = $('.accordion-item:first').clone();
                 newItem.find('.accordion-header span').text('Pencipta ' + penciptaCounter);
 
-                // Mengosongkan input di dalam accordion yang baru
                 newItem.find('input').val('');
 
-                // Menambahkan tombol hapus hanya untuk item kedua dan seterusnya
                 if (penciptaCounter > 1) {
                     newItem.find('.accordion-content').append(
                         '<button type="button" class="btn-remove-accordion px-4 py-2 mt-2 bg-red-600 text-white rounded-md">Hapus Pencipta</button>'
                     );
                 }
 
-                // Menambahkan item baru setelah item terakhir
                 $('.main-accordion').append(newItem);
-                penciptaCounter++; // Menambah nomor pencipta
+                penciptaCounter++;
             });
 
-            // Event untuk menghapus accordion yang dipilih
             $(document).on('click', '.btn-remove-accordion', function() {
                 var $item = $(this).closest('.accordion-item');
-                $item.remove(); // Menghapus item accordion
+                $item.remove();
             });
         });
 

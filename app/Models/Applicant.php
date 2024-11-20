@@ -17,6 +17,6 @@ class Applicant extends Model
 
     public function submissions()
     {
-        return $this->belongsToMany(Submission::class, 'submission_applicant')->withTimestamps();
+        return $this->belongsToMany(Submission::class, 'submission_applicant', 'applicant_id', 'submission_uuid')->withTimestamps();
     }
 }
