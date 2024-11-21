@@ -1,7 +1,7 @@
 @extends('users.partials.main')
 
 @section('users-content')
-<div class="bg-gray-100">
+<div class="bg-indigo-100">
     <div class="bg-white mb-3 p-4 shadow-md rounded-md">
         <h3 class="font-semibold capitalize">Pembuatan Web Pengajuan Hak Cipta Menggunakan Aplikasi laravel 10.</h3>
         <div class="flex text-xs my-2 items-center justify-between">

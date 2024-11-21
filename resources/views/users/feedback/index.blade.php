@@ -3,7 +3,7 @@
 @section('users-content')
 <div class="p-4">
     <h1 class="text-lg font-semibold">Feedback</h1>
-    <div class="bg-amber-600 h-[4px] rounded w-28 mt-2 mb-4"></div>
+    <div class="bg-amber-600 h-[3px] rounded w-28 mt-2 mb-4"></div>
 
     <div class="mb-4 flex items-center gap-3 justify-between">
         <h4 class="font-semibold">2 Notifikasi</h4>

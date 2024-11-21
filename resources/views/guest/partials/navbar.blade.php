@@ -221,6 +221,33 @@
                         Lampiran</a>
                 </div>
             </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" type="button"
+                    class="block w-full text-left rounded-md px-3 py-2 text-base font-medium hover:bg-amber-600 hover:text-white"
+                    aria-expanded="false">
+                    Paten
+                    <svg class="inline h-5 w-5 float-right" viewBox="0 0 20 20" fill="currentColor"
+                        aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                            d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+
+                <div x-show="open" @click.away="open = false"
+                    x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 -translate-y-4"
+                    x-transition:enter-end="opacity-100 translate-y-0"
+                    x-transition:leave="transition ease-in duration-200 transform"
+                    x-transition:leave-start="opacity-100 translate-y-0"
+                    x-transition:leave-end="opacity-0 -translate-y-4" class="mt-2 space-y-1 px-4"
+                    style="display: none;">
+
+                    <a href="{{ route('paten.pengenalan') }}"
+                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('paten.pengenalan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }}">Tentang
+                        Paten</a>
+                </div>
+            </div>
 
             <a href="{{ route('pengumuman') }}"
                 class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('pengumuman') ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }}">Pengumuman</a>

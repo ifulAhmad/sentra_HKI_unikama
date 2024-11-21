@@ -21,7 +21,7 @@
 @endif
 <div class="my-4 p-4">
     <h1 class="text-lg font-semibold">Profil {{ $applicant ? $applicant->nama : $user->nama }}</h1>
-    <div class="bg-amber-600 h-[4px] rounded w-28 mt-2 mb-4"></div>
+    <div class="bg-amber-600 h-[3px] rounded w-28 mt-2 mb-4"></div>
     <div>
         @if ($applicant)
         <form action="{{ route('profile.updateData', $applicant->id) }}" method="post">

@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\ApplicantController;
-use App\Http\Controllers\GuestHakCiptaController;
-use App\Http\Controllers\SubmissionController;
+use App\Models\Applicant;
+use App\Models\Submission;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\GuestHakCiptaController;
 
 
 Route::get('/', function () {
@@ -43,7 +45,7 @@ Route::prefix('users')->group(function () {
     Route::put('profile/update/{applicant:id}', [ApplicantController::class, 'updateData'])->name('profile.updateData');
 });
 
-// pengajuann
+// pengajuan
 Route::prefix('users')->group(function () {
     Route::get('pengajuan', [SubmissionController::class, 'index'])->name('submission.index');
     Route::post('pengajuan', [SubmissionController::class, 'submissionCreate'])->name('submission.create');
@@ -55,7 +57,9 @@ Route::get('users/pernyataan-pengajuan', function () {
 
 // kemajuan usulan
 Route::get('users/progress', function () {
-    return view('users.progress.index');
+    $applicant = Applicant::first();
+    $submissions = $applicant->submissions;
+    return view('users.progress.index', compact('submissions', 'applicant'));
 })->name('progress.index');
 Route::get('users/progress-detail', function () {
     return view('users.progress.detail_progress');
