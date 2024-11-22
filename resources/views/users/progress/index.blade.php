@@ -41,87 +41,98 @@
 
         {{-- dekstop table --}}
         <div class="text-sm font-light hidden md:block">
-            <table class="table-auto w-full">
-                <thead>
-                    <tr>
-                        <th class="text-start p-2">No</th>
-                        <th class="text-start p-2">Judul</th>
-                        <th class="text-start p-2">Email</th>
-                        <th class="text-start p-2">Waktu</th>
-                        <th class="text-start p-2">Status</th>
-                        <th class="text-start p-2">Menu</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($submissions as $submission)
-                        <tr class="bg-white border-b-4 border-indigo-100">
-                            <th class="p-2 md:py-4 text-start">{{ $loop->iteration }}</th>
-                            <td class="p-2 md:py-4 text-start">{!! $submission->judul !!}
-                            </td>
-                            <td class="p-2 md:py-4 text-start">{{ $applicant->email }}
-                            </td>
-                            <td class="p-2 md:py-4 text-start">{{ $submission->created_at->format('d F Y') }}
-                            </td>
-                            <td class="p-2 md:py-4 text-xs">
-                                <span class="bg-gray-200 px-3 py-1 rounded-xl uppercase">{{ $submission->status }}</span>
-                            </td>
-                            <td class="p-2 md:py-4 text-center">
-                                <div class="relative">
-                                    <button onclick="toggleDropdown(this)" class="menu-btn">
-                                        <i class="bi bi-three-dots-vertical"></i>
-                                    </button>
-                                    <div
-                                        class="dropdown-menu hidden absolute right-0 mt-2 w-32 bg-white rounded z-[199] shadow-lg">
-                                        <a href="{{ route('progress.detailProgress') }}"
-                                            class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Detail</a>
-                                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit</a>
-                                    </div>
-                                </div>
-                            </td>
+            @if ($submissions)
+                <table class="table-auto w-full">
+                    <thead>
+                        <tr>
+                            <th class="text-start p-2">No</th>
+                            <th class="text-start p-2">Judul</th>
+                            <th class="text-start p-2">Email</th>
+                            <th class="text-start p-2">Waktu</th>
+                            <th class="text-start p-2">Status</th>
+                            <th class="text-start p-2">Menu</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($submissions as $submission)
+                            <tr class="bg-white border-b-4 border-indigo-100">
+                                <th class="p-2 md:py-4 text-start">{{ $loop->iteration }}</th>
+                                <td class="p-2 md:py-4 text-start">{!! $submission->judul !!}
+                                </td>
+                                <td class="p-2 md:py-4 text-start">{{ $applicant->email }}
+                                </td>
+                                <td class="p-2 md:py-4 text-start">{{ $submission->created_at->format('d F Y') }}
+                                </td>
+                                <td class="p-2 md:py-4 text-xs">
+                                    <span
+                                        class="bg-gray-200 px-3 py-1 rounded-xl uppercase">{{ $submission->status }}</span>
+                                </td>
+                                <td class="p-2 md:py-4 text-center">
+                                    <div class="relative">
+                                        <button onclick="toggleDropdown(this)" class="menu-btn">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-menu hidden absolute right-0 mt-2 w-32 bg-white rounded z-[199] shadow-lg">
+                                            <a href="{{ route('progress.detailProgress') }}"
+                                                class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Detail</a>
+                                            <a href="#"
+                                                class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <p>oekoek</p>
+            @endif
         </div>
 
         {{-- Mobile table --}}
         <div class="text-sm font-light md:hidden">
-            <table class="table-auto w-full">
-                <thead>
-                    <tr>
-                        <th class="text-start p-2">No</th>
-                        <th class="text-start p-2">Judul</th>
-                        <th class="text-start p-2">Status</th>
-                        <th class="text-start p-2">Menu</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($submissions as $submission)
-                        <tr class="bg-white border-b-4 border-indigo-100">
-                            <th class="p-2 md:py-4 text-start">1</th>
-                            <td class="p-2 md:py-4 text-start">{!! $submission->judul !!}
-                            </td>
-                            <td class="p-2 md:py-4 text-xs">
-                                <span
-                                    class="bg-gray-200 px-3 py-1 rounded-xl uppercase text-white">{{ $submission->status }}</span>
-                            </td>
-                            <td class="p-2 md:py-4 text-center">
-                                <div class="relative">
-                                    <button onclick="toggleDropdown(this)" class="menu-btn">
-                                        <i class="bi bi-three-dots-vertical"></i>
-                                    </button>
-                                    <div
-                                        class="dropdown-menu hidden absolute right-0 mt-2 w-32 bg-white z-[199] rounded shadow-lg">
-                                        <a href="{{ route('progress.detailProgress') }}"
-                                            class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Detail</a>
-                                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit</a>
-                                    </div>
-                                </div>
-                            </td>
+            @if ($submissions)
+                <table class="table-auto w-full">
+                    <thead>
+                        <tr>
+                            <th class="text-start p-2">No</th>
+                            <th class="text-start p-2">Judul</th>
+                            <th class="text-start p-2">Status</th>
+                            <th class="text-start p-2">Menu</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($submissions as $submission)
+                            <tr class="bg-white border-b-4 border-indigo-100">
+                                <th class="p-2 md:py-4 text-start">1</th>
+                                <td class="p-2 md:py-4 text-start">{!! $submission->judul !!}
+                                </td>
+                                <td class="p-2 md:py-4 text-xs">
+                                    <span
+                                        class="bg-gray-200 px-3 py-1 rounded-xl uppercase text-white">{{ $submission->status }}</span>
+                                </td>
+                                <td class="p-2 md:py-4 text-center">
+                                    <div class="relative">
+                                        <button onclick="toggleDropdown(this)" class="menu-btn">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <div
+                                            class="dropdown-menu hidden absolute right-0 mt-2 w-32 bg-white z-[199] rounded shadow-lg">
+                                            <a href="{{ route('progress.detailProgress') }}"
+                                                class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Detail</a>
+                                            <a href="#"
+                                                class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Edit</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <tr>oekoek</tr>
+            @endif
         </div>
 
     </div>

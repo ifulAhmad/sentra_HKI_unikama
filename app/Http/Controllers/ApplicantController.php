@@ -8,15 +8,62 @@ use Illuminate\Http\Request;
 
 class ApplicantController extends Controller
 {
+    public function redirect()
+    {
+        $user = User::first();
+        $applicant = Applicant::where('user_id', $user->id)->first();
+        if ($applicant) {
+            return redirect()->route('profile.index');
+        }
+        return redirect()->route('profile.adjustment');
+    }
     public function index()
     {
-        $user = User::find(1);
+        $user = User::first();
         $applicant = Applicant::where('user_id', $user->id)->first();
-        return view('users.profile.index', compact('user', 'applicant'));
+        if ($applicant) {
+            return view('users.profile.index', compact('applicant'));
+        }
+        return redirect()->route('profile.adjustment');
     }
-    public function addData(Request $request)
+    public function adjustment()
+    {
+        $user = User::first();
+        $applicant = Applicant::where('user_id', $user->id)->first();
+        if ($applicant) {
+            return redirect()->route('profile.index');
+        }
+        return view('users.profile.check_nik');
+    }
+    public function adjustmentCheck(Request $request)
     {
         $validatedData = $request->validate([
+            'nik' => 'required|min:16',
+        ], [
+            'nik.required' => 'NIK harus diisi',
+            'nik.min' => 'NIK harus terdiri dari minimal 16 karakter',
+        ]);
+        $user = User::first();
+        $applicant = Applicant::where('nik', $validatedData['nik'])->first();
+        if ($applicant) {
+            return view('users.profile.claim', compact('user', 'applicant'));
+        }
+        session(['nik' => $validatedData['nik']]);
+        return redirect()->route('profile.create');
+    }
+
+    public function create()
+    {
+        $nik = session('nik');
+        if (!$nik) {
+            return redirect()->route('profile.adjustment');
+        }
+        return view('users.profile.create', compact('nik'));
+    }
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nik' => 'required|min:16|unique:applicants',
             'nama' => 'required',
             'email' => 'required|email|unique:applicants,email',
             'kontak' => 'required|min:11|max:13',
@@ -24,14 +71,6 @@ class ApplicantController extends Controller
             'kewarganegaraan' => 'required',
             'alamat' => 'required',
             'kode_pos' => 'required',
-        ], [
-            'nama.required' => 'Nama harus diisi',
-            'email.required' => 'Email harus diisi',
-            'kontak.required' => 'Kontak harus diisi',
-            'tgl_lahir.required' => 'Tanggal lahir harus diisi',
-            'kewarganegaraan.required' => 'Kewarganegaraan harus diisi',
-            'alamat.required' => 'Alamat harus diisi',
-            'kode_pos.required' => 'Kode pos harus diisi',
         ]);
         $user = User::first();
         $validatedData['user_id'] = $user->id;
@@ -39,10 +78,11 @@ class ApplicantController extends Controller
         Applicant::create($validatedData);
         $user->nama = $validatedData['nama'];
         $user->update();
-        return redirect()->back()->with('success', 'profil berhasil ditambahkan');
+        session()->forget('nik');
+        return redirect()->route('profile.index')->with('success', 'profil berhasil ditambahkan');
     }
 
-    public function updateData(Request $request, Applicant $applicant)
+    public function update(Request $request, Applicant $applicant)
     {
         $validatedData = $request->validate([
             'nama' => 'required',

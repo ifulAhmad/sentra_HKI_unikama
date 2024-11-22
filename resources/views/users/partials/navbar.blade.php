@@ -31,8 +31,8 @@
                 <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Kemajuan
                     Usulan</span>
             </a>
-            <a href="{{ route('profile.index') }}" :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                class="flex items-center {{ request()->routeIs('profile.index') ? 'bg-indigo-500 border-indigo-600' : '' }} gap-4 block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-indigo-500 hover:border-indigo-600 duration-200 ease-in-out">
+            <a href="{{ route('profile.redirect') }}" :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
+                class="flex items-center {{ request()->routeIs(['profile.redirect', 'profile.adjustment', 'profile.create', 'profile.index']) ? 'bg-indigo-500 border-indigo-600' : '' }} gap-4 block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-indigo-500 hover:border-indigo-600 duration-200 ease-in-out">
                 <i class="bi bi-person-fill text-xl"></i>
                 <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Profil</span>
             </a>

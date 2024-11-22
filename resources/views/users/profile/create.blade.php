@@ -23,11 +23,10 @@
         </div>
     @endif
     <div class="my-4 p-4">
-        <h1 class="text-lg font-semibold">Profil {{ $applicant ? $applicant->nama : $user->nama }}</h1>
+        <h1 class="text-lg font-semibold">Lengkapi Data Profil</h1>
         <div class="bg-amber-600 h-[3px] rounded w-28 mt-2 mb-4"></div>
         <div>
-            <form action="{{ route('profile.update', $applicant->nik) }}" method="post">
-                @method('PUT')
+            <form action="{{ route('profile.store') }}" method="post">
                 @csrf
                 <div class="">
                     <div class="flex flex-col mb-4">
@@ -35,7 +34,7 @@
                                 class="text-red-600 text-lg">*</span></label>
                         <input type="number" id="nik" name="nik"
                             class="border-b-2 border-indigo-100 @error('nik') border-red-400 @enderror focus:border-amber-600 py-2 px-3 outline-0"
-                            placeholder="92020xxx" value="{{ old('nik', $applicant->nik ?? '') }}" disabled>
+                            placeholder="92020xxx" value="{{ old('nik', $nik) }}">
                         @error('nik')
                             <div class="text-red-600 text-sm">
                                 {{ $message }}
@@ -50,7 +49,7 @@
                                     class="text-red-600 text-lg">*</span></label>
                             <input type="text" id="nama" name="nama"
                                 class="border-b-2 border-indigo-100 @error('nama') border-red-400 @enderror focus:border-amber-600 py-2 px-3 outline-0"
-                                placeholder="Nama..." value="{{ $applicant->nama ?? $user->nama }}">
+                                placeholder="Nama..." value="{{ old('nama') }}">
                             @error('nama')
                                 <div class="text-red-600 text-sm">
                                     {{ $message }}
@@ -62,8 +61,7 @@
                                     class="text-red-600 text-lg">*</span></label>
                             <input type="date" id="tgl_lahir" name="tgl_lahir"
                                 class="border-b-2 border-indigo-100 @error('tgl_lahir') border-red-400 @enderror py-2 px-3 focus:border-amber-600 outline-0"
-                                placeholder="06 november 2002"
-                                value="{{ old('tgl_lahir', $applicant->tgl_lahir ?? $user->tgl_lahir) }}">
+                                placeholder="06 november 2002" value="{{ old('tgl_lahir') }}">
                             @error('tgl_lahir')
                                 <div class="text-red-600 text-sm">
                                     {{ $message }}
@@ -77,8 +75,7 @@
                                     class="text-red-600 text-lg">*</span></label>
                             <input type="email" id="email" name="email"
                                 class="border-b-2 border-indigo-100 @error('email') border-red-400 @enderror py-2 px-3 focus:border-amber-600 outline-0"
-                                placeholder="email@gmail.com" value="{{ old('email', $applicant->email ?? $user->email) }}"
-                                @if ($applicant) disabled @endif>
+                                placeholder="email@gmail.com" value="{{ old('email') }}">
                             @error('email')
                                 <div class="text-red-600 text-sm">
                                     {{ $message }}
@@ -90,7 +87,7 @@
                                     class="text-red-600 text-lg">*</span></label>
                             <input type="number" id="kontak" name="kontak"
                                 class="border-b-2 border-indigo-100 @error('kontak') border-red-400 @enderror py-2 px-3 focus:border-amber-600 outline-0"
-                                placeholder="0812xxx..." value="{{ old('kontak', $applicant->kontak ?? '') }}">
+                                placeholder="0812xxx..." value="{{ old('kontak') }}">
                             @error('kontak')
                                 <div class="text-red-600 text-sm">
                                     {{ $message }}
@@ -104,7 +101,7 @@
                             class="text-red-600 text-lg">*</span></label>
                     <input type="text" id="alamat" name="alamat"
                         class="border-b-2 border-indigo-100 @error('alamat') border-red-400 @enderror py-2 px-3 focus:border-amber-600 outline-0"
-                        placeholder="Alamat..." value="{{ old('alamat', $applicant->alamat ?? '') }}">
+                        placeholder="Alamat..." value="{{ old('alamat') }}">
                     @error('alamat')
                         <div class="text-red-600 text-sm">
                             {{ $message }}
@@ -116,8 +113,7 @@
                             class="text-red-600 text-lg">*</span></label>
                     <input type="text" id="kewarganegaraan" name="kewarganegaraan"
                         class="border-b-2 border-indigo-100 @error('kewarganegaraan') border-red-400 @enderror py-2 px-3 focus:border-amber-600 outline-0"
-                        placeholder="kewarganegaraan"
-                        value="{{ old('kewarganegaraan', $applicant->kewarganegaraan ?? '') }}">
+                        placeholder="kewarganegaraan" value="{{ old('kewarganegaraan') }}">
                     @error('kewarganegaraan')
                         <div class="text-red-600 text-sm">
                             {{ $message }}
@@ -127,8 +123,7 @@
                 <div class="flex flex-col mb-4">
                     <label for="kode_pos" class="font-semibold text-sm ms-3 mb-5">Kode Pos<span
                             class="text-red-600 text-lg">*</span></label>
-                    <input type="text" id="kode_pos" name="kode_pos"
-                        value="{{ old('kode_pos', $applicant->kode_pos ?? '') }}"
+                    <input type="text" id="kode_pos" name="kode_pos" value="{{ old('kode_pos') }}"
                         class="border-b-2 border-indigo-100 @error('kode_pos') border-red-400 @enderror py-2 px-3 focus:border-amber-600 outline-0">
                     @error('kode_pos')
                         <div class="text-red-600 text-sm">
@@ -138,13 +133,8 @@
                 </div>
 
                 <div class="text-end">
-                    @if ($applicant)
-                        <button
-                            class="py-2 px-4 rounded-lg bg-indigo-600 text-white duration-100 hover:bg-indigo-700">Update</button>
-                    @else
-                        <button
-                            class="py-2 px-4 rounded-lg bg-indigo-600 text-white duration-100 hover:bg-indigo-700">Create</button>
-                    @endif
+                    <button
+                        class="py-2 px-4 rounded-lg bg-indigo-600 text-white duration-100 hover:bg-indigo-700">Create</button>
                 </div>
             </form>
         </div>

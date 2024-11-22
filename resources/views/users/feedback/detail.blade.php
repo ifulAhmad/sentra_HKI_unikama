@@ -7,7 +7,7 @@
                     "Pembuatan
                     Website HKI UNIKAMA" </h1>
             </a>
-            <div class="bg-amber-600 h-[4px] rounded w-28 mt-2 mb-4"></div>
+            <div class="bg-amber-600 h-[3px] rounded w-28 mt-2 mb-4"></div>
         </div>
         <div class="p-4 bg-white flex flex-col justify-between rounded-md font-light min-h-64">
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.

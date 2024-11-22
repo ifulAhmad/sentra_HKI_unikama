@@ -40,9 +40,13 @@ Route::get('kontak', function () {
 // USERS 
 // profile
 Route::prefix('users')->group(function () {
+    Route::get('redirect', [ApplicantController::class, 'redirect'])->name('profile.redirect');
     Route::get('profile', [ApplicantController::class, 'index'])->name('profile.index');
-    Route::post('profile/create', [ApplicantController::class, 'addData'])->name('profile.addData');
-    Route::put('profile/update/{applicant:id}', [ApplicantController::class, 'updateData'])->name('profile.updateData');
+    Route::get('adjustment', [ApplicantController::class, 'adjustment'])->name('profile.adjustment');
+    Route::post('adjustment', [ApplicantController::class, 'adjustmentCheck'])->name('profile.adjustment.check');
+    Route::get('profile/create', [ApplicantController::class, 'create'])->name('profile.create');
+    Route::post('profile/create', [ApplicantController::class, 'store'])->name('profile.store');
+    Route::put('profile/update/{applicant:nik}', [ApplicantController::class, 'update'])->name('profile.update');
 });
 
 // pengajuan
