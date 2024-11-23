@@ -14,4 +14,9 @@ class CopyrightSubType extends Model
     {
         return $this->belongsTo(CopyrightType::class);
     }
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class, 'copyright_sub_type_uuid', 'uuid');
+    }
 }

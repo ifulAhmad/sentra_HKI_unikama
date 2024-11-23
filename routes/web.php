@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\Applicant;
 use App\Models\Submission;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\GuestHakCiptaController;
+use App\Http\Controllers\SubmissionProgressController;
 
 
 Route::get('/', function () {
@@ -60,14 +60,11 @@ Route::get('users/pernyataan-pengajuan', function () {
 
 
 // kemajuan usulan
-Route::get('users/progress', function () {
-    $applicant = Applicant::first();
-    $submissions = $applicant->submissions;
-    return view('users.progress.index', compact('submissions', 'applicant'));
-})->name('progress.index');
-Route::get('users/progress-detail', function () {
-    return view('users.progress.detail_progress');
-})->name('progress.detailProgress');
+
+Route::prefix('users')->group(function () {
+    Route::get('progress', [SubmissionProgressController::class, 'index'])->name('progress.index');
+    Route::get('progress/{submission:uuid}/index.php', [SubmissionProgressController::class, 'detail'])->name('progress.detail');
+});
 
 
 // feedback

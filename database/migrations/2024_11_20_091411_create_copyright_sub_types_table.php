@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('copyright_sub_types', function (Blueprint $table) {
             $table->uuid('uuid')->primary();
             $table->string('type');
-            $table->foreignId('copyright_id')
+            $table->foreignId('copyright_type_id')
                 ->constrained('copyright_types')
                 ->onDelete('cascade');
             $table->timestamps();

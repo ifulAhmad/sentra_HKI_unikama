@@ -26,7 +26,7 @@
                     Cipta</span>
             </a>
             <a href="{{ route('progress.index') }}" :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                class="flex items-center {{ request()->routeIs(['progress.index', 'progress.detailProgress']) ? 'bg-indigo-500 border-indigo-600' : '' }} gap-4 block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-indigo-500 hover:border-indigo-600 duration-200 ease-in-out">
+                class="flex items-center {{ request()->routeIs(['progress.index', 'progress.detail']) ? 'bg-indigo-500 border-indigo-600' : '' }} gap-4 block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-indigo-500 hover:border-indigo-600 duration-200 ease-in-out">
                 <i class="bi bi-graph-up text-xl"></i>
                 <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Kemajuan
                     Usulan</span>

@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CopyrightType extends Model
+class SubmissionFiles extends Model
 {
     use HasFactory;
-    protected $table = 'copyright_types';
     protected $guarded = ['id'];
-    public function subtypes()
+    public function submission()
     {
-        return $this->hasMany(CopyrightSubType::class);
+        return $this->belongsTo(Submission::class, 'submission_uuid', 'uuid');
     }
 }
