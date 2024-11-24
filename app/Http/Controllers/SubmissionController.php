@@ -140,4 +140,32 @@ class SubmissionController extends Controller
         }
         return redirect()->route('progress.index')->with('success', 'Submission berhasil ditambahkan');
     }
+
+    public function checkNik(Request $request)
+    {
+        $nik = $request->nik;
+
+        // Logika untuk mencari data berdasarkan NIK
+        $applicant = Applicant::where('nik', $nik)->first();
+
+        if ($applicant) {
+            return response()->json([
+                'status' => 'found',
+                'data' => [
+                    'nik' => $applicant->nik,
+                    'nama' => $applicant->nama,
+                    'email' => $applicant->email,
+                    'kontak' => $applicant->kontak,
+                    'tgl_lahir' => $applicant->tgl_lahir,
+                    'kewarganegaraan' => $applicant->kewarganegaraan,
+                    'alamat' => $applicant->alamat,
+                    'kode_pos' => $applicant->kode_pos,
+                ],
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'not_found',
+            ]);
+        }
+    }
 }

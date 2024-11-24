@@ -28,4 +28,9 @@ class Submission extends Model
     {
         return $this->hasOne(SubmissionFiles::class, 'submission_uuid', 'uuid');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'submission_uuid', 'uuid');
+    }
 }

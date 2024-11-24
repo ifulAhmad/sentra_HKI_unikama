@@ -3,6 +3,7 @@
 use App\Models\Submission;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\GuestHakCiptaController;
 use App\Http\Controllers\SubmissionProgressController;
@@ -53,6 +54,8 @@ Route::prefix('users')->group(function () {
 Route::prefix('users')->group(function () {
     Route::get('pengajuan', [SubmissionController::class, 'index'])->name('submission.index');
     Route::post('pengajuan', [SubmissionController::class, 'submissionCreate'])->name('submission.create');
+
+    Route::post('check-nik', [SubmissionController::class, 'checkNik'])->name('check.nik');
 });
 Route::get('users/pernyataan-pengajuan', function () {
     return view('users.submission.pernyataan');
@@ -66,6 +69,9 @@ Route::prefix('users')->group(function () {
     Route::get('progress/{submission:uuid}/index.php', [SubmissionProgressController::class, 'detail'])->name('progress.detail');
 });
 
+Route::prefix('users')->group(function(){
+    Route::post('comment/create/{submission:uuid}', [CommentController::class, 'store'])->name('comment.store');
+});
 
 // feedback
 Route::get('users/feedback', function () {
