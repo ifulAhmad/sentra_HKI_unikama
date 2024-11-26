@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <a href="{{ route('feedback.detail') }}"
+    <a href="{{ route('notification.detail') }}"
         class="w-full mb-2 p-3 flex flex-col gap-1 rounded-md shadow-sm border border-indigo-100 hover:border-amber-600 text-sm">
         <div>
             <h3 class="font-semibold">Kemajuan Pengajuan Hak cipta Lorem...</h3>
@@ -25,7 +25,7 @@
             </div>
         </div>
     </a>
-    <a href="{{ route('feedback.detail') }}"
+    <a href="{{ route('notification.detail') }}"
         class="w-full mb-2 p-3 flex flex-col gap-1 rounded-md shadow-sm border border-indigo-100 hover:border-amber-600 text-sm">
         <div>
             <h3 class="font-semibold">Kemajuan Pengajuan Hak cipta Lorem...</h3>

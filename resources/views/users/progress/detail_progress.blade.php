@@ -38,6 +38,10 @@
             </div>
             <p class="text-end py-1 px-4 rounded-xl bg-indigo-200 capitalize">{{ $submission->status }}</p>
         </div>
+        <div class="flex items-center gap-4 text-sm mt-3">
+            <p>Jenis : <span class="font-semibold">{{ $submission->subType->copyrightType->type }}</span></p>
+            <p>Sub Jenis : <span class="font-semibold">{{ $submission->subType->type }}</span></p>
+        </div>
     </div>
     <div class="flex flex-col md:flex-row gap-3 relative">
         {{-- Main information --}}

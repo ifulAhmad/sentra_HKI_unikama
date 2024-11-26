@@ -111,6 +111,7 @@
                 <div class="ml-4 flex items-center md:ml-6">
 
                     <!-- Profile dropdown -->
+                    @auth
                     <div class="relative ml-3">
                         <div>
                             <button @click="isOpen = !isOpen" type="button"
@@ -146,6 +147,12 @@
                                 role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
                         </div>
                     </div>
+                    @endauth
+                    @guest
+                    <div class="flex items-center gap-4">
+                        <a href="{{ route('auth.login') }}" class="px-4 py-1 rounded font-semibold border-2 border-amber-600 bg-amber-600 text-white duration-200 hover:bg-amber-700">Login</a>
+                    </div>
+                    @endguest
                 </div>
             </div>
             <div class="-mr-2 flex md:hidden">
@@ -255,6 +262,7 @@
                 class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('kontak') ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }}">Kontak</a>
         </div>
 
+        @auth
         <div class="border-t border-gray-700 pb-3 pt-4">
             <div class="flex items-center px-5">
                 <div class="flex-shrink-0">
@@ -279,5 +287,11 @@
                     role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
             </div>
         </div>
+        @endauth
+        @guest
+        <div class="flex items-center justify-center gap-4">
+            <a href="{{ route('auth.login') }}" class="px-4 py-1 rounded font-semibold border-2 border-indigo-600 bg-indigo-600 text-white duration-200 hover:bg-indigo-700">Login</a>
+        </div>
+        @endguest
     </div>
 </nav>

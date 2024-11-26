@@ -36,11 +36,11 @@
                 <i class="bi bi-person-fill text-xl"></i>
                 <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Profil</span>
             </a>
-            <a href="{{ route('feedback.index') }}" :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                class="{{ request()->routeIs(['feedback.index', 'feedback.detail']) ? 'bg-indigo-500 border-indigo-600' : '' }} flex items-center gap-4 block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-indigo-500 hover:border-indigo-600 duration-200 ease-in-out">
-                <i class="bi bi-chat-right-dots-fill text-xl"></i>
+            <a href="{{ route('notification.index') }}" :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
+                class="{{ request()->routeIs(['notification.index', 'notification.detail']) ? 'bg-indigo-500 border-indigo-600' : '' }} flex items-center gap-4 block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-indigo-500 hover:border-indigo-600 duration-200 ease-in-out">
+                <i class="bi bi-bell-fill text-xl"></i>
                 <span :class="{ 'hidden': !isOpen }"
-                    class="transition-opacity duration-200 ease-in-out">Feedback</span>
+                    class="transition-opacity duration-200 ease-in-out">Notifikasi</span>
             </a>
             <a href="{{ route('sertificate.index') }}" :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
                 class="{{ request()->routeIs('sertificate.index') ? 'bg-indigo-500 border-indigo-600' : '' }} flex items-center gap-4 block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-indigo-500 hover:border-indigo-600 duration-200 ease-in-out">

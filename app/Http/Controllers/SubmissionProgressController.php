@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Applicant;
+use App\Models\CopyrightType;
 use App\Models\Submission;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +15,8 @@ class SubmissionProgressController extends Controller
     {
         $applicant = Applicant::first();
         $submissions = $applicant->submissions;
-        return view('users.progress.index', compact('submissions', 'applicant'));
+        $copyrightTypes = CopyrightType::orderby('type', 'asc')->get();
+        return view('users.progress.index', compact('submissions', 'applicant', 'copyrightTypes'));
     }
 
     public function detail(Submission $submission)

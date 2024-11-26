@@ -3,6 +3,7 @@
 use App\Models\Submission;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\GuestHakCiptaController;
@@ -37,6 +38,13 @@ Route::get('kontak', function () {
     return view('guest.kontak');
 })->name('kontak');
 
+// authenticate
+Route::controller(AuthenticateController::class)->group(function () {
+    Route::get('auth/login', 'loginPage')->name('auth.login');
+    Route::get('auth/google', 'googleLogin')->name('auth.google');
+    Route::get('auth/google/callback', 'googleCallback')->name('auth.google.callback');
+});
+
 
 // USERS 
 // profile
@@ -69,17 +77,17 @@ Route::prefix('users')->group(function () {
     Route::get('progress/{submission:uuid}/index.php', [SubmissionProgressController::class, 'detail'])->name('progress.detail');
 });
 
-Route::prefix('users')->group(function(){
+Route::prefix('users')->group(function () {
     Route::post('comment/create/{submission:uuid}', [CommentController::class, 'store'])->name('comment.store');
 });
 
 // feedback
-Route::get('users/feedback', function () {
-    return view('users.feedback.index');
-})->name('feedback.index');
-Route::get('users/detail-feedback', function () {
-    return view('users.feedback.detail');
-})->name('feedback.detail');
+Route::get('users/notification', function () {
+    return view('users.notification.index');
+})->name('notification.index');
+Route::get('users/detail-notification', function () {
+    return view('users.notification.detail');
+})->name('notification.detail');
 
 
 // sertificate

@@ -54,11 +54,13 @@ class ApplicantController extends Controller
 
     public function create()
     {
+        $user = User::find(3);
+
         $nik = session('nik');
         if (!$nik) {
             return redirect()->route('profile.adjustment');
         }
-        return view('users.profile.create', compact('nik'));
+        return view('users.profile.create', compact('nik', 'user'));
     }
     public function store(Request $request)
     {

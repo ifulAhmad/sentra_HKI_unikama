@@ -2,7 +2,7 @@
 @section('users-content')
     <div class="bg-gray-100">
         <div class="p-4 bg-white mb-4 rounded-md">
-            <a href="{{ route('progress.detailProgress') }}" class="hover:underline">
+            <a href="{{ route('progress.detail') }}" class="hover:underline">
                 <h1 class="text-lg">Respon Dari Admin Mengenai Pengajuan Anda pada Hak Cipta Dengan Judul
                     "Pembuatan
                     Website HKI UNIKAMA" </h1>
