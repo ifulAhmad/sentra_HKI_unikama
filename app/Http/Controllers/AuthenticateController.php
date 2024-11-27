@@ -23,17 +23,28 @@ class AuthenticateController extends Controller
     public function googleCallback()
     {
         $googleUser = Socialite::driver('google')->user();
+        $user = User::where('google_id', $googleUser->id)->first();
+        if ($user) {
+            Auth::login($user);
+            return redirect()->route('profile.index')->with('success', 'Login Berhasil Sebagai ' . $user->nama);
+        } else {
+            $newUser = User::create([
+                'nama' => $googleUser->name,
+                'username' => Str::slug($googleUser->name),
+                'email' => $googleUser->email,
+                'google_id' => $googleUser->id,
+                'password' => Hash::make('password')
+            ]);
+            Auth::login($newUser);
+            return redirect()->route('profile.index')->with('success', 'Login Berhasil Sebagai ' . $newUser->name);
+        }
+        return redirect()->route('auth.login')->with('Error', 'Terjadi kesalahan saat login');
+    }
 
-        $user = User::where('google_id', $googleUser->id)->firstOrCreate([
-            'nama' => $googleUser->name,
-            'username' => Str::slug($googleUser->name),
-            'email' => $googleUser->email,
-            'google_id' => $googleUser->id,
-            'password' => Hash::make('password')
-        ]);
+    public function logout()
+    {
+        Auth::logout();
 
-        Auth::login(User::where('google_id', $googleUser->id)->first());
-
-        return redirect()->route('profile.index')->with('success', 'Login Berhasil Sebagai ' . $user->name);
+        return redirect()->route('home');
     }
 }

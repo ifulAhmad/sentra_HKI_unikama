@@ -63,7 +63,7 @@
 
     {{-- dekstop table --}}
     <div class="text-sm font-light hidden md:block pb-10">
-        @if ($submissions)
+        @if ($submissions->count())
         <table class="table-auto w-full">
             <thead>
                 <tr>
@@ -108,13 +108,15 @@
             </tbody>
         </table>
         @else
-        <p>oekoek</p>
+        <div class="text-center my-8 text-lg">
+            <p>Data belum dibuat</p>
+        </div>
         @endif
     </div>
 
     {{-- Mobile table --}}
     <div class="text-sm font-light md:hidden">
-        @if ($submissions)
+        @if ($submissions->count())
         <table class="table-auto w-full">
             <thead>
                 <tr>
@@ -153,7 +155,9 @@
             </tbody>
         </table>
         @else
-        <tr>oekoek</tr>
+        <div class="text-center my-8 text-lg">
+            <p>Data belum dibuat</p>
+        </div>
         @endif
     </div>
 

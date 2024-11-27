@@ -10,7 +10,7 @@ class ApplicantController extends Controller
 {
     public function redirect()
     {
-        $user = User::first();
+        $user = User::where('id', auth()->user()->id)->first();
         $applicant = Applicant::where('user_id', $user->id)->first();
         if ($applicant) {
             return redirect()->route('profile.index');
@@ -19,7 +19,7 @@ class ApplicantController extends Controller
     }
     public function index()
     {
-        $user = User::first();
+        $user = User::where('id', auth()->user()->id)->first();
         $applicant = Applicant::where('user_id', $user->id)->first();
         if ($applicant) {
             return view('users.profile.index', compact('applicant'));
@@ -28,8 +28,7 @@ class ApplicantController extends Controller
     }
     public function adjustment()
     {
-        $user = User::first();
-        $applicant = Applicant::where('user_id', $user->id)->first();
+        $applicant = Applicant::where('user_id', auth()->user()->id)->first();
         if ($applicant) {
             return redirect()->route('profile.index');
         }
@@ -43,9 +42,9 @@ class ApplicantController extends Controller
             'nik.required' => 'NIK harus diisi',
             'nik.min' => 'NIK harus terdiri dari minimal 16 karakter',
         ]);
-        $user = User::first();
         $applicant = Applicant::where('nik', $validatedData['nik'])->first();
         if ($applicant) {
+            $user = User::where('id', auth()->user()->id)->first();
             return view('users.profile.claim', compact('user', 'applicant'));
         }
         session(['nik' => $validatedData['nik']]);
@@ -54,7 +53,7 @@ class ApplicantController extends Controller
 
     public function create()
     {
-        $user = User::find(3);
+        $user = User::where('id', auth()->user()->id)->first();
 
         $nik = session('nik');
         if (!$nik) {
@@ -74,7 +73,7 @@ class ApplicantController extends Controller
             'alamat' => 'required',
             'kode_pos' => 'required',
         ]);
-        $user = User::first();
+        $user = User::where('id', auth()->user()->id)->first();
         $validatedData['user_id'] = $user->id;
         $validatedData['email'] = $user->email;
         Applicant::create($validatedData);
@@ -102,7 +101,7 @@ class ApplicantController extends Controller
             'kode_pos.required' => 'Kode pos harus diisi',
         ]);
 
-        $user = User::first();
+        $user = User::where('id', auth()->user()->id)->first();
         $validatedData['user_id'] = $user->id;
         $applicant->fill($validatedData);
         if (!$applicant->isDirty()) {

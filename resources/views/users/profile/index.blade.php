@@ -64,7 +64,7 @@
                         <input type="date" id="tgl_lahir" name="tgl_lahir"
                             class="border-b-2 border-indigo-100 @error('tgl_lahir') border-red-400 @enderror py-2 px-3 focus:border-amber-600 outline-0"
                             placeholder="06 november 2002"
-                            value="{{ old('tgl_lahir', $applicant->tgl_lahir ?? ') }}">
+                            value="{{ old('tgl_lahir', $applicant->tgl_lahir ?? '') }}">
                         @error('tgl_lahir')
                         <div class="text-red-600 text-sm">
                             {{ $message }}

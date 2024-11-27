@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use App\Models\CopyrightType;
+use App\Models\User;
 use App\Models\Submission;
 use App\Models\SubmissionFiles;
 use Illuminate\Http\Request;
@@ -13,11 +14,11 @@ class SubmissionController extends Controller
 {
     public function index()
     {
-        $applicant = Applicant::first();
+        $user = User::where('id', auth()->user()->id)->first();
+        $applicant = Applicant::where('user_id', $user->id)->first();
         $copyrightTypes = CopyrightType::all();
-
         if (!$applicant) {
-            return redirect()->route('profile.index')->with('error', 'Anda harus melengkapi data profil terlebih dahulu');
+            return redirect()->route('profile.adjustment')->with('error', 'Anda harus melengkapi data profil terlebih dahulu!');
         } else {
             return view('users.submission.index', compact('applicant', 'copyrightTypes'));
         }

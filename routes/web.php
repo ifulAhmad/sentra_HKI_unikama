@@ -40,15 +40,19 @@ Route::get('kontak', function () {
 
 // authenticate
 Route::controller(AuthenticateController::class)->group(function () {
-    Route::get('auth/login', 'loginPage')->name('auth.login');
+    Route::get('auth/login', 'loginPage')->name('login');
+
+    // google authenticate
     Route::get('auth/google', 'googleLogin')->name('auth.google');
-    Route::get('auth/google/callback', 'googleCallback')->name('auth.google.callback');
+    Route::get('/auth/google/callback', 'googleCallback')->name('auth.google.callback');
+    // end google authenticate
+    Route::post('/auth/logout', 'logout')->name('auth.logout')->middleware(['role:pemohon,admin']);
 });
 
 
 // USERS 
 // profile
-Route::prefix('users')->group(function () {
+Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
     Route::get('redirect', [ApplicantController::class, 'redirect'])->name('profile.redirect');
     Route::get('profile', [ApplicantController::class, 'index'])->name('profile.index');
     Route::get('adjustment', [ApplicantController::class, 'adjustment'])->name('profile.adjustment');
@@ -59,41 +63,36 @@ Route::prefix('users')->group(function () {
 });
 
 // pengajuan
-Route::prefix('users')->group(function () {
+Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
     Route::get('pengajuan', [SubmissionController::class, 'index'])->name('submission.index');
     Route::post('pengajuan', [SubmissionController::class, 'submissionCreate'])->name('submission.create');
 
     Route::post('check-nik', [SubmissionController::class, 'checkNik'])->name('check.nik');
 });
-Route::get('users/pernyataan-pengajuan', function () {
-    return view('users.submission.pernyataan');
-})->name('submission.pernyataan');
-
 
 // kemajuan usulan
-
-Route::prefix('users')->group(function () {
+Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
     Route::get('progress', [SubmissionProgressController::class, 'index'])->name('progress.index');
     Route::get('progress/{submission:uuid}/index.php', [SubmissionProgressController::class, 'detail'])->name('progress.detail');
 });
 
-Route::prefix('users')->group(function () {
+Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
     Route::post('comment/create/{submission:uuid}', [CommentController::class, 'store'])->name('comment.store');
 });
 
 // feedback
 Route::get('users/notification', function () {
     return view('users.notification.index');
-})->name('notification.index');
+})->name('notification.index')->middleware(['role:pemohon']);
 Route::get('users/detail-notification', function () {
     return view('users.notification.detail');
-})->name('notification.detail');
+})->name('notification.detail')->middleware(['role:pemohon']);
 
 
 // sertificate
 Route::get('users/sertificate', function () {
     return view('users.sertificate.index');
-})->name('sertificate.index');
+})->name('sertificate.index')->middleware(['role:pemohon']);
 
 
 

@@ -120,7 +120,7 @@
                                 <span class="absolute -inset-1.5"></span>
                                 <span class="sr-only">Open user menu</span>
                                 <div class="flex items-center gap-2">
-                                    <h5 class="underline font-semibold text-sm">Saiful Islam</h5>
+                                    <h5 class="underline font-semibold text-sm">{{ auth()->user()->nama }}</h5>
                                     <div
                                         class="h-8 w-8 rounded-full text-indigo-400 overflow-hidden text-2xl flex items-center justify-center bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-amber-600">
                                         <i class="bi bi-person-fill"></i>
@@ -142,15 +142,18 @@
                             <a href="{{ route('profile.index') }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
                                 role="menuitem" tabindex="-1" id="user-menu-item-1">Profile</a>
-                            <a href="{{ route('home') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
-                                role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                            <form action="{{ route('auth.logout') }}" method="post" class="w-full">
+                                @csrf
+                                <button type="submit"
+                                    class="w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
+                                    role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</button>
+                            </form>
                         </div>
                     </div>
                     @endauth
                     @guest
                     <div class="flex items-center gap-4">
-                        <a href="{{ route('auth.login') }}" class="px-4 py-1 rounded font-semibold border-2 border-amber-600 bg-amber-600 text-white duration-200 hover:bg-amber-700">Login</a>
+                        <a href="{{ route('login') }}" class="px-4 py-1 rounded font-semibold border-2 border-amber-600 bg-amber-600 text-white duration-200 hover:bg-amber-700">Login</a>
                     </div>
                     @endguest
                 </div>
@@ -265,14 +268,12 @@
         @auth
         <div class="border-t border-gray-700 pb-3 pt-4">
             <div class="flex items-center px-5">
-                <div class="flex-shrink-0">
-                    <img class="h-10 w-10 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt="">
+                <div
+                    class="h-8 w-8 rounded-full text-indigo-400 overflow-hidden text-2xl flex items-center justify-center bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-amber-600">
+                    <i class="bi bi-person-fill"></i>
                 </div>
                 <div class="ml-3">
-                    <div class="text-base font-medium leading-none text-white">Tom Cook</div>
-                    <div class="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
+                    <div class="text-base font-medium leading-none">{{ auth()->user()->nama }}</div>
                 </div>
             </div>
             <div class="mt-3 space-y-1 px-2">
@@ -282,15 +283,18 @@
                 <a href="{{ route('profile.index') }}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
                     role="menuitem" tabindex="-1" id="user-menu-item-1">Profile</a>
-                <a href="{{ route('home') }}"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
-                    role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                <form action="{{ route('auth.logout') }}" method="post" class="w-full">
+                    @csrf
+                    <button type="submit"
+                        class="w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
+                        role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</button>
+                </form>
             </div>
         </div>
         @endauth
         @guest
-        <div class="flex items-center justify-center gap-4">
-            <a href="{{ route('auth.login') }}" class="px-4 py-1 rounded font-semibold border-2 border-indigo-600 bg-indigo-600 text-white duration-200 hover:bg-indigo-700">Login</a>
+        <div class="w-full p-8 text-center">
+            <a href="{{ route('login') }}" class="block px-4 py-1 rounded font-semibold bg-amber-600 text-white duration-200 hover:bg-amber-700">Login</a>
         </div>
         @endguest
     </div>
