@@ -21,7 +21,11 @@ return new class extends Migration
             $table->string('kewarganegaraan');
             $table->text('alamat');
             $table->integer('kode_pos');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete()
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

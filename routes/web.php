@@ -2,11 +2,12 @@
 
 use App\Models\Submission;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ApplicantController;
-use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\GuestHakCiptaController;
+use App\Http\Controllers\ClaimApplicantDataController;
 use App\Http\Controllers\SubmissionProgressController;
 
 
@@ -53,17 +54,26 @@ Route::controller(AuthenticateController::class)->group(function () {
 // USERS 
 // profile
 Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
+    // logic profile
     Route::get('redirect', [ApplicantController::class, 'redirect'])->name('profile.redirect');
     Route::get('profile', [ApplicantController::class, 'index'])->name('profile.index');
     Route::get('adjustment', [ApplicantController::class, 'adjustment'])->name('profile.adjustment');
     Route::post('adjustment', [ApplicantController::class, 'adjustmentCheck'])->name('profile.adjustment.check');
+    // claim
+    Route::get('claim/{applicant:nik}', [ApplicantController::class, 'claim'])->name('claim.index');
+    Route::post('claim/{applicant:nik}/store', [ApplicantController::class, 'claimStore'])->name('claim.store');
+    Route::post('claim/{applicant:nik}/store', [ApplicantController::class, 'claimStore'])->name('claim.store');
+    Route::get('claim/{claim:uuid}/wait', [ApplicantController::class, 'claimWait'])->name('claim.wait');
+    // create n update profile 
     Route::get('profile/create', [ApplicantController::class, 'create'])->name('profile.create');
     Route::post('profile/create', [ApplicantController::class, 'store'])->name('profile.store');
     Route::put('profile/update/{applicant:nik}', [ApplicantController::class, 'update'])->name('profile.update');
 });
 
+
 // pengajuan
 Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
+    // logic pengajuan view n create
     Route::get('pengajuan', [SubmissionController::class, 'index'])->name('submission.index');
     Route::post('pengajuan', [SubmissionController::class, 'submissionCreate'])->name('submission.create');
 

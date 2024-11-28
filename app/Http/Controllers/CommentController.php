@@ -13,9 +13,9 @@ class CommentController extends Controller
         $validatedComment = $request->validate([
             'comment' => 'required',
         ]);
-        $userId = User::first()->id;
+        $user = User::where('id', auth()->user()->id)->first();
         $submission->comments()->create([
-            'user_id' => $userId,
+            'user_id' => $user->id,
             'comment' => $validatedComment['comment']
         ]);
         return redirect()->back()->with('success', 'Komentar berhasil ditambahkan!');

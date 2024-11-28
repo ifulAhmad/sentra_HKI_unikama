@@ -19,4 +19,9 @@ class Applicant extends Model
     {
         return $this->belongsToMany(Submission::class, 'submission_applicant', 'applicant_id', 'submission_uuid')->withTimestamps();
     }
+
+    public function claim()
+    {
+        return $this->hasOne(ClaimApplicantData::class);
+    }
 }

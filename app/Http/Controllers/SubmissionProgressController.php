@@ -28,7 +28,7 @@ class SubmissionProgressController extends Controller
         $applicants = $submission->applicants;
         $files = $submission->files;
         $subtype = $submission->subtype;
-        $userId = User::first()->id;
+        $userId = User::where('id', auth()->user()->id)->first()->id;
         $commentUsers = $submission->comments->where('user_id', $userId);
         return view('users.progress.detail_progress', compact('submission', 'applicants', 'files', 'subtype', 'commentUsers'));
     }

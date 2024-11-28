@@ -36,7 +36,8 @@
     </div>
     <div class="w-[70%] hidden" id="form">
         <h3 class="text-center my-4 text-sm">Tambahkan Bukti Scan KTP</h3>
-        <form action="" method="post" class="text-sm">
+        <form action="{{ route('claim.store', $applicant->nik) }}" method="post" class="text-sm" enctype="multipart/form-data">
+            @csrf
             <div class="bg-white shadow px-4 py-4 mb-3 rounded-md flex flex-col gap-7">
                 <label for="scan_ktp" class="font-light">
                     Upload Scan KTP Sebagai Bukti Klaim
@@ -46,7 +47,7 @@
                     class="w-full h-[300px] border border-gray-300 rounded-lg overflow-hidden mb-4 hidden">
                     <iframe id="pdf-frame-scan-ktp" class="w-full h-full"></iframe>
                 </div>
-                <input type="file" id="scan_ktp" accept=".pdf"
+                <input type="file" id="scan_ktp" accept=".pdf" name="file_scan_ktp"
                     class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600" placeholder="file">
             </div>
             <div class="text-end">

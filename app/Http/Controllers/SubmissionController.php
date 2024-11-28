@@ -73,72 +73,70 @@ class SubmissionController extends Controller
         ];
 
         try {
-
             $submission = Submission::create($validatedSubmission);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data pengajuan.');
+        }
+        // save applicant
+        try {
+            foreach ($validatedApplicant['applicant']['nama'] as $index => $nama) {
 
-            // save applicant
-            try {
-                foreach ($validatedApplicant['applicant']['nama'] as $index => $nama) {
+                $applicant = Applicant::firstOrCreate(
+                    [
+                        'nik' => $validatedApplicant['applicant']['nik'][$index],
+                    ],
+                    [
+                        'nama' => $nama,
+                        'email' => $validatedApplicant['applicant']['email'][$index],
+                        'tgl_lahir' => $validatedApplicant['applicant']['tgl_lahir'][$index],
+                        'kontak' => $validatedApplicant['applicant']['kontak'][$index],
+                        'alamat' => $validatedApplicant['applicant']['alamat'][$index],
+                        'kewarganegaraan' => $validatedApplicant['applicant']['kewarganegaraan'][$index],
+                        'kode_pos' => $validatedApplicant['applicant']['kode_pos'][$index],
+                    ]
+                );
 
-                    $applicant = Applicant::firstOrCreate(
-                        [
-                            'nik' => $validatedApplicant['applicant']['nik'][$index],
-                        ],
-                        [
-                            'nama' => $nama,
-                            'email' => $validatedApplicant['applicant']['email'][$index],
-                            'tgl_lahir' => $validatedApplicant['applicant']['tgl_lahir'][$index],
-                            'kontak' => $validatedApplicant['applicant']['kontak'][$index],
-                            'alamat' => $validatedApplicant['applicant']['alamat'][$index],
-                            'kewarganegaraan' => $validatedApplicant['applicant']['kewarganegaraan'][$index],
-                            'kode_pos' => $validatedApplicant['applicant']['kode_pos'][$index],
-                            'user_id' => 1
-                        ]
-                    );
-
-                    DB::table('submission_applicant')->insert([
-                        'submission_uuid' => $submission->uuid,
-                        'applicant_id' => $applicant->id,
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]);
-                }
-            } catch (\Exception $e) {
-                return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data Pemohon.');
-            }
-
-            // save submission files
-            try {
-                $validatedSubmissionFiles = $request->validate($rulesFile);
-                $validatedSubmissionFiles['submission_uuid'] = $submission->uuid;
-                $fileFields = [
-                    'file_pernyataan_karya_cipta',
-                    'file_pengalihan_karya_cipta',
-                    'file_scan_ktp',
-                    'file_bukti_pembayaran',
-                ];
-
-                foreach ($fileFields as $field) {
-                    if ($request->hasFile($field)) {
-                        $validatedSubmissionFiles[$field] = $request->file($field)->store($field, 'public');
-                    } else {
-                        $validatedSubmissionFiles[$field] = $field === 'file_pengalihan_karya_cipta' ? null : $validatedSubmissionFiles[$field] ?? null;
-                    }
-                }
-                SubmissionFiles::create([
-                    'submission_uuid' => $validatedSubmissionFiles['submission_uuid'],
-                    'link_ciptaan' => $validatedSubmissionFiles['link_ciptaan'],
-                    'file_pernyataan_karya_cipta' => $validatedSubmissionFiles['file_pernyataan_karya_cipta'],
-                    'file_pengalihan_karya_cipta' => $validatedSubmissionFiles['file_pengalihan_karya_cipta'],
-                    'file_scan_ktp' => $validatedSubmissionFiles['file_scan_ktp'],
-                    'file_bukti_pembayaran' => $validatedSubmissionFiles['file_bukti_pembayaran'],
+                DB::table('submission_applicant')->insert([
+                    'submission_uuid' => $submission->uuid,
+                    'applicant_id' => $applicant->id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
-            } catch (\Exception $e) {
-                return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data File.');
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data Pemohon.');
         }
+
+        // save submission files
+        try {
+            $validatedSubmissionFiles = $request->validate($rulesFile);
+            $validatedSubmissionFiles['submission_uuid'] = $submission->uuid;
+            $fileFields = [
+                'file_pernyataan_karya_cipta',
+                'file_pengalihan_karya_cipta',
+                'file_scan_ktp',
+                'file_bukti_pembayaran',
+            ];
+
+            foreach ($fileFields as $field) {
+                if ($request->hasFile($field)) {
+                    $validatedSubmissionFiles[$field] = $request->file($field)->store($field, 'public');
+                } else {
+                    $validatedSubmissionFiles[$field] = $field === 'file_pengalihan_karya_cipta' ? null : $validatedSubmissionFiles[$field] ?? null;
+                }
+            }
+            SubmissionFiles::create([
+                'submission_uuid' => $validatedSubmissionFiles['submission_uuid'],
+                'link_ciptaan' => $validatedSubmissionFiles['link_ciptaan'],
+                'file_pernyataan_karya_cipta' => $validatedSubmissionFiles['file_pernyataan_karya_cipta'],
+                'file_pengalihan_karya_cipta' => $validatedSubmissionFiles['file_pengalihan_karya_cipta'],
+                'file_scan_ktp' => $validatedSubmissionFiles['file_scan_ktp'],
+                'file_bukti_pembayaran' => $validatedSubmissionFiles['file_bukti_pembayaran'],
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data File.');
+        }
+
         return redirect()->route('progress.index')->with('success', 'Submission berhasil ditambahkan');
     }
 
