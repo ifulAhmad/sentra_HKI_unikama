@@ -1,5 +1,5 @@
 <nav class="max-w-64 h-screen bg-indigo-600 text-white shadow-md" x-data="{ isOpen: true }">
-    <div class="flex flex-col justify-between h-full">
+    <div class="flex flex-col h-full">
         <div class="p-4">
             <div class="mb-4">
                 <button @click="isOpen = !isOpen" type="button"
@@ -28,10 +28,17 @@
                     <span :class="{ 'hidden': !isOpen }"
                         class="transition-opacity duration-200 ease-in-out">Dashboard</span>
                 </a>
+                <a href="{{ route('admin.submission.index') }}"
+                    :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
+                    class="flex items-center {{ request()->routeIs(['admin.submission.index', 'admin.submission.detail']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
+                    <i class="bi bi-file-earmark-text text-xl"></i>
+                    <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Rekap Data
+                        Pengajuan</span>
+                </a>
                 <a href="{{ route('admin.applicant.index') }}"
                     :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
                     class="flex items-center {{ request()->routeIs(['admin.applicant.index', 'admin.applicant.detail']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
-                    <i class="bi bi-journal-text text-xl"></i>
+                    <i class="bi bi-person-lines-fill text-xl"></i>
                     <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Rekap Data
                         Pemohon</span>
                 </a>
@@ -43,19 +50,6 @@
                         class="transition-opacity duration-200 ease-in-out">Notifikasi</span>
                 </a>
             </div>
-        </div>
-        <div class="py-6 px-4 border-t">
-            <h4 class="font-semibold" :class="{ 'block': isOpen, 'hidden': !isOpen }">WELCOME ADMIN</h4>
-            <!-- <a href="#" :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                class="flex items-center {{ request()->routeIs(['submission.index', 'submission.author1', 'submission.author2', 'submission.jenisCiptaan', 'submission.subJenisCiptaan', 'submission.uploadFile', 'submission.pernyataan']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
-                <i class="bi bi-gear text-xl"></i>
-                <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Setting</span>
-            </a>
-            <a href="#" :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                class="flex items-center {{ request()->routeIs(['submission.index', 'submission.author1', 'submission.author2', 'submission.jenisCiptaan', 'submission.subJenisCiptaan', 'submission.uploadFile', 'submission.pernyataan']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
-                <i class="bi bi-door-open text-xl"></i>
-                <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Logout</span>
-            </a> -->
         </div>
     </div>
 </nav>

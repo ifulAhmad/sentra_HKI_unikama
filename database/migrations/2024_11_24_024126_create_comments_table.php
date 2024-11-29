@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreignUuid('submission_uuid')->references('uuid')->on('submissions')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->text('comment');
+            $table->enum('user_role', ['pemohon', 'admin']);
             $table->timestamps();
         });
     }

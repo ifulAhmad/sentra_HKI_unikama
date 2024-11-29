@@ -1,9 +1,9 @@
-@extends('users.partials.main')
+@extends('admins.partials.main')
 
-@section('users-content')
+@section('admin-content')
     @if (session()->has('success'))
         <div
-            class="notif-success z-[999] fixed end-3 top-28 min-w-[400px] text-sm rounded-md text-green-600 bg-green-100 border border-green-400">
+            class="notif-success fixed end-3 top-28 min-w-[400px] text-sm rounded-md text-green-600 bg-green-100 border border-green-400">
             <div class="relative p-4 flex justify-between gap-2">
                 <p class="flex items-center gap-2"><i class="bi bi-check-circle-fill"></i> {{ session()->get('success') }}</p>
                 <button type="button" id="notif-success" class="text-xl absolute right-2 text-green-400 bottom-7"><i
@@ -13,7 +13,7 @@
     @endif
     @if (session()->has('error'))
         <div
-            class="notif-error z-[999] fixed end-3 top-28 min-w-[400px] text-sm rounded-md bg-red-100 text-red-600 border border-red-400">
+            class="notif-error fixed end-3 top-28 min-w-[400px] text-sm rounded-md bg-red-100 text-red-600 border border-red-400">
             <div class="relative p-4 flex justify-between gap-2">
                 <p class="flex items-center gap-2"><i class="bi bi-exclamation-circle-fill"></i>
                     {{ session()->get('error') }}
@@ -31,31 +31,31 @@
                 <p>Jenis : <span class="font-semibold">{{ $submission->subType->copyrightType->type }}</span></p>
                 <p>Sub Jenis : <span class="font-semibold">{{ $submission->subType->type }}</span></p>
             </div>
-            <div class="flex text-xs items-center justify-between">
-                <div class="flex gap-2 items-center text-gray-600">
+            <div class="flex text-xs my-2 items-center justify-between">
+                <div class="flex gap-3 items-center text-gray-600">
                     <p class="capitalize">
                         <i class="bi bi-geo"></i> {{ $submission->kota }}, {{ $submission->negara }}
-                    </p> |
-                    <p><i class="bi bi-person"></i> {{ $applicants->count() }}</p> |
+                    </p>
+                    <p><i class="bi bi-person"></i> {{ $submission->applicants->count() }}</p> |
                     <p>{{ $submission->created_at->diffForHumans() }}</p>
                 </div>
                 <p
                     class="text-end capitalize py-1 text-sm px-4 rounded-xl
-                    @if ($submission->status == 'proses') text-yellow-500 
-                    @elseif($submission->status == 'menunggu')
-                        text-gray-500
-                    @elseif($submission->status == 'ditolak')
-                        text-red-500
-                    @elseif($submission->status == 'diterima')
-                        text-green-500
-                    @elseif($submission->status == 'revisi')
-                        text-orange-400 @endif font-semibold">
+            @if ($submission->status == 'proses') text-yellow-500 
+            @elseif($submission->status == 'menunggu')
+                 text-gray-500
+            @elseif($submission->status == 'ditolak')
+                 text-red-500
+            @elseif($submission->status == 'diterima')
+                 text-green-500
+            @elseif($submission->status == 'revisi')
+                 text-orange-400 @endif font-semibold">
                     {{ $submission->status }}
                 </p>
             </div>
         </div>
         <div class="flex flex-col md:flex-row gap-3 relative">
-            {{-- Main information --}}
+            {{-- main information --}}
             <div class="flex-1 flex gap-3 flex-col">
                 <div class="flex-1 rounded-md bg-white">
                     {{-- Accordion --}}
@@ -65,7 +65,7 @@
                         </div>
                         <div class="max-w-full mx-auto bg-white rounded-lg shadow-md">
                             <!-- Item -->
-                            @foreach ($applicants as $applicant)
+                            @foreach ($submission->applicants->sortBy('created_at') as $applicant)
                                 <div class="border-b border-gray-200 px-4">
                                     <button
                                         class="w-full text-left py-2 font-medium text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
@@ -77,11 +77,7 @@
                                                 d="M19 9l-7 7-7-7" />
                                         </svg>
                                     </button>
-                                    <div class="accordion-content hidden p-4 text-gray-600">
-                                        <div class="flex gap-6 mb-3">
-                                            <div class="w-20">NIK</div>
-                                            <div class="">: {{ $applicant->nik }}</div>
-                                        </div>
+                                    <div class="accordion-content capitalize hidden p-4 text-gray-600">
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Nama</div>
                                             <div class="">: {{ $applicant->nama }}</div>
@@ -118,7 +114,7 @@
                                 <div class="bg-indigo-100 w-full p-2 opacity-95">Surat pernyataan hak cipta</div>
                             </div>
                         </a>
-                        @if ($files->file_pengalihan_karya_cipta)
+                        @if ($submission->files->file_pengalihan_karya_cipta)
                             <a href="#" class="w-full border rounded-md overflow-hidden hover:border-indigo-400"
                                 id="file1-link">
                                 <div class="bg-pdf h-[150px] bg-top flex items-end">
@@ -144,7 +140,7 @@
                 </div>
             </div>
 
-            <!-- Modal Popup -->
+            {{-- modal file --}}
             <div id="file-modal"
                 class="fixed inset-0 flex items-center justify-center z-[999] bg-gray-900 bg-opacity-50 hidden">
                 <div class="bg-white p-8 rounded-lg shadow-lg w-3/4 h-[90%] relative">
@@ -155,72 +151,115 @@
                 </div>
             </div>
 
-            {{-- right content --}}
-            <div class="md:w-96 max-h-[500px] overflow-y-auto">
-                <div class="p-3 rounded-md shadow-md bg-white mb-3">
-                    <p class="text-center mb-3">Link File Ciptaan</p>
-                    <a href="{{ $files->link_ciptaan }}" target="_blank"
-                        class="text-blue-600 hover:underline">{{ $submission->judul }}</a>
-                </div>
-                <div class="max-w-full mx-auto bg-white rounded-lg shadow-md">
-                    <!-- Item -->
-                    <div class="border-b border-gray-200">
-                        <button
-                            class="w-full text-left py-2 px-4 font-medium border-b text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
-                            <span>Komentar</span>
-                            <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        <div class="accordion-content hidden p-4 text-gray-600">
-                            <div class="flex flex-col gap-2 text-sm border-b pb-2 mb-2">
-                                <div class="flex items-center justify-between">
-                                    <h5 class="font-semibold text-gray-800">Administrator</h5>
-                                    <small class="text-ggray-600">2 hours ago</small>
+            {{-- Right Content --}}
+            <div class="md:w-96 sticky top-20 max-h-[500px] overflow-y-auto">
+                <div class="bg-white rounded-md shadow-md p-3 mb-3">
+                    <div class="flex-1 rounded-md overflow-hidden text-center mb-3">
+                        <form action="{{ route('admin.submission.revisi', $submission->uuid) }}" method="post"
+                            class="w-full">
+                            @csrf
+                            <button type="submit"
+                                class="p-2 w-full bg-orange-400 duration-100 text-white disabled:cursor-not-allowed disabled:opacity-50"
+                                onclick="return confirm('Apakah anda yakin mengubah status menjadi Revisi?')"
+                                @if ($submission->status == 'revisi' || $submission->status == 'ditolak' || $submission->status == 'diterima') disabled @endif>
+                                Izinkan Revisi
+                            </button>
+                        </form>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="flex-1 rounded-md overflow-hidden text-center">
+                            <a href="#" class="p-2 block bg-green-500 duration-100 hover:bg-green-600 text-white">
+                                Download Excel
+                            </a>
+                        </div>
+                        <div class="flex-1 rounded-md overflow-hidden text-center">
+                            <form action="{{ route('admin.submission.ditolak', $submission->uuid) }}" method="post"
+                                class="w-full">
+                                @csrf
+                                <button type="submit"
+                                    class="p-2 w-full bg-red-600 duration-100 text-white disabled:cursor-not-allowed disabled:opacity-50"
+                                    onclick="return confirm('Apakah anda yakin menolak pengajuan ini?')"
+                                    @if ($submission->status == 'ditolak' || $submission->status == 'diterima') disabled @endif>
+                                    Tolak Pengajuan
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="max-w-full mx-auto bg-white">
+                        <!-- Item -->
+                        <div class="border-b border-gray-200 shadow">
+                            <button
+                                class="w-full text-left py-2 px-4 font-medium text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
+                                <span>Berikan Sertifikat</span>
+                                <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="accordion-content hidden p-4 text-gray-600">
+                                <div class="mt-4 text-sm">
+                                    <form action="" class="flex flex-col gap-2">
+                                        <div class="bg-white p-2 rounded-md flex flex-col gap-4">
+                                            <label id="sertificate_file" class="text-xs text-gray-400">Upload 1 file yang
+                                                didukung: PDF. Maks 10 MB.</label>
+                                            <input type="file" id="sertificate_file" accept=".pdf"
+                                                class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
+                                                placeholder="file">
+                                        </div>
+                                        <button
+                                            class="text-white block p-2 font-semibold bg-indigo-600 rounded-md duration-100 hover:bg-indigo-700">Kirim</button>
+                                    </form>
                                 </div>
-                                <p>Tolong kirim file yang benar anak muda!</p>
                             </div>
-                            @if ($comments->count())
+                        </div>
+                    </div>
+                    <div class="max-w-full mx-auto bg-white">
+                        <!-- Item -->
+                        <div class="border-b border-gray-200 shadow">
+                            <button
+                                class="w-full text-left py-2 px-4 font-medium text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
+                                <span>Komentar</span>
+                                <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="accordion-content hidden p-4 text-gray-600">
                                 @foreach ($comments as $comment)
                                     <div
                                         class="
-                                    @if ($comment->user_id == auth()->user()->id) text-end @endif flex-col gap-2 text-sm border-b pb-2 mb-2">
-                                        <div
-                                            class="flex items-center @if ($comment->user_id == auth()->user()->id) flex-row-reverse @endif justify-between">
-                                            <div class="flex items-center gap-3">
-                                                <h5
-                                                    class="@if ($comment->user_id == auth()->user()->id) text-end text-indigo-600 @else text-gray-800 @endif font-semibold">
-                                                    {{ $comment->user->nama }}
-                                                </h5>
-                                                <form action="" method="post">
-                                                    @csrf
-                                                    <button type="submit"
-                                                        onclick="return confirm('Yakin ingin menghapus?')"
-                                                        class="text-red-600"><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </div>
+                                        {{-- change '1' to 'auth()->user()->id' if admin get ready the login logic --}}
+                                    @if ($comment->user_id == 1) text-end @endif flex-col gap-2 text-sm border-b pb-2 mb-2">
+                                        <div class="flex items-center justify-between">
+                                            <h5
+                                                class="@if ($comment->user_id == 1) text-end text-indigo-600 @else text-gray-800 @endif font-semibold">
+                                                {{ $comment->user->nama }}
+                                            </h5>
                                             <small
                                                 class="text-gray-600">{{ $comment->created_at->diffForHumans() }}</small>
                                         </div>
-                                        <p class="py-2">{{ $comment->comment }}</p>
+                                        <p class="my-2">{{ $comment->comment }}</p>
                                     </div>
                                 @endforeach
-                            @else
-                                <div class="text-center py-8 text-lg">
-                                    <p>Belum ada komentar</p>
+                                <div class="flex flex-col gap-2 text-sm border-b pb-2 mb-2 text-end">
+                                    <div class="flex items-center justify-between">
+                                        <small class="text-ggray-600">1 hours ago</small>
+                                        <h5 class="font-semibold text-gray-800">Anda</h5>
+                                    </div>
+                                    <p>Tolong kirim file yang benar anak muda!</p>
                                 </div>
-                            @endif
-                            <div class="mt-4 text-sm">
-                                <form action="{{ route('comment.store', $submission->uuid) }}" method="post"
-                                    class="flex items-end gap-2">
-                                    @csrf
-                                    <textarea id="comment" name="comment" class="py-2 outline-0 border-b w-full focus:border-amber-600 resize-none"
-                                        placeholder="komentar disini..." rows="1" oninput="adjustTextareaHeight(this)"></textarea>
-                                    <button class="text-blue-400 hover:underline">Kirim</button>
-                                </form>
+                                <div class="mt-4 text-sm">
+                                    <form action="" class="flex items-end gap-2">
+                                        <textarea id="autoResizeTextarea" class="py-2 outline-0 border-b w-full focus:border-amber-600 resize-none"
+                                            placeholder="komentar disini..." rows="1" oninput="adjustTextareaHeight(this)"></textarea>
+                                        <button class="text-blue-400 hover:underline">Kirim</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -231,6 +270,7 @@
 
     <script>
         $(document).ready(function() {
+            // time notification 
             setTimeout(() => {
                 $('.notif-success').fadeOut();
             }, 5000);
@@ -249,6 +289,7 @@
                 $(this).find(".accordion-icon").toggleClass("transform rotate-180");
             });
 
+            // open files
             $('#file0-link').click(function(e) {
                 e.preventDefault();
                 var fileUrl =

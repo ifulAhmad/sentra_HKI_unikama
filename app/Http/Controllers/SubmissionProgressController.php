@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Applicant;
 use App\Models\CopyrightType;
 use App\Models\Submission;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -29,7 +30,10 @@ class SubmissionProgressController extends Controller
         $files = $submission->files;
         $subtype = $submission->subtype;
         $userId = User::where('id', auth()->user()->id)->first()->id;
-        $commentUsers = $submission->comments->where('user_id', $userId);
-        return view('users.progress.detail_progress', compact('submission', 'applicants', 'files', 'subtype', 'commentUsers'));
+        $comments = Comment::where('submission_uuid', $submission->uuid)
+            ->with('user')
+            ->orderBy('created_at', 'asc')
+            ->get();
+        return view('users.progress.detail_progress', compact('submission', 'applicants', 'files', 'subtype', 'comments'));
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\GuestHakCiptaController;
 use App\Http\Controllers\ClaimApplicantDataController;
 use App\Http\Controllers\SubmissionProgressController;
+use App\Http\Controllers\AdminSubmissionAccessController;
 
 
 Route::get('/', function () {
@@ -86,7 +87,7 @@ Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
     Route::get('progress/{submission:uuid}/index.php', [SubmissionProgressController::class, 'detail'])->name('progress.detail');
 });
 
-Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
+Route::prefix('users')->middleware(['role:pemohon,admin'])->group(function () {
     Route::post('comment/create/{submission:uuid}', [CommentController::class, 'store'])->name('comment.store');
 });
 
@@ -118,6 +119,14 @@ Route::get('admin/rekap-data-pemohon', function () {
 Route::get('admin/detail-rekap-data-pemohon', function () {
     return view('admins.applicant.detail');
 })->name('admin.applicant.detail');
+
+// submission access
+Route::prefix('admin')->group(function () {
+    Route::get('submission/index', [AdminSubmissionAccessController::class, 'index'])->name('admin.submission.index');
+    Route::get('submission/{submission:uuid}/show', [AdminSubmissionAccessController::class, 'detail'])->name('admin.submission.detail');
+    Route::post('submission/{submission:uuid}/revisi', [AdminSubmissionAccessController::class, 'statusRevisi'])->name('admin.submission.revisi');
+    Route::post('submission/{submission:uuid}/ditolak', [AdminSubmissionAccessController::class, 'statusDitolak'])->name('admin.submission.ditolak');
+});
 
 // notification
 Route::get('admin/notification', function () {
