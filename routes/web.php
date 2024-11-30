@@ -10,6 +10,7 @@ use App\Http\Controllers\GuestHakCiptaController;
 use App\Http\Controllers\ClaimApplicantDataController;
 use App\Http\Controllers\SubmissionProgressController;
 use App\Http\Controllers\AdminSubmissionAccessController;
+use App\Http\Controllers\AdminApplicantsAccessController;
 
 
 Route::get('/', function () {
@@ -42,19 +43,20 @@ Route::get('kontak', function () {
 
 // authenticate
 Route::controller(AuthenticateController::class)->group(function () {
-    Route::get('auth/login', 'loginPage')->name('login');
+    Route::get('auth/login', 'loginPage')->name('login')->middleware('guest');
+    ROute::post('auth/login', 'authenticate')->name('authenticate')->middleware('guest');
 
     // google authenticate
-    Route::get('auth/google', 'googleLogin')->name('auth.google');
-    Route::get('/auth/google/callback', 'googleCallback')->name('auth.google.callback');
+    Route::get('auth/google', 'googleLogin')->name('auth.google')->middleware('guest');
+    Route::get('/auth/google/callback', 'googleCallback')->name('auth.google.callback')->middleware('guest');
     // end google authenticate
-    Route::post('/auth/logout', 'logout')->name('auth.logout')->middleware(['role:pemohon,admin']);
+    Route::post('/auth/logout', 'logout')->name('auth.logout')->middleware(['auth', 'role:pemohon,admin']);
 });
 
 
 // USERS 
 // profile
-Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
+Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () {
     // logic profile
     Route::get('redirect', [ApplicantController::class, 'redirect'])->name('profile.redirect');
     Route::get('profile', [ApplicantController::class, 'index'])->name('profile.index');
@@ -73,7 +75,7 @@ Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
 
 
 // pengajuan
-Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
+Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () {
     // logic pengajuan view n create
     Route::get('pengajuan', [SubmissionController::class, 'index'])->name('submission.index');
     Route::post('pengajuan', [SubmissionController::class, 'submissionCreate'])->name('submission.create');
@@ -82,46 +84,46 @@ Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
 });
 
 // kemajuan usulan
-Route::prefix('users')->middleware(['role:pemohon'])->group(function () {
+Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () {
     Route::get('progress', [SubmissionProgressController::class, 'index'])->name('progress.index');
     Route::get('progress/{submission:uuid}/index.php', [SubmissionProgressController::class, 'detail'])->name('progress.detail');
 });
 
-Route::prefix('users')->middleware(['role:pemohon,admin'])->group(function () {
+// comment create applicant n admin
+Route::prefix('/')->middleware(['role:pemohon,admin'])->group(function () {
     Route::post('comment/create/{submission:uuid}', [CommentController::class, 'store'])->name('comment.store');
+    Route::delete('comment/create/{comment:uuid}/delete', [CommentController::class, 'delete'])->name('comment.delete');
 });
 
 // feedback
 Route::get('users/notification', function () {
     return view('users.notification.index');
-})->name('notification.index')->middleware(['role:pemohon']);
+})->name('notification.index')->middleware(['auth', 'role:pemohon']);
 Route::get('users/detail-notification', function () {
     return view('users.notification.detail');
-})->name('notification.detail')->middleware(['role:pemohon']);
+})->name('notification.detail')->middleware(['auth', 'role:pemohon']);
 
 
 // sertificate
 Route::get('users/sertificate', function () {
     return view('users.sertificate.index');
-})->name('sertificate.index')->middleware(['role:pemohon']);
+})->name('sertificate.index')->middleware(['auth', 'role:pemohon']);
 
 
 
 // ADMINS
 Route::get('admin/index', function () {
     return view('admins.dashboard.index');
-})->name('admin.dashboard.index');
+})->name('admin.dashboard.index')->middleware(['auth', 'role:admin']);
 
-// applicant
-Route::get('admin/rekap-data-pemohon', function () {
-    return view('admins.applicant.index');
-})->name('admin.applicant.index');
-Route::get('admin/detail-rekap-data-pemohon', function () {
-    return view('admins.applicant.detail');
-})->name('admin.applicant.detail');
+// applicant access
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('rekap-data-pemohon', [AdminApplicantsAccessController::class, 'index'])->name('admin.applicant.index');
+    Route::get('admin/user_data/{applicant:nik}/detail', [AdminApplicantsAccessController::class, 'detail'])->name('admin.applicant.detail');
+});
 
 // submission access
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('submission/index', [AdminSubmissionAccessController::class, 'index'])->name('admin.submission.index');
     Route::get('submission/{submission:uuid}/show', [AdminSubmissionAccessController::class, 'detail'])->name('admin.submission.detail');
     Route::post('submission/{submission:uuid}/revisi', [AdminSubmissionAccessController::class, 'statusRevisi'])->name('admin.submission.revisi');
@@ -131,4 +133,4 @@ Route::prefix('admin')->group(function () {
 // notification
 Route::get('admin/notification', function () {
     return view('admins.notifications.index');
-})->name('admin.notifications.index');
+})->name('admin.notifications.index')->middleware(['auth', 'role:admin']);

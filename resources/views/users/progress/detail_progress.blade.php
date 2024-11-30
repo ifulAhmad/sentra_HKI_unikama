@@ -176,13 +176,6 @@
                             </svg>
                         </button>
                         <div class="accordion-content hidden p-4 text-gray-600">
-                            <div class="flex flex-col gap-2 text-sm border-b pb-2 mb-2">
-                                <div class="flex items-center justify-between">
-                                    <h5 class="font-semibold text-gray-800">Administrator</h5>
-                                    <small class="text-ggray-600">2 hours ago</small>
-                                </div>
-                                <p>Tolong kirim file yang benar anak muda!</p>
-                            </div>
                             @if ($comments->count())
                                 @foreach ($comments as $comment)
                                     <div
@@ -195,12 +188,14 @@
                                                     class="@if ($comment->user_id == auth()->user()->id) text-end text-indigo-600 @else text-gray-800 @endif font-semibold">
                                                     {{ $comment->user->nama }}
                                                 </h5>
-                                                <form action="" method="post">
-                                                    @csrf
-                                                    <button type="submit"
-                                                        onclick="return confirm('Yakin ingin menghapus?')"
-                                                        class="text-red-600"><i class="bi bi-trash"></i></button>
-                                                </form>
+                                                @if ($comment->user_id == auth()->user()->id)
+                                                    <form action="" method="post">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            onclick="return confirm('Yakin ingin menghapus?')"
+                                                            class="text-red-600"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                @endif
                                             </div>
                                             <small
                                                 class="text-gray-600">{{ $comment->created_at->diffForHumans() }}</small>

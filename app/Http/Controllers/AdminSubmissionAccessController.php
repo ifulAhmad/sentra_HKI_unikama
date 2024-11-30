@@ -10,7 +10,7 @@ class AdminSubmissionAccessController extends Controller
 {
     public function index()
     {
-        $submissions = Submission::orderBy('judul', 'asc')->get();
+        $submissions = Submission::orderBy('judul', 'asc')->paginate(20);
         return view('admins.submission.index', compact('submissions'));
     }
     public function detail(Submission $submission)

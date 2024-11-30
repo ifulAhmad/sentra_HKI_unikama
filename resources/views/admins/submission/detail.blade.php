@@ -3,7 +3,7 @@
 @section('admin-content')
     @if (session()->has('success'))
         <div
-            class="notif-success fixed end-3 top-28 min-w-[400px] text-sm rounded-md text-green-600 bg-green-100 border border-green-400">
+            class="notif-success z-[999] fixed end-3 top-20 min-w-[400px] text-sm rounded-md text-green-600 bg-green-100 border border-green-400">
             <div class="relative p-4 flex justify-between gap-2">
                 <p class="flex items-center gap-2"><i class="bi bi-check-circle-fill"></i> {{ session()->get('success') }}</p>
                 <button type="button" id="notif-success" class="text-xl absolute right-2 text-green-400 bottom-7"><i
@@ -13,7 +13,7 @@
     @endif
     @if (session()->has('error'))
         <div
-            class="notif-error fixed end-3 top-28 min-w-[400px] text-sm rounded-md bg-red-100 text-red-600 border border-red-400">
+            class="notif-error fixed end-3 top-20 min-w-[400px] text-sm rounded-md bg-red-100 text-red-600 border border-red-400">
             <div class="relative p-4 flex justify-between gap-2">
                 <p class="flex items-center gap-2"><i class="bi bi-exclamation-circle-fill"></i>
                     {{ session()->get('error') }}
@@ -234,29 +234,38 @@
                                     <div
                                         class="
                                         {{-- change '1' to 'auth()->user()->id' if admin get ready the login logic --}}
-                                    @if ($comment->user_id == 1) text-end @endif flex-col gap-2 text-sm border-b pb-2 mb-2">
-                                        <div class="flex items-center justify-between">
-                                            <h5
-                                                class="@if ($comment->user_id == 1) text-end text-indigo-600 @else text-gray-800 @endif font-semibold">
-                                                {{ $comment->user->nama }}
-                                            </h5>
+                                    @if ($comment->user_id == auth()->user()->id) text-end @endif flex-col gap-2 text-sm border-b pb-2 mb-2">
+                                        <div
+                                            class="flex items-center justify-between @if ($comment->user_id == auth()->user()->id) flex-row-reverse @endif">
+                                            <div class="flex items-center gap-3">
+                                                <h5
+                                                    class="@if ($comment->user_id == auth()->user()->id) text-end text-indigo-600 @else text-gray-800 @endif font-semibold">
+                                                    {{ $comment->user->nama }}
+                                                </h5>
+                                                @if ($comment->user_id == auth()->user()->id)
+                                                    <form action="{{ route('comment.delete', $comment->uuid) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            onclick="return confirm('Yakin ingin menghapus?')"
+                                                            class="text-red-600"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                @endif
+                                            </div>
                                             <small
                                                 class="text-gray-600">{{ $comment->created_at->diffForHumans() }}</small>
                                         </div>
                                         <p class="my-2">{{ $comment->comment }}</p>
                                     </div>
                                 @endforeach
-                                <div class="flex flex-col gap-2 text-sm border-b pb-2 mb-2 text-end">
-                                    <div class="flex items-center justify-between">
-                                        <small class="text-ggray-600">1 hours ago</small>
-                                        <h5 class="font-semibold text-gray-800">Anda</h5>
-                                    </div>
-                                    <p>Tolong kirim file yang benar anak muda!</p>
-                                </div>
                                 <div class="mt-4 text-sm">
-                                    <form action="" class="flex items-end gap-2">
-                                        <textarea id="autoResizeTextarea" class="py-2 outline-0 border-b w-full focus:border-amber-600 resize-none"
-                                            placeholder="komentar disini..." rows="1" oninput="adjustTextareaHeight(this)"></textarea>
+                                    <form action="{{ route('comment.store', $submission->uuid) }}" method="post"
+                                        class="flex items-end gap-2">
+                                        @csrf
+                                        <textarea id="autoResizeTextarea" name="comment"
+                                            class="py-2 outline-0 border-b w-full focus:border-amber-600 resize-none" placeholder="komentar disini..."
+                                            rows="1" oninput="adjustTextareaHeight(this)"></textarea>
                                         <button class="text-blue-400 hover:underline">Kirim</button>
                                     </form>
                                 </div>

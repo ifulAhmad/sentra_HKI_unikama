@@ -83,6 +83,9 @@
             </div>
             @endforeach
         </div>
+        <div class="flex mt-5 justify-end">
+            {{ $submissions->links() }}
+        </div>
         @else
         <div class="text-center text-gray-600 text-lg py-10">Data tidak ditemukan</div>
         @endif

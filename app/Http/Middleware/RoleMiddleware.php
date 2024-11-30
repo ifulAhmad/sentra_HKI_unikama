@@ -19,14 +19,11 @@ class RoleMiddleware
         if (!Auth::check()) {
             return redirect()->route('login');
         }
-        if (auth()->user()->role !== $roles[0]) {
-            abort(403);
+        $userRole = Auth::user()->role;
+        if (!in_array($userRole, $roles)) {
+            abort(403, 'Anda tidak memiliki akses ke halaman ini.');
         }
-        $user = Auth::user();
-        $roles = is_array($roles[0]) ? $roles[0] : $roles;
-        if ($user && in_array($user->role, $roles)) {
-            return $next($request);
-        }
-        return abort(403, 'Anda tidak memiliki akses ke halaman ini.');
+
+        return $next($request);
     }
 }
