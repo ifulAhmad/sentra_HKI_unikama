@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminApplicantClaimController;
 use App\Models\Submission;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommentController;
@@ -128,6 +129,13 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('submission/{submission:uuid}/show', [AdminSubmissionAccessController::class, 'detail'])->name('admin.submission.detail');
     Route::post('submission/{submission:uuid}/revisi', [AdminSubmissionAccessController::class, 'statusRevisi'])->name('admin.submission.revisi');
     Route::post('submission/{submission:uuid}/ditolak', [AdminSubmissionAccessController::class, 'statusDitolak'])->name('admin.submission.ditolak');
+});
+
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('claim', [AdminApplicantClaimController::class, 'index'])->name('admin.claim.index');
+    Route::get('claim/data/{claimData:uuid}', [AdminApplicantClaimController::class, 'detail'])->name('admin.claim.detail');
+    Route::post('claim/data/{claimData:uuid}/accept', [AdminApplicantClaimController::class, 'accept'])->name('admin.claim.accept');
+    Route::post('claim/data/{claimData:uuid}/reject', [AdminApplicantClaimController::class, 'reject'])->name('admin.claim.reject');
 });
 
 // notification

@@ -12,10 +12,10 @@ class ClaimApplicantData extends Model
     protected $guarded = ['uuid'];
     public function applicant()
     {
-        return $this->belongsTo(Applicant::class);
+        return $this->belongsTo(Applicant::class, 'applicant_id', 'id');
     }
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
