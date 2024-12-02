@@ -22,16 +22,16 @@ class AdminApplicantClaimController extends Controller
     {
         $applicant = Applicant::find($claimData->applicant_id);
         try {
-            if ($applicant->user_id != null) {
+            if ($applicant->user_id == null) {
                 $applicant->user_id = $claimData->user_id;
                 $applicant->save();
                 ClaimApplicantData::where('uuid', $claimData->uuid)->update(['status' => 'approved']);
-                return redirect()->back()->with('success', 'Data berhasil Diterima');
+                return redirect()->route('admin.applicant.index')->with('success', 'Data berhasil Diterima');
             }
         } catch (\Exception $e) {
             throw $e;
         }
-        return redirect()->back()->with('error', 'Terjadi kesalahan saat menerima data');
+        return redirect()->route('admin.applicant.index')->with('error', 'Terjadi kesalahan saat menerima data');
     }
 
     public function reject(ClaimApplicantData $claimData)

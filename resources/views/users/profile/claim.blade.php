@@ -10,12 +10,17 @@
         <p class="text-center capitalize text-sm my-4">NIK Sudah Terdaftar Pada Sistem, Apakah Anda Ingin mengklaim data
             dibawah ini?
         </p>
+        @if ($applicant->user_id != null)
+        <p class="text-start text-yellow-600 capitalize text-sm my-4 bg-yellow-100 p-3 rounded-md">NOTE: Data tersebut sudah diklaim oleh user lain, silahkan hubungi pihak HKI untuk informasi lebih lanjut!
+        </p>
+        @endif
         <table class="w-full table-sm table-fixed mb-3">
             <thead>
                 <tr>
                     <th class="p-1 bg-indigo-200 text-sm">NIK</th>
                     <th class="p-1 bg-indigo-200 text-sm">Nama</th>
                     <th class="p-1 bg-indigo-200 text-sm">Email</th>
+                    <th class="p-1 bg-indigo-200 text-sm">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,13 +28,22 @@
                     <td class="p-1 bg-indigo-100 text-center text-sm">{{ $applicant->nik }}</td>
                     <td class="p-1 bg-indigo-100 text-center text-sm">{{ $applicant->nama }}</td>
                     <td class="p-1 bg-indigo-100 text-center text-sm">{{ $applicant->email }}</td>
+                    <td class="p-1 bg-indigo-100 text-center text-sm">
+                        @if ($applicant->user_id == null)
+                        <p class="text-red-600">Data belum diklaim</p>
+                        @else
+                        <p class="text-indigo-600">Data Sudah diklaim</p>
+                        @endif
+                    </td>
                 </tr>
             </tbody>
         </table>
         <div class="flex items-center justify-end gap-3">
+            @if ($applicant->user_id == null)
             <button type="button" id="trigger"
                 class="px-4 py-2 text-sm rounded-md bg-indigo-600 duration-200 text-white hover:bg-indigo-700">Iya, Ini
                 Data Saya</button>
+            @endif
             <a href="{{ route('profile.index') }}"
                 class="px-4 py-2 text-sm rounded-md bg-red-600 duration-200 text-white hover:bg-red-700">Batal</a>
         </div>

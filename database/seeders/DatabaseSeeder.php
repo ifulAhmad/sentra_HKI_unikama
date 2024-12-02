@@ -18,18 +18,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'nama' => 'test applincant 1',
+            'nama' => 'ADMINISTRATOR',
             'email' => 'test1@example.com',
             'username' => 'testing1',
             'password' => bcrypt('password'),
             'role' => 'admin',
-        ]);
-        User::create([
-            'nama' => 'test applincant 2',
-            'email' => 'test2@example.com',
-            'username' => 'testing2',
-            'password' => bcrypt('password'),
-            'role' => 'pemohon',
         ]);
 
         // Data untuk CopyrightType

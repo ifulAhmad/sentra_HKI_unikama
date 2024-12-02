@@ -1,6 +1,29 @@
 @extends('admins.partials.main')
 
 @section('admin-content')
+@if (session()->has('success'))
+<div
+    class="notif-success z-[999] fixed end-3 top-20 min-w-[400px] text-sm rounded-md text-green-600 bg-green-100 border border-green-400">
+    <div class="relative p-4 flex justify-between gap-2">
+        <p class="flex items-center gap-2"><i class="bi bi-check-circle-fill"></i> {{ session()->get('success') }}</p>
+        <button type="button" id="notif-success" class="text-xl absolute right-2 text-green-400 bottom-7"><i
+                class="bi bi-x"></i></button>
+    </div>
+</div>
+@endif
+@if (session()->has('error'))
+<div
+    class="notif-error fixed end-3 top-20 min-w-[400px] text-sm rounded-md bg-red-100 text-red-600 border border-red-400">
+    <div class="relative p-4 flex justify-between gap-2">
+        <p class="flex items-center gap-2"><i class="bi bi-exclamation-circle-fill"></i>
+            {{ session()->get('error') }}
+        </p>
+        <button type="button" id="notif-error" class="text-xl absolute right-2 text-red-400 bottom-7"><i
+                class="bi bi-x"></i></button>
+    </div>
+</div>
+@endif
+
 <div>
     <h1 class="font-semibold text-lg uppercase">Rekap Pengajuan</h1>
     <div class="bg-blue-600 h-[4px] rounded w-28 mt-2 mb-4"></div>
@@ -70,6 +93,22 @@
 
 
 <script>
+    $(document).ready(function() {
+        // time notification 
+        setTimeout(() => {
+            $('.notif-success').fadeOut();
+        }, 5000);
+        $('#notif-success').click(function() {
+            $('.notif-success').addClass('hidden');
+        });
+        setTimeout(() => {
+            $('.notif-error').fadeOut();
+        }, 5000);
+        $('#notif-error').click(function() {
+            $('.notif-error').addClass('hidden');
+        });
+    });
+
     function toggleDropdown(button) {
         document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.add('hidden'));
 

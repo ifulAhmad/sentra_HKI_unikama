@@ -84,14 +84,17 @@ class ApplicantController extends Controller
         $validatedData = $request->validate([
             'file_scan_ktp' => 'required|file|mimes:png,jpg,jpeg,pdf|max:1024',
         ]);
-        $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['applicant_id'] = $applicant->id;
-        if ($request->hasFile('file_scan_ktp')) {
-            $validatedData['file_scan_ktp'] = $request->file('file_scan_ktp')->store('claim-files');
+        if ($applicant->user_id == null) {
+            $validatedData['user_id'] = auth()->user()->id;
+            $validatedData['applicant_id'] = $applicant->id;
+            if ($request->hasFile('file_scan_ktp')) {
+                $validatedData['file_scan_ktp'] = $request->file('file_scan_ktp')->store('claim-files');
+            }
+            $validatedData['status'] = 'pending';
+            $claim = ClaimApplicantData::create($validatedData);
+            return redirect()->route('claim.wait', $claim->uuid)->with('success', 'Klaim berhasil diajukan');
         }
-        $validatedData['status'] = 'pending';
-        $claim = ClaimApplicantData::create($validatedData);
-        return redirect()->route('claim.wait', $claim->uuid)->with('success', 'Klaim berhasil diajukan');
+        return redirect()->route('profile.adjustment')->with('error', 'Data sudah diklaim oleh user lain. Hubungi HKI untuk informasi lebih lanjut');
     }
     // description: this function redirect a user to pending page if claim is not approved
     public function claimWait(ClaimApplicantData $claim)
