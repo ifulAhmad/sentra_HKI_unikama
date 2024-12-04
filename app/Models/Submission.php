@@ -33,4 +33,8 @@ class Submission extends Model
     {
         return $this->hasMany(Comment::class, 'submission_uuid', 'uuid');
     }
+    public function certificate()
+    {
+        return $this->hasOne(Certificate::class, 'submission_uuid', 'uuid');
+    }
 }

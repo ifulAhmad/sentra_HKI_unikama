@@ -12,7 +12,7 @@
             <div class="rounded-lg p-3">
                 <h1 class="text-5xl font-bold text-gray-800 flex flex-col gap-2">
                     <span>Ajukan</span>
-                    <span>Karya Intelektualmu!</span>
+                    <span>Kekayaan Intelektualmu!</span>
                 </h1>
                 <div class="bg-gray-800 h-[4px] rounded my-10"></div>
                 <a href="{{ route('submission.index') }}"

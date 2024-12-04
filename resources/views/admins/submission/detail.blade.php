@@ -41,14 +41,14 @@
                 </div>
                 <p
                     class="text-end capitalize py-1 text-sm px-4 rounded-xl
-            @if ($submission->status == 'proses') text-yellow-500 
-            @elseif($submission->status == 'menunggu')
-                 text-gray-500
-            @elseif($submission->status == 'ditolak')
-                 text-red-500
-            @elseif($submission->status == 'diterima')
-                 text-green-500
-            @elseif($submission->status == 'revisi')
+                @if ($submission->status == 'proses') text-yellow-500 
+                @elseif($submission->status == 'menunggu')
+                    text-gray-500
+                @elseif($submission->status == 'ditolak')
+                    text-red-500
+                @elseif($submission->status == 'diterima')
+                    text-green-500
+                @elseif($submission->status == 'revisi')
                  text-orange-400 @endif font-semibold">
                     {{ $submission->status }}
                 </p>
@@ -153,11 +153,30 @@
 
             {{-- Right Content --}}
             <div class="md:w-96 sticky top-20 max-h-[500px] overflow-y-auto">
+                @if ($submission->certificate)
+                    <div class="mb-3 bg-white rounded-md shadow-md p-3">
+                        @if ($submission->certificate->link_certificate)
+                            <div class="flex flex-col gap-3 mb-3">
+                                <p class="text-center mb-3">Link File Sertifikat</p>
+                                <a href="{{ $submission->certificate->link_certificate }}" target="_blank"
+                                    class="text-blue-600 hover:underline">link {{ $submission->judul }} &raquo;</a>
+                            </div>
+                        @elseif($submission->certificate->file_certificate)
+                            <div class="flex flex-col gap-3">
+                                <p class="text-center mb-3">File Sertifikat</p>
+                                <a href="{{ asset('storage/' . $submission->certificate->file_certificate . '#toolbar=0') }}"
+                                    target="_blank" class="text-blue-600 hover:underline">file
+                                    {{ $submission->judul }} &raquo;</a>
+                            </div>
+                        @endif
+                    </div>
+                @endif
                 <div class="bg-white rounded-md shadow-md p-3 mb-3">
                     <div class="flex-1 rounded-md overflow-hidden text-center mb-3">
                         <form action="{{ route('admin.submission.revisi', $submission->uuid) }}" method="post"
                             class="w-full">
                             @csrf
+                            @method('PUT')
                             <button type="submit"
                                 class="p-2 w-full bg-orange-400 duration-100 text-white disabled:cursor-not-allowed disabled:opacity-50"
                                 onclick="return confirm('Apakah anda yakin mengubah status menjadi Revisi?')"
@@ -176,6 +195,7 @@
                             <form action="{{ route('admin.submission.ditolak', $submission->uuid) }}" method="post"
                                 class="w-full">
                                 @csrf
+                                @method('PUT')
                                 <button type="submit"
                                     class="p-2 w-full bg-red-600 duration-100 text-white disabled:cursor-not-allowed disabled:opacity-50"
                                     onclick="return confirm('Apakah anda yakin menolak pengajuan ini?')"
@@ -201,11 +221,28 @@
                             </button>
                             <div class="accordion-content hidden p-4 text-gray-600">
                                 <div class="mt-4 text-sm">
-                                    <form action="" class="flex flex-col gap-2">
+                                    <form action="{{ route('admin.submission.diterima', $submission->uuid) }}"
+                                        method="post" class="flex flex-col gap-2" enctype="multipart/form-data">
+                                        @csrf
                                         <div class="bg-white p-2 rounded-md flex flex-col gap-4">
-                                            <label id="sertificate_file" class="text-xs text-gray-400">Upload 1 file yang
-                                                didukung: PDF. Maks 10 MB.</label>
-                                            <input type="file" id="sertificate_file" accept=".pdf"
+                                            <label for="link_certificate" class="font-semibold">Berikan Link
+                                                Sertifikat</label>
+                                            <input type="text" id="link_certificate" name="link_certificate"
+                                                class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
+                                                placeholder="link sertifikat">
+                                        </div>
+                                        <div class="flex items-center gap-2 my-4">
+                                            <hr class="w-full">
+                                            <p>Atau</p>
+                                            <hr class="w-full">
+                                        </div>
+                                        <div class="bg-white p-2 rounded-md flex flex-col gap-4">
+                                            <label for="file_certificate" class="font-semibold">Berikan file
+                                                Sertifikat</label>
+                                            <p id="file_certificate" class="text-xs text-gray-400">Upload 1 file yang
+                                                didukung: PDF. Maks 10 MB.</p>
+                                            <input type="file" id="file_certificate" name="file_certificate"
+                                                accept=".pdf"
                                                 class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
                                                 placeholder="file">
                                         </div>

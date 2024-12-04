@@ -127,8 +127,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('submission/index', [AdminSubmissionAccessController::class, 'index'])->name('admin.submission.index');
     Route::get('submission/{submission:uuid}/show', [AdminSubmissionAccessController::class, 'detail'])->name('admin.submission.detail');
-    Route::post('submission/{submission:uuid}/revisi', [AdminSubmissionAccessController::class, 'statusRevisi'])->name('admin.submission.revisi');
-    Route::post('submission/{submission:uuid}/ditolak', [AdminSubmissionAccessController::class, 'statusDitolak'])->name('admin.submission.ditolak');
+    Route::put('submission/{submission:uuid}/revisi', [AdminSubmissionAccessController::class, 'statusRevisi'])->name('admin.submission.revisi');
+    Route::put('submission/{submission:uuid}/ditolak', [AdminSubmissionAccessController::class, 'statusDitolak'])->name('admin.submission.ditolak');
+    Route::post('submission/{submission:uuid}/diterima', [AdminSubmissionAccessController::class, 'statusDiterima'])->name('admin.submission.diterima');
 });
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
