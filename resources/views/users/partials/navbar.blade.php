@@ -42,8 +42,8 @@
                 <span :class="{ 'hidden': !isOpen }"
                     class="transition-opacity duration-200 ease-in-out">Notifikasi</span>
             </a>
-            <a href="{{ route('sertificate.index') }}" :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                class="{{ request()->routeIs('sertificate.index') ? 'bg-indigo-500 border-indigo-600' : '' }} flex items-center gap-4 block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-indigo-500 hover:border-indigo-600 duration-200 ease-in-out">
+            <a href="{{ route('certificate.index') }}" :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
+                class="{{ request()->routeIs('certificate.index') ? 'bg-indigo-500 border-indigo-600' : '' }} flex items-center gap-4 block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-indigo-500 hover:border-indigo-600 duration-200 ease-in-out">
                 <i class="bi bi-award-fill text-xl"></i>
                 <span :class="{ 'hidden': !isOpen }"
                     class="transition-opacity duration-200 ease-in-out">Sertifikat</span>

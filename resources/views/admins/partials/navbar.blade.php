@@ -49,6 +49,12 @@
                     <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">permohonan
                         klaim</span>
                 </a>
+                <a href="{{ route('admin.articles.index') }}"
+                    :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
+                    class="flex items-center {{ request()->routeIs(['admin.articles.index', 'admin.articles.create']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
+                    <i class="bi bi-card-heading text-xl"></i>
+                    <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Kelola Artikel</span>
+                </a>
                 <a href="{{ route('admin.notifications.index') }}"
                     :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
                     class="flex items-center {{ request()->routeIs('admin.notifications.index') ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">

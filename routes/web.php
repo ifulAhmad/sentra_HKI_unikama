@@ -8,11 +8,12 @@ use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\GuestHakCiptaController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ClaimApplicantDataController;
 use App\Http\Controllers\SubmissionProgressController;
 use App\Http\Controllers\AdminSubmissionAccessController;
 use App\Http\Controllers\AdminApplicantsAccessController;
-
+use App\Http\Controllers\ArticleController;
 
 Route::get('/', function () {
     return view('guest.index');
@@ -78,8 +79,8 @@ Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () 
 // pengajuan
 Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () {
     // logic pengajuan view n create
-    Route::get('pengajuan', [SubmissionController::class, 'index'])->name('submission.index');
-    Route::post('pengajuan', [SubmissionController::class, 'submissionCreate'])->name('submission.create');
+    Route::get('submission', [SubmissionController::class, 'index'])->name('submission.index');
+    Route::post('submission', [SubmissionController::class, 'submissionCreate'])->name('submission.create');
 
     Route::post('check-nik', [SubmissionController::class, 'checkNik'])->name('check.nik');
 });
@@ -106,9 +107,10 @@ Route::get('users/detail-notification', function () {
 
 
 // sertificate
-Route::get('users/sertificate', function () {
-    return view('users.sertificate.index');
-})->name('sertificate.index')->middleware(['auth', 'role:pemohon']);
+Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () {
+    Route::get('certificate', [CertificateController::class, 'index'])->name('certificate.index');
+    Route::get('certificate/{submission:uuid}/download', [CertificateController::class, 'download'])->name('certificate.download');
+});
 
 
 
@@ -132,11 +134,18 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::post('submission/{submission:uuid}/diterima', [AdminSubmissionAccessController::class, 'statusDiterima'])->name('admin.submission.diterima');
 });
 
+// claim applicant
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('claim', [AdminApplicantClaimController::class, 'index'])->name('admin.claim.index');
     Route::get('claim/data/{claimData:uuid}', [AdminApplicantClaimController::class, 'detail'])->name('admin.claim.detail');
     Route::post('claim/data/{claimData:uuid}/accept', [AdminApplicantClaimController::class, 'accept'])->name('admin.claim.accept');
     Route::post('claim/data/{claimData:uuid}/reject', [AdminApplicantClaimController::class, 'reject'])->name('admin.claim.reject');
+});
+
+// articles
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('articles', [ArticleController::class, 'index'])->name('admin.articles.index');
+    Route::get('articles/create', [ArticleController::class, 'create'])->name('admin.articles.create');
 });
 
 // notification
