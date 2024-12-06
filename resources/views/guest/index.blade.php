@@ -1,7 +1,7 @@
 @extends('guest.partials.main')
 
 @section('content')
-<div class="container">
+<div class="w-full">
     <section class="md:flex-row flex items-center justify-center flex-col gap-8 mb-8">
         <div class="text-center flex-1">
             <div class="w-full h-auto rounded-3xl overflow-hidden">
@@ -22,30 +22,47 @@
         </div>
     </section>
 
-    <section class="mb-8 p-4 rounded-lg bg-gray-100">
-        <div class="m-4">
+    @if ($news->count())
+    <section class="mb-8 p-6 rounded-lg bg-gray-100">
+        <div class="m-4 flex items-center justify-between">
             <h1 class="text-xl font-semibold">Artikel Terbaru</h1>
+            <a href="#" class="p-2 text-gray-700 text-sm rounded-md bg-amber-100 hover:underline">Semua
+                Berita &raquo;</a>
         </div>
-        <div class="grid md:grid-cols-3 grid-cols-1 items-center justify-center gap-3">
+        <div class="grid md:grid-cols-3 grid-cols-1 items-center justify-center gap-4">
             <!-- items -->
+            @foreach ($news as $n)
             <div class="h-full p-3 rounded-lg bg-white shadow-md">
-                <a href="#" class="text-gray-800 hover:underline hover:text-amber-600">
+                <a href="#" class="text-gray-800 hover:text-amber-600">
+                    @if ($n->image)
                     <div class="w-full h-[180px]">
-                        <img src="https://i1.wp.com/cdn-2.tstatic.net/pontianak/foto/bank/images/bersatu-dalam-perbedaan_20150722_232408.jpg" alt="image-article.jpg" class="w-full h-full">
+                        <img src="{{ asset('storage/' . $n->image) }}" alt="image-article.jpg"
+                            class="w-full h-full rounded-lg">
                     </div>
-                    <h1 class="font-semibold text-lg">Lorem ipsum dolor sit amet conse ctetur, adipi sicing elit.</h1>
+                    @else
+                    <div class="w-full h-[180px] bg-white flex items-center justify-center">
+                        <p class="text-gray-400 text-lg">NOTHING IMAGE</p>
+                    </div>
+                    @endif
+                    <h1 class="font-semibold my-2">{{ $n->title }}</h1>
                 </a>
                 <div class="my-2">
-                    <p class="text-sm text-gray-400 flex items-center gap-2"><span>12 desember 2024</span> <i class="bi bi-person-fill"> </i> <span><i class="bi bi-chat-fill"></i> 0</span></p>
+                    <p class="text-xs text-gray-400 flex items-center gap-2">
+                        <span>{{ \Carbon\Carbon::parse($n->created_at)->format('d F Y') }}</span> <i
+                            class="bi bi-person-fill"> </i> <span><i class="bi bi-chat-fill"></i> 0</span>
+                    </p>
                 </div>
                 <div class="text-end">
-                    <a href="#" class="text-amber-600 hover:underline">Baca Selengkapnya &raquo;</a>
+                    <a href="#" class="text-amber-600 text-sm hover:underline">Baca Selengkapnya
+                        &raquo;</a>
                 </div>
             </div>
+            @endforeach
         </div>
     </section>
+    @endif
 
-    <section class="mb-3 md:px-16">
+    <section class="mb-3">
         <div class=" mx-3">
             <h1 class="font-bold text-2xl">FAQs</h1>
             <div class="bg-amber-600 w-28 h-[4px] rounded my-3"></div>

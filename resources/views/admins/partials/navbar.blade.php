@@ -23,41 +23,41 @@
             <div class="flex justify-center gap-2 flex-col">
                 <a href="{{ route('admin.dashboard.index') }}"
                     :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                    class="flex items-center {{ request()->routeIs('admin.dashboard.index') ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
+                    class="flex items-center {{ request()->routeIs('admin.dashboard.index') ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">
                     <i class="bi bi-house text-xl"></i>
                     <span :class="{ 'hidden': !isOpen }"
                         class="transition-opacity duration-200 ease-in-out">Dashboard</span>
                 </a>
                 <a href="{{ route('admin.submission.index') }}"
                     :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                    class="flex items-center {{ request()->routeIs(['admin.submission.index', 'admin.submission.detail']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
+                    class="flex items-center {{ request()->routeIs(['admin.submission.index', 'admin.submission.detail']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">
                     <i class="bi bi-file-earmark-text text-xl"></i>
                     <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Rekap Data
                         Pengajuan</span>
                 </a>
                 <a href="{{ route('admin.applicant.index') }}"
                     :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                    class="flex items-center {{ request()->routeIs(['admin.applicant.index', 'admin.applicant.detail']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
+                    class="flex items-center {{ request()->routeIs(['admin.applicant.index', 'admin.applicant.detail']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">
                     <i class="bi bi-person-lines-fill text-xl"></i>
                     <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Rekap Data
                         Pemohon</span>
                 </a>
                 <a href="{{ route('admin.claim.index') }}"
                     :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                    class="flex items-center {{ request()->routeIs(['admin.claim.index', 'admin.claim.detail']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
+                    class="flex items-center {{ request()->routeIs(['admin.claim.index', 'admin.claim.detail']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">
                     <i class="bi bi-person-fill-gear text-xl"></i>
-                    <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">permohonan
-                        klaim</span>
+                    <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Permohonan
+                        Klaim</span>
                 </a>
-                <a href="{{ route('admin.articles.index') }}"
+                <a href="{{ route('admin.news.index') }}"
                     :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                    class="flex items-center {{ request()->routeIs(['admin.articles.index', 'admin.articles.create']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
+                    class="flex items-center {{ request()->routeIs(['admin.news.index', 'admin.news.create', 'admin.news.edit']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">
                     <i class="bi bi-card-heading text-xl"></i>
-                    <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Kelola Artikel</span>
+                    <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Kelola Berita</span>
                 </a>
                 <a href="{{ route('admin.notifications.index') }}"
                     :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                    class="flex items-center {{ request()->routeIs('admin.notifications.index') ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-base font-medium rounded-md duration-200 ease-in-out">
+                    class="flex items-center {{ request()->routeIs('admin.notifications.index') ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">
                     <i class="bi bi-bell text-xl"></i>
                     <span :class="{ 'hidden': !isOpen }"
                         class="transition-opacity duration-200 ease-in-out">Notifikasi</span>

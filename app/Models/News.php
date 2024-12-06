@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasUuid;
 
-class Article extends Model
+class News extends Model
 {
     use HasFactory, HasUuid;
-    protected $guarded = ['uuoid'];
+    protected $table = 'news';
+    protected $guarded = ['uuid'];
 }

@@ -1,28 +1,26 @@
 <?php
 
-use App\Http\Controllers\AdminApplicantClaimController;
 use App\Models\Submission;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\GuestHakCiptaController;
-use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ClaimApplicantDataController;
 use App\Http\Controllers\SubmissionProgressController;
-use App\Http\Controllers\AdminSubmissionAccessController;
+use App\Http\Controllers\AdminApplicantClaimController;
 use App\Http\Controllers\AdminApplicantsAccessController;
-use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AdminSubmissionAccessController;
 
-Route::get('/', function () {
-    return view('guest.index');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('hak-cipta')->group(function () {
     Route::get('pengenalan', [GuestHakCiptaController::class, 'pengenalan'])->name('pengenalan');
     Route::get('prosedur-pengajuan', [GuestHakCiptaController::class, 'prosedurPengajuan'])->name('prosedurPengajuan');
-    Route::get('pengajuan', [GuestHakCiptaController::class, 'pengajuan'])->name('pengajuan');
     Route::get('jenis-ciptaan', [GuestHakCiptaController::class, 'jenisCiptaan'])->name('jenisCiptaan');
     Route::get('syarat-lampiran', [GuestHakCiptaController::class, 'syaratLampiran'])->name('syaratLampiran');
 });
@@ -144,8 +142,12 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
 // articles
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('articles', [ArticleController::class, 'index'])->name('admin.articles.index');
-    Route::get('articles/create', [ArticleController::class, 'create'])->name('admin.articles.create');
+    Route::get('news', [NewsController::class, 'index'])->name('admin.news.index');
+    Route::get('news/create', [NewsController::class, 'create'])->name('admin.news.create');
+    Route::post('news/create', [NewsController::class, 'store'])->name('admin.news.store');
+    Route::get('news/access/{news:uuid}/edit', [NewsController::class, 'edit'])->name('admin.news.edit');
+    Route::put('news/access/{news:uuid}/update', [NewsController::class, 'update'])->name('admin.news.update');
+    Route::delete('news/access/{news:uuid}/delete', [NewsController::class, 'delete'])->name('admin.news.delete');
 });
 
 // notification

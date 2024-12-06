@@ -14,10 +14,6 @@ class GuestHakCiptaController extends Controller
     {
         return view('guest.hak_cipta.prosedur_pengajuan');
     }
-    public function pengajuan()
-    {
-        return view('guest.hak_cipta.pengajuan');
-    }
     public function jenisCiptaan()
     {
         return view('guest.hak_cipta.jenis_ciptaan');

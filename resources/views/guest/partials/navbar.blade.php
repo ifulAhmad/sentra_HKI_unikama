@@ -48,8 +48,8 @@
                                         class="{{ request()->routeIs('prosedurPengajuan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }} block px-4 py-2 text-sm"
                                         role="menuitem" tabindex="-1" id="user-menu-item-0">Cara Pengajuan</a>
 
-                                    <a href="{{ route('pengajuan') }}"
-                                        class="{{ request()->routeIs('pengajuan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }} block px-4 py-2 text-sm"
+                                    <a href="{{ route('submission.index') }}"
+                                        class="hover:bg-indigo-100 text-gray-700 block px-4 py-2 text-sm"
                                         role="menuitem" tabindex="-1" id="user-menu-item-0">Pengajuan</a>
 
                                     <a href="{{ route('jenisCiptaan') }}"
@@ -219,8 +219,8 @@
                         class="block px-4 py-2 text-base font-medium {{ request()->routeIs('prosedurPengajuan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }}">Cara
                         Pengajuan</a>
 
-                    <a href="{{ route('pengajuan') }}"
-                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('pengajuan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }}">Pengajuan</a>
+                    <a href="{{ route('submission.index') }}"
+                        class="block px-4 py-2 text-base font-medium hover:bg-indigo-100 text-gray-700">Pengajuan</a>
 
                     <a href="{{ route('jenisCiptaan') }}"
                         class="block px-4 py-2 text-base font-medium {{ request()->routeIs('jenisCiptaan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }}">Jenis
