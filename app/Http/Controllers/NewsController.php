@@ -22,12 +22,16 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $validatedNewsData = $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image1' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image2' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'caption1' => 'nullable',
+            'caption2' => 'nullable',
             'title' => 'required',
             'content' => 'required',
         ]);
-        if ($request->file('image')) {
-            $validatedNewsData['image'] = $request->file('image')->store('news-images');
+        if ($request->file('image1') || $request->file('image2')) {
+            $validatedNewsData['image1'] = $request->file('image1')->store('news-images');
+            $validatedNewsData['image2'] = $request->file('image2')->store('news-images');
         }
         News::create($validatedNewsData);
         return redirect()->route('admin.news.index')->with('success', 'Berita berhasil ditambahkan');
@@ -40,15 +44,22 @@ class NewsController extends Controller
     public function update(Request $request, News $news)
     {
         $validatedNewsData = $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image1' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image2' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'caption1' => 'nullable',
+            'caption2' => 'nullable',
             'title' => 'required',
             'content' => 'required',
         ]);
-        if ($request->file('image')) {
-            if ($news->image) {
-                Storage::delete($news->image);
+        if ($request->file('image1') || $request->file('image2')) {
+            if ($news->image1) {
+                Storage::delete($news->image1);
             }
-            $validatedNewsData['image'] = $request->file('image')->store('news-images');
+            if ($news->image2) {
+                Storage::delete($news->image2);
+            }
+            $validatedNewsData['image1'] = $request->file('image1')->store('news-images');
+            $validatedNewsData['image2'] = $request->file('image2')->store('news-images');
         }
         News::where('uuid', $news->uuid)->update($validatedNewsData);
         return redirect()->route('admin.news.index')->with('success', 'Berita berhasil diperbarui');
@@ -56,8 +67,11 @@ class NewsController extends Controller
 
     public function delete(News $news)
     {
-        if ($news->image) {
-            Storage::delete($news->image);
+        if ($news->image1) {
+            Storage::delete($news->image1);
+        }
+        if ($news->image2) {
+            Storage::delete($news->image2);
         }
         News::where('uuid', $news->uuid)->delete();
         return redirect()->back()->with('success', 'Berita berhasil dihapus');

@@ -11,14 +11,44 @@
             @csrf
 
             <div class="mb-4">
-                <label for="image" class="block text-gray-700 font-semibold mb-2">Gambar Berita</label>
+                <label for="image1" class="block text-gray-700 font-semibold mb-2">Gambar 1 (opsional)</label>
                 <div id="preview-container" class="mb-4">
-                    <img id="preview-image" src="" alt="Preview Gambar"
+                    <img id="preview-image1" src="" alt="Preview Gambar"
                         class="hidden w-96 h-48 object-cover rounded-md border">
                 </div>
-                <input type="file" id="image" name="image"
+                <input type="file" id="image1" name="image1"
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                @error('image')
+                @error('image1')
+                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-4">
+                <label for="caption1" class="block text-gray-700 font-semibold mb-2">Caption Image 1(opsional)</label>
+                <input type="text" id="caption1" name="caption1"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    value="{{ old('caption1') }}">
+                @error('caption1')
+                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-4">
+                <label for="image2" class="block text-gray-700 font-semibold mb-2">Gambar 2 (opsional)</label>
+                <div id="preview-container" class="mb-4">
+                    <img id="preview-image2" src="" alt="Preview Gambar"
+                        class="hidden w-96 h-48 object-cover rounded-md border">
+                </div>
+                <input type="file" id="image2" name="image2"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                @error('image2')
+                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-4">
+                <label for="caption2" class="block text-gray-700 font-semibold mb-2">Caption Image 2(opsional)</label>
+                <input type="text" id="caption2" name="caption2"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    value="{{ old('caption2') }}">
+                @error('caption2')
                 <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                 @enderror
             </div>
@@ -56,20 +86,36 @@
     });
 
     $(document).ready(function() {
-        $('#image').on('change', function(event) {
+        $('#image1').on('change', function(event) {
             const file = event.target.files[0];
-            const $previewImage = $('#preview-image');
+            const $previewImage = $('#preview-image1');
 
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    $previewImage.attr('src', e.target.result); // Mengatur sumber gambar
-                    $previewImage.removeClass('hidden'); // Menampilkan elemen gambar
+                    $previewImage.attr('src', e.target.result);
+                    $previewImage.removeClass('hidden');
                 };
-                reader.readAsDataURL(file); // Membaca file sebagai Data URL
+                reader.readAsDataURL(file);
             } else {
                 $previewImage.attr('src', '').addClass(
-                    'hidden'); // Sembunyikan gambar jika tidak ada file
+                    'hidden');
+            }
+        });
+        $('#image2').on('change', function(event) {
+            const file = event.target.files[0];
+            const $previewImage = $('#preview-image2');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    $previewImage.attr('src', e.target.result);
+                    $previewImage.removeClass('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                $previewImage.attr('src', '').addClass(
+                    'hidden');
             }
         });
     });

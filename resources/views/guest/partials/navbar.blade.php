@@ -99,9 +99,9 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('pengumuman') }}"
-                        class="{{ request()->routeIs('pengumuman') ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium"
-                        aria-current="page">Pengumuman</a>
+                    <a href="{{ route('news') }}"
+                        class="{{ request()->routeIs(['news', 'news.detail']) ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium"
+                        aria-current="page">Berita</a>
                     <a href="{{ route('kontak') }}"
                         class="{{ request()->routeIs('kontak') ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }} rounded-md  px-3 py-2 text-sm font-medium"
                         aria-current="page">Kontak</a>
@@ -259,8 +259,8 @@
                 </div>
             </div>
 
-            <a href="{{ route('pengumuman') }}"
-                class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('pengumuman') ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }}">Pengumuman</a>
+            <a href="{{ route('news') }}"
+                class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs(['news', 'news.detail']) ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }}">Berita</a>
             <a href="{{ route('kontak') }}"
                 class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('kontak') ? 'bg-amber-600 text-white' : 'hover:bg-amber-600 hover:text-white' }}">Kontak</a>
         </div>

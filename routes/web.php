@@ -15,6 +15,7 @@ use App\Http\Controllers\SubmissionProgressController;
 use App\Http\Controllers\AdminApplicantClaimController;
 use App\Http\Controllers\AdminApplicantsAccessController;
 use App\Http\Controllers\AdminSubmissionAccessController;
+use App\Http\Controllers\NewsForGuestController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -33,10 +34,10 @@ Route::get('tarif-pelayanan', function () {
     return view('guest.tarif_pelayanan');
 })->name('tarifPelayanan');
 
-Route::get('pengumuman', function () {
-    return view('guest.pengumuman');
-})->name('pengumuman');
-
+Route::prefix('berita')->group(function () {
+    Route::get('', [NewsForGuestController::class, 'index'])->name('news');
+    Route::get('{news:uuid}/detail', [NewsForGuestController::class, 'detail'])->name('news.detail');
+});
 Route::get('kontak', function () {
     return view('guest.kontak');
 })->name('kontak');
@@ -140,7 +141,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::post('claim/data/{claimData:uuid}/reject', [AdminApplicantClaimController::class, 'reject'])->name('admin.claim.reject');
 });
 
-// articles
+// news
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('news', [NewsController::class, 'index'])->name('admin.news.index');
     Route::get('news/create', [NewsController::class, 'create'])->name('admin.news.create');

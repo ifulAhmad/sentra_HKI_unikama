@@ -15,7 +15,10 @@ return new class extends Migration
             $table->uuid('uuid');
             $table->string('title');
             $table->text('content');
-            $table->text('image')->nullable();
+            $table->text('image1')->nullable();
+            $table->text('caption1')->nullable();
+            $table->text('image2')->nullable();
+            $table->text('caption2')->nullable();
             $table->timestamps();
         });
     }

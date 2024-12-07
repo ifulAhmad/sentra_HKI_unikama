@@ -4,7 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HKI UNIKAMA</title>
+
+    <meta name="description" content="Setra HKI Unikama - Pusat layanan pengajuan dan pengelolaan hak kekayaan intelektual di Universitas Kanjuruhan Malang. Mudah, cepat, dan terpercaya.">
+    <meta name="keywords" content="Setra HKI, HKI Unikama, hak kekayaan intelektual, Unikama, Universitas Kanjuruhan Malang, pengajuan HKI, layanan HKI">
+    <meta name="author" content="Universitas Kanjuruhan Malang">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Setra HKI Unikama - Layanan HKI Universitas Kanjuruhan Malang">
+    <meta property="og:description" content="Pusat layanan pengajuan dan pengelolaan hak kekayaan intelektual di Universitas Kanjuruhan Malang. Mudah, cepat, dan terpercaya.">
+    <!-- <meta property="og:url" content=""> -->
+    <meta property="og:type" content="website">
+
+    <title>SENTRA HKI UNIKAMA</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/Unikama.png') }}">
     @vite('resources/css/app.css')
     {{-- alpine js --}}
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
