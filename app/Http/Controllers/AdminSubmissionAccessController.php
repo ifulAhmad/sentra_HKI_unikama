@@ -10,10 +10,24 @@ use PhpParser\Node\Stmt\TryCatch;
 
 class AdminSubmissionAccessController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $submissions = Submission::orderBy('judul', 'asc')->paginate(20);
-        return view('admins.submission.index', compact('submissions'));
+        $query = Submission::query();
+        $sort = $request->input('sort');
+        if ($sort == 'asc') {
+            $query->orderBy('judul', 'asc');
+        } else if ($sort == 'desc') {
+            $query->orderBy('judul', 'desc');
+        } else if ($sort == 'newest') {
+            $query->orderBy('created_at', 'desc');
+        } else if ($sort == 'oldest') {
+            $query->orderBy('created_at', 'asc');
+        } else {
+            $query->orderBy('judul', 'asc');
+        }
+
+        $submissions = $query->paginate(20);
+        return view('admins.submission.index', compact('submissions', 'sort'));
     }
     public function detail(Submission $submission)
     {

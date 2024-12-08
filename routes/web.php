@@ -12,10 +12,13 @@ use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\GuestHakCiptaController;
 use App\Http\Controllers\ClaimApplicantDataController;
 use App\Http\Controllers\SubmissionProgressController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminApplicantClaimController;
 use App\Http\Controllers\AdminApplicantsAccessController;
 use App\Http\Controllers\AdminSubmissionAccessController;
 use App\Http\Controllers\NewsForGuestController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ChangeAccountController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -114,9 +117,7 @@ Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () 
 
 
 // ADMINS
-Route::get('admin/index', function () {
-    return view('admins.dashboard.index');
-})->name('admin.dashboard.index')->middleware(['auth', 'role:admin']);
+Route::get('admin/index', [AdminDashboardController::class, 'index'])->name('admin.dashboard.index')->middleware(['auth', 'role:admin']);
 
 // applicant access
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
@@ -155,3 +156,16 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 Route::get('admin/notification', function () {
     return view('admins.notifications.index');
 })->name('admin.notifications.index')->middleware(['auth', 'role:admin']);
+
+
+// search
+Route::get('search', [SearchController::class, 'index'])->name('admin.search');
+
+// change account
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('check-password', [ChangeAccountController::class, 'formCheck'])->name('admin.account.check');
+    Route::post('check-password', [ChangeAccountController::class, 'checkPassword'])->name('admin.check.password');
+
+    Route::get('account', [ChangeAccountController::class, 'index'])->name('admin.account.index');
+    Route::put('change-account/{user:id}/update', [ChangeAccountController::class, 'update'])->name('admin.change.account.update');
+});

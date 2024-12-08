@@ -32,27 +32,19 @@
         <h4 class="text-lg font-semibold text-gray-700">{{ $applicants->count() }} Pengajuan Terdaftar</h4>
         <div class="flex flex-wrap items-center gap-4">
             <p class="font-medium text-gray-600">Filters :</p>
-            <form action="">
-                <select name="" id="" class="bg-white rounded-md p-2 border border-gray-300 focus:ring focus:ring-blue-200">
-                    <option selected disabled>Urutkan Berdasarkan</option>
-                    <option value="">Dari A-Z</option>
-                    <option value="">Dari Z-A</option>
-                    <option value="">Waktu Terbaru</option>
-                    <option value="">Waktu Terlama</option>
+            <form action="{{ route('admin.applicant.index') }}" class="flex items-center gap-3">
+                <select name="sort"
+                    class="bg-white rounded-md p-2 border border-gray-300 focus:ring focus:ring-blue-200">
+                    <option disabled {{ is_null($sort) ? 'selected' : '' }}>Urutkan Berdasarkan</option>
+                    <option value="asc" {{ $sort === 'asc' ? 'selected' : '' }}>Dari A-Z</option>
+                    <option value="desc" {{ $sort === 'desc' ? 'selected' : '' }}>Dari Z-A</option>
+                    <option value="newest" {{ $sort === 'newest' ? 'selected' : '' }}>Waktu Terbaru</option>
+                    <option value="oldest" {{ $sort === 'oldest' ? 'selected' : '' }}>Waktu Terlama</option>
                 </select>
-            </form>
-            <form action="">
-                <select name="" id="" class="bg-white rounded-md p-2 border border-gray-300 focus:ring focus:ring-blue-200">
-                    <option selected disabled>Grup Sesuai Jenis</option>
-                    <option value="">Karya Tulis</option>
-                    <option value="">Karya Seni</option>
-                    <option value="">Komposisi Musik</option>
-                    <option value="">Karya Audio Visual</option>
-                    <option value="">Karya Fotografi</option>
-                    <option value="">Karya Drama dan Koreografi</option>
-                    <option value="">Karya Rekaman</option>
-                    <option value="">Karya Lainnya</option>
-                </select>
+                <button type="submit"
+                    class="px-4 py-2 text-sm bg-indigo-500 text-white rounded-md hover:bg-indigo-600">
+                    <i class="bi bi-search"></i>
+                </button>
             </form>
         </div>
     </div>
@@ -63,24 +55,25 @@
         <table class="min-w-full text-sm table-auto">
             <thead class="bg-indigo-400 text-white uppercase text-sm">
                 <tr>
-                    <th class="py-3 px-6 text-left">#</th>
-                    <th class="py-3 px-6 text-left">NIK</th>
-                    <th class="py-3 px-6 text-left">Nama</th>
-                    <th class="py-3 px-6 text-left">Email</th>
-                    <th class="py-3 px-6 text-left">Kontak</th>
-                    <th class="py-3 px-6 text-left">Aksi</th>
+                    <th class="py-2 px-6 text-left">#</th>
+                    <th class="py-2 px-6 text-left">NIK</th>
+                    <th class="py-2 px-6 text-left">Nama</th>
+                    <th class="py-2 px-6 text-left">Email</th>
+                    <th class="py-2 px-6 text-left">Kontak</th>
+                    <th class="py-2 px-6 text-left">Aksi</th>
                 </tr>
             </thead>
             <tbody class="text-gray-600">
                 @foreach ($applicants as $applicant)
                 <tr class="border-b hover:bg-gray-50">
-                    <td class="py-3 px-6">{{ $loop->iteration }}</td>
-                    <td class="py-3 px-6">{{ $applicant->nik }}</td>
-                    <td class="py-3 px-6">{{ $applicant->nama }}</td>
-                    <td class="py-3 px-6">{{ $applicant->email }}</td>
-                    <td class="py-3 px-6">{{ $applicant->kontak }}</td>
-                    <td class="py-3 px-6">
-                        <a href="{{ route('admin.applicant.detail', $applicant->nik) }}" class="text-indigo-600 hover:underline">Detail</a>
+                    <td class="py-2 px-6">{{ $loop->iteration }}</td>
+                    <td class="py-2 px-6">{{ $applicant->nik }}</td>
+                    <td class="py-2 px-6">{{ $applicant->nama }}</td>
+                    <td class="py-2 px-6">{{ $applicant->email }}</td>
+                    <td class="py-2 px-6">{{ $applicant->kontak }}</td>
+                    <td class="py-2 px-6">
+                        <a href="{{ route('admin.applicant.detail', $applicant->nik) }}"
+                            class="text-indigo-600 hover:underline">Detail</a>
                     </td>
                 </tr>
                 @endforeach
