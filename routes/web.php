@@ -10,7 +10,7 @@ use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\GuestHakCiptaController;
-use App\Http\Controllers\ClaimApplicantDataController;
+use App\Http\Controllers\ApplicantNotificationController;
 use App\Http\Controllers\SubmissionProgressController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminApplicantClaimController;
@@ -99,13 +99,11 @@ Route::prefix('/')->middleware(['role:pemohon,admin'])->group(function () {
     Route::delete('comment/create/{comment:uuid}/delete', [CommentController::class, 'delete'])->name('comment.delete');
 });
 
-// feedback
-Route::get('users/notification', function () {
-    return view('users.notification.index');
-})->name('notification.index')->middleware(['auth', 'role:pemohon']);
-Route::get('users/detail-notification', function () {
-    return view('users.notification.detail');
-})->name('notification.detail')->middleware(['auth', 'role:pemohon']);
+// Notificarion
+Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () {
+    Route::get('notification', [ApplicantNotificationController::class, 'index'])->name('notification.index');
+    // buat route untuk notifikasi sudah dibaca 1 notif 
+});
 
 
 // sertificate

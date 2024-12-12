@@ -1,4 +1,4 @@
-<header class="flex items-center justify-between bg-indigo-100 py-3 px-5 sticky top-0 z-[99]">
+<header class="flex items-center justify-between bg-indigo-100 py-3 px-5 sticky top-0 z-[90]">
     <!-- search -->
     <form action="{{ route('admin.search') }}" class="flex items-center gap-3">
         <input type="search" name="query" value="{{ request('query') }}" placeholder="Search..."

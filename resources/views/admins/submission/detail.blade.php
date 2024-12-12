@@ -173,10 +173,9 @@
                 @endif
                 <div class="bg-white rounded-md shadow-md p-3 mb-3">
                     <div class="flex-1 rounded-md overflow-hidden text-center mb-3">
-                        <form action="{{ route('admin.submission.revisi', $submission->uuid) }}" method="post"
-                            class="w-full">
+                        <form action="{{ route('admin.submission.revisi', $submission->uuid) }}" method="post">
                             @csrf
-                            @method('PUT')
+                            @method('put')
                             <button type="submit"
                                 class="p-2 w-full bg-orange-400 duration-100 text-white disabled:cursor-not-allowed disabled:opacity-50"
                                 onclick="return confirm('Apakah anda yakin mengubah status menjadi Revisi?')"
@@ -185,6 +184,7 @@
                             </button>
                         </form>
                     </div>
+
                     <div class="flex items-center gap-3 mb-3">
                         <div class="flex-1 rounded-md overflow-hidden text-center">
                             <a href="#" class="p-2 block bg-green-500 duration-100 hover:bg-green-600 text-white">
@@ -270,7 +270,7 @@
                                 @foreach ($comments as $comment)
                                     <div
                                         class="
-                                        {{-- change '1' to 'auth()->user()->id' if admin get ready the login logic --}}
+                                    
                                     @if ($comment->user_id == auth()->user()->id) text-end @endif flex-col gap-2 text-sm border-b pb-2 mb-2">
                                         <div
                                             class="flex items-center justify-between @if ($comment->user_id == auth()->user()->id) flex-row-reverse @endif">
@@ -371,6 +371,7 @@
                 $('#file-content').html('<iframe src="' + fileUrl +
                     '" class="w-full h-full" frameborder="0"></iframe>');
             });
+
 
             $('#close-modal').click(function() {
                 $('#file-modal').addClass('hidden');

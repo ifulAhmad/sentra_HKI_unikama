@@ -73,12 +73,10 @@ class SubmissionController extends Controller
         ];
 
         try {
+            // submission create
             $submission = Submission::create($validatedSubmission);
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data pengajuan.');
-        }
-        // save applicant
-        try {
+
+            // applicant
             foreach ($validatedApplicant['applicant']['nama'] as $index => $nama) {
 
                 $applicant = Applicant::firstOrCreate(
@@ -103,12 +101,7 @@ class SubmissionController extends Controller
                     'updated_at' => now(),
                 ]);
             }
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data Pemohon.');
-        }
-
-        // save submission files
-        try {
+            // create file submission
             $validatedSubmissionFiles = $request->validate($rulesFile);
             $validatedSubmissionFiles['submission_uuid'] = $submission->uuid;
             $fileFields = [
@@ -125,6 +118,7 @@ class SubmissionController extends Controller
                     $validatedSubmissionFiles[$field] = $field === 'file_pengalihan_karya_cipta' ? null : $validatedSubmissionFiles[$field] ?? null;
                 }
             }
+            
             SubmissionFiles::create([
                 'submission_uuid' => $validatedSubmissionFiles['submission_uuid'],
                 'link_ciptaan' => $validatedSubmissionFiles['link_ciptaan'],
