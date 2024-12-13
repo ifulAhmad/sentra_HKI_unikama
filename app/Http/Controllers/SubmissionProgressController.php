@@ -16,10 +16,9 @@ class SubmissionProgressController extends Controller
     {
         $user = User::where('id', auth()->user()->id)->first();
         $applicant = Applicant::where('user_id', $user->id)->first();
-        $copyrightTypes = CopyrightType::orderby('type', 'asc')->get();
         if ($applicant) {
             $submissions = $applicant->submissions;
-            return view('users.progress.index', compact('submissions', 'applicant', 'copyrightTypes'));
+            return view('users.progress.index', compact('submissions', 'applicant'));
         }
         return redirect()->route('profile.adjustment')->with('error', 'Anda harus melengkapi data profil terlebih dahulu!');
     }

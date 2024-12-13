@@ -9,6 +9,9 @@ use App\Models\Submission;
 use App\Models\SubmissionFiles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ApplicantSubmissionCreate;
+
 
 class SubmissionController extends Controller
 {
@@ -118,7 +121,7 @@ class SubmissionController extends Controller
                     $validatedSubmissionFiles[$field] = $field === 'file_pengalihan_karya_cipta' ? null : $validatedSubmissionFiles[$field] ?? null;
                 }
             }
-            
+
             SubmissionFiles::create([
                 'submission_uuid' => $validatedSubmissionFiles['submission_uuid'],
                 'link_ciptaan' => $validatedSubmissionFiles['link_ciptaan'],
@@ -127,11 +130,15 @@ class SubmissionController extends Controller
                 'file_scan_ktp' => $validatedSubmissionFiles['file_scan_ktp'],
                 'file_bukti_pembayaran' => $validatedSubmissionFiles['file_bukti_pembayaran'],
             ]);
+
+            $admins = User::where('role', 'admin')->get();
+            foreach ($admins as $admin) {
+                Notification::send($admin, new ApplicantSubmissionCreate($submission));
+            }
+            return redirect()->route('progress.index')->with('success', 'Submission berhasil ditambahkan');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data File.');
         }
-
-        return redirect()->route('progress.index')->with('success', 'Submission berhasil ditambahkan');
     }
 
     public function checkNik(Request $request)

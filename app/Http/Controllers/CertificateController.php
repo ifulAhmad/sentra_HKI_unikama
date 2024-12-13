@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Applicant;
 use App\Models\Certificate;
 use App\Models\Submission;
@@ -13,6 +14,11 @@ class CertificateController extends Controller
     // description : This function redirects a user to the certificate page and retrieves the certificates of the applicant from their submissions
     public function index()
     {
+        $user = User::where('id', auth()->user()->id)->first();
+        $applicant = Applicant::where('user_id', $user->id)->first();
+        if (!$applicant) {
+            return redirect()->route('profile.adjustment')->with('error', 'Anda harus melengkapi data profil terlebih dahulu!');
+        }
         $applicantId = Applicant::where('user_id', auth()->user()->id)->first()->id;
         $certificates = Certificate::whereHas('submission', function ($query) use ($applicantId) {
             $query->whereHas('applicants', function ($query) use ($applicantId) {

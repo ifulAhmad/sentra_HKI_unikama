@@ -6,6 +6,8 @@ use App\Models\Applicant;
 use App\Models\User;
 use App\Models\ClaimApplicantData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\RequestFromUserForClaimApplicantData;
 
 class ApplicantController extends Controller
 {
@@ -92,6 +94,10 @@ class ApplicantController extends Controller
             }
             $validatedData['status'] = 'pending';
             $claim = ClaimApplicantData::create($validatedData);
+            $admins = User::where('role', 'admin')->get();
+            foreach ($admins as $admin) {
+                Notification::send($admin, new RequestFromUserForClaimApplicantData($claim));
+            }
             return redirect()->route('claim.wait', $claim->uuid)->with('success', 'Klaim berhasil diajukan');
         }
         return redirect()->route('profile.adjustment')->with('error', 'Data sudah diklaim oleh user lain. Hubungi HKI untuk informasi lebih lanjut');

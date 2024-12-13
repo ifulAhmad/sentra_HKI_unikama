@@ -261,11 +261,11 @@
                         <span class="text-red-600">*</span></label>
                     <p class="text-sm py-2 text-gray-400">
                         Isikan link google drive yang berisikan file ciptaan
-                        anda!
+                        anda! pastikan link tersebut dimulai dengan <b>https://</b>
                     </p>
-                    <input type="text" id="link_ciptaan" name="link_ciptaan"
+                    <input type="text" id="link_ciptaan" name="link_ciptaan" pattern="https://.*"
                         class="w-full px-1 py-2 outline-0 border-b-2 @error('link_ciptaan') border-red-400 @enderror focus:border-amber-600"
-                        placeholder="link ciptaan" />
+                        placeholder="link ciptaan" value="{{ old('link_ciptaan') }}" />
                     @error('link_ciptaan')
                     <div class="text-red-600 text-sm">
                         {{ $message }}

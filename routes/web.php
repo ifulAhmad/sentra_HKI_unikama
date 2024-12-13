@@ -99,10 +99,11 @@ Route::prefix('/')->middleware(['role:pemohon,admin'])->group(function () {
     Route::delete('comment/create/{comment:uuid}/delete', [CommentController::class, 'delete'])->name('comment.delete');
 });
 
-// Notificarion
+// Notification
 Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () {
     Route::get('notification', [ApplicantNotificationController::class, 'index'])->name('notification.index');
-    // buat route untuk notifikasi sudah dibaca 1 notif 
+    Route::post('notification/readAll', [ApplicantNotificationController::class, 'markAllAsRead'])->name('notification.markAllAsRead');
+    Route::delete('notification/deleteAll', [ApplicantNotificationController::class, 'deleteAllNotif'])->name('notification.deleteAllNotif');
 });
 
 
@@ -152,6 +153,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
 // notification
 Route::get('admin/notification', function () {
+    // ubah notifikasi dari admin ke user yang di bagian revisi, reject n accept submission pakein foreach aja jangan make implements shouldQueue
+    $notifications = auth()->user()->notifications;
+    dd($notifications);
     return view('admins.notifications.index');
 })->name('admin.notifications.index')->middleware(['auth', 'role:admin']);
 
