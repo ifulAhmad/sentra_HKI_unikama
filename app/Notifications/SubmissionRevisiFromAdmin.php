@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SubmissionRevisiFromAdmin extends Notification implements ShouldQueue
+class SubmissionRevisiFromAdmin extends Notification 
 {
     use Queueable;
 

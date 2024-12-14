@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AdminSubmissionAccept;
+use App\Mail\AdminSubmissionReject;
+use App\Mail\AdminSubmissionRevisi;
 use App\Models\Certificate;
 use App\Models\Submission;
 use App\Models\Comment;
@@ -9,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Notifications\SubmissionRevisiFromAdmin;
 use App\Notifications\SubmissionAcceptFromAdmin;
 use App\Notifications\SubmissionRejectFromAdmin;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
 class AdminSubmissionAccessController extends Controller
@@ -49,13 +53,19 @@ class AdminSubmissionAccessController extends Controller
     public function statusRevisi(Submission $submission)
     {
         $submission->update(['status' => 'revisi']);
-        Notification::send($submission->applicants, new SubmissionRevisiFromAdmin($submission));
+        foreach ($submission->applicants as $applicant) {
+            Mail::to($applicant->email)->send(new AdminSubmissionRevisi($submission));
+            Notification::send($applicant, new SubmissionRevisiFromAdmin($submission));
+        }
         return redirect()->back()->with('success', 'Status Berhasil Diperbarui');
     }
     public function statusDitolak(Submission $submission)
     {
         $submission->update(['status' => 'ditolak']);
-        Notification::send($submission->applicants, new SubmissionRejectFromAdmin($submission));
+        foreach ($submission->applicants as $applicant) {
+            Mail::to($applicant->email)->send(new AdminSubmissionReject($submission));
+            Notification::send($applicant, new SubmissionRejectFromAdmin($submission));
+        }
         return redirect()->back()->with('success', 'Status Berhasil Diperbarui');
     }
 
@@ -72,7 +82,10 @@ class AdminSubmissionAccessController extends Controller
             $validatedData['submission_uuid'] = $submission->uuid;
             Certificate::create($validatedData);
             $submission->update(['status' => 'diterima']);
-            Notification::send($submission->applicants, new SubmissionAcceptFromAdmin($submission));
+            foreach ($submission->applicants as $applicant) {
+                Mail::to($applicant->email)->send(new AdminSubmissionAccept($submission));
+                Notification::send($applicant, new SubmissionAcceptFromAdmin($submission));
+            }
             return redirect()->back()->with('success', 'Sertifikat berhasil diberikan');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menerima data ' . $e->getMessage());

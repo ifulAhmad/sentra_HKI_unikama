@@ -10,6 +10,9 @@ class ClaimApplicantData extends Model
 {
     use HasFactory, HasUuid;
     protected $guarded = ['uuid'];
+    protected $primaryKey = 'uuid';
+    public $incrementing = false;
+    protected $keyType = 'string';
     public function applicant()
     {
         return $this->belongsTo(Applicant::class, 'applicant_id', 'id');

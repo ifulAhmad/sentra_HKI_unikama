@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Applicant;
 use App\Models\ClaimApplicantData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AdminApplicantClaimController extends Controller
 {
@@ -28,10 +29,20 @@ class AdminApplicantClaimController extends Controller
             if ($applicant->user_id == null) {
                 $applicant->user_id = $claimData->user_id;
                 $applicant->save();
+                // accepted
                 ClaimApplicantData::where('uuid', $claimData->uuid)->update(['status' => 'approved']);
-                ClaimApplicantData::where('applicant_id', $claimData->applicant_id)
+                Mail::to($applicant->user->email)
+                    ->send(new \App\Mail\AdminClaimAccept($applicant));
+
+                // rejected
+                $rejectedClaims = ClaimApplicantData::where('applicant_id', $claimData->applicant_id)
                     ->where('uuid', '!=', $claimData->uuid)
-                    ->update(['status' => 'rejected']);
+                    ->get();
+                foreach ($rejectedClaims as $rejectedClaim) {
+                    $rejectedClaim->update(['status' => 'rejected']);
+                    Mail::to($rejectedClaim->user->email)
+                        ->send(new \App\Mail\AdminClaimReject($rejectedClaim));
+                }
                 return redirect()->route('admin.applicant.index')->with('success', 'Data berhasil Diterima');
             }
         } catch (\Exception $e) {
@@ -52,6 +63,8 @@ class AdminApplicantClaimController extends Controller
         try {
             if ($applicant->user_id == null) {
                 ClaimApplicantData::where('uuid', $claimData->uuid)->update(['status' => 'rejected']);
+                Mail::to($claimData->user->email)
+                    ->send(new \App\Mail\AdminClaimReject($claimData));
                 return redirect()->back()->with('success', 'Data berhasil ditolak.');
             }
 

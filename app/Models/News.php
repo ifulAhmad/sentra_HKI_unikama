@@ -11,4 +11,7 @@ class News extends Model
     use HasFactory, HasUuid;
     protected $table = 'news';
     protected $guarded = ['uuid'];
+    protected $primaryKey = 'uuid';
+    public $incrementing = false;
+    protected $keyType = 'string';
 }

@@ -6,7 +6,7 @@
     <div class="bg-blue-600 h-[4px] rounded w-28 mt-2 mb-4"></div>
 
     {{-- dekstop table --}}
-    <div class="text-sm font-light rounded-md overflow-x-auto">
+    <div class="text-sm font-light bg-white rounded-lg overflow-x-auto">
         @if ($claimDatas)
         <table class="min-w-full table-auto">
             <thead>
@@ -39,7 +39,7 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="flex mt-5 justify-end">
+        <div class="flex p-4 justify-end">
             {{ $claimDatas->links() }}
         </div>
         @else

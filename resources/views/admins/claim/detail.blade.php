@@ -98,6 +98,7 @@
     </div>
     <div class="flex justify-end items-center gap-3 mb-5">
 
+        @if ($claimData->status != 'rejected')
         <form action="{{ route('admin.claim.reject', $claimData->uuid) }}" method="post">
             @csrf
             <button type="submit"
@@ -116,6 +117,7 @@
                 Terima permohonan
             </button>
         </form>
+        @endif
     </div>
 </div>
 

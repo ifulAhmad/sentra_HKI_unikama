@@ -10,6 +10,9 @@ class CopyrightSubType extends Model
 {
     use HasFactory, HasUuid;
     protected $guarded = ['uuid'];
+    protected $primaryKey = 'uuid';
+    public $incrementing = false;
+    protected $keyType = 'string';
     public function copyrightType()
     {
         return $this->belongsTo(CopyrightType::class);

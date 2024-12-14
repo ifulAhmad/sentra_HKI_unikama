@@ -10,6 +10,9 @@ class Comment extends Model
 {
     use HasFactory, HasUuid;
     protected $guarded = ['uuid'];
+    protected $primaryKey = 'uuid';
+    public $incrementing = false;
+    protected $keyType = 'string';
     public function user()
     {
         return $this->belongsTo(User::class);

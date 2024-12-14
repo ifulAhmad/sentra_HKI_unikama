@@ -70,6 +70,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class=" p-4 flex justify-end">
+            {{ $news->links() }}
+        </div>
     </div>
     @else
     <div class="text-center">

@@ -16,6 +16,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminApplicantClaimController;
 use App\Http\Controllers\AdminApplicantsAccessController;
 use App\Http\Controllers\AdminSubmissionAccessController;
+use App\Http\Controllers\AdminNotificationsController;
 use App\Http\Controllers\NewsForGuestController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ChangeAccountController;
@@ -152,12 +153,11 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 });
 
 // notification
-Route::get('admin/notification', function () {
-    // ubah notifikasi dari admin ke user yang di bagian revisi, reject n accept submission pakein foreach aja jangan make implements shouldQueue
-    $notifications = auth()->user()->notifications;
-    dd($notifications);
-    return view('admins.notifications.index');
-})->name('admin.notifications.index')->middleware(['auth', 'role:admin']);
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('notification', [AdminNotificationsController::class, 'index'])->name('admin.notifications.index');
+    Route::post('notification/mark-as-read-all', [AdminNotificationsController::class, 'readAllNotification'])->name('admin.notifications.markAsReadAll');
+    Route::delete('notification/delete-notifications-all', [AdminNotificationsController::class, 'deleteAllNotification'])->name('admin.notifications.deleteAllNotif');
+});
 
 
 // search

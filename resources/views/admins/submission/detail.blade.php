@@ -153,6 +153,13 @@
 
             {{-- Right Content --}}
             <div class="md:w-96 sticky top-20 max-h-[500px] overflow-y-auto">
+                @if ($files)
+                    <div class="mb-3 bg-white rounded-md shadow-md p-3">
+                        <p class="text-center mb-3">Link File Ciptaan</p>
+                        <a href="{{ $files->link_ciptaan }}" target="_blank" class="text-blue-600 hover:underline">link
+                            file ciptaan &raquo;</a>
+                    </div>
+                @endif
                 @if ($submission->certificate)
                     <div class="mb-3 bg-white rounded-md shadow-md p-3">
                         @if ($submission->certificate->link_certificate)
