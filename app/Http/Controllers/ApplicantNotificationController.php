@@ -17,13 +17,11 @@ class ApplicantNotificationController extends Controller
             return redirect()->route('profile.adjustment')->with('error', 'Anda harus melengkapi data profil terlebih dahulu!');
         }
 
-        $notifications = DatabaseNotification::where('notifiable_id', auth()->user()->id)->get();
+        $notifications = auth()->user()->applicant->notifications;
 
-        $notificationsUnread = DatabaseNotification::where('notifiable_id', auth()->user()->id)
-            ->where('read_at', null)->orderBy('created_at', 'desc')->get();
+        $notificationsUnread = auth()->user()->applicant->unreadNotifications;
 
-        $notificationsRead = DatabaseNotification::where('notifiable_id', auth()->user()->id)
-            ->where('read_at', '!=', null)->orderBy('created_at', 'desc')->get();
+        $notificationsRead = auth()->user()->applicant->readNotifications;
 
         return view('users.notification.index', compact('notifications', 'notificationsUnread', 'notificationsRead'));
     }
@@ -31,15 +29,13 @@ class ApplicantNotificationController extends Controller
     // all notification
     public function markAllAsRead()
     {
-        DatabaseNotification::where('notifiable_id', auth()->user()->id)
-            ->whereNull('read_at')
-            ->update(['read_at' => now()]);
-        return redirect()->back()->with('success', 'Semua notifikasi telah ditandai sebagai dibaca.');
+        auth()->user()->applicant->unreadNotifications->markAsRead();
+        return redirect()->back();
     }
 
     public function deleteAllNotif()
     {
-        DatabaseNotification::where('notifiable_id', auth()->user()->id)->delete();
-        return redirect()->back()->with('success', 'Semua notifikasi telah dihapus.');
+        auth()->user()->applicant->notifications->each->delete();
+        return redirect()->back();
     }
 }

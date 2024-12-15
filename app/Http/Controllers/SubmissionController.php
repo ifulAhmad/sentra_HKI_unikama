@@ -69,10 +69,10 @@ class SubmissionController extends Controller
 
         $rulesFile = [
             'link_ciptaan' => 'required',
-            'file_pernyataan_karya_cipta' => 'required|file|mimes:pdf|max:5120',
-            'file_pengalihan_karya_cipta' => 'nullable|file|mimes:pdf|max:5120',
-            'file_scan_ktp' => 'required|file|mimes:pdf|max:5120',
-            'file_bukti_pembayaran' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'file_pernyataan_karya_cipta' => 'required|file|mimes:pdf|max:3072',
+            'file_pengalihan_karya_cipta' => 'nullable|file|mimes:pdf|max:3072',
+            'file_scan_ktp' => 'required|file|mimes:pdf|max:3072',
+            'file_bukti_pembayaran' => 'required|file|mimes:pdf,jpg,jpeg,png|max:3072',
         ];
 
         try {

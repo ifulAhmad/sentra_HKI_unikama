@@ -24,6 +24,19 @@
         </div>
     @endif
     <div class="bg-indigo-100">
+        @if ($submission->status == 'revisi')
+            <div class="mb-3 bg-white p-4 shadow-md rounded-md flex items-center justify-end gap-3">
+                <a href="{{ route('progress.submissionEdit', $submission->uuid) }}"
+                    class="px-4 py-2 rounded-md bg-indigo-600 text-xs text-white uppercase duration-100 hover:bg-indigo-700">Edit
+                    Pengajuan</a>
+                <a href="{{ route('progress.applicantAdd', $submission->uuid) }}"
+                    class="px-4 py-2 rounded-md bg-amber-500 text-xs text-white uppercase duration-100 hover:bg-amber-600">Edit
+                    Pencipta</a>
+                <a href="{{ route('progress.filesEdit', $submission->uuid) }}"
+                    class="px-4 py-2 rounded-md bg-purple-500 text-xs text-white uppercase duration-100 hover:bg-purple-600">Edit
+                    File</a>
+            </div>
+        @endif
         <div class="bg-white mb-3 p-4 shadow-md rounded-md">
             <h3 class="font-semibold capitalize">{{ $submission->judul }}</h3>
             <p class="text-sm py-3 ms-3">{{ $submission->deskripsi }}</p>
@@ -147,7 +160,7 @@
             <!-- Modal Popup -->
             <div id="file-modal"
                 class="fixed inset-0 flex items-center justify-center z-[999] bg-gray-900 bg-opacity-50 hidden">
-                <div class="bg-white p-8 rounded-lg shadow-lg w-3/4 h-[90%] relative">
+                <div class="bg-white p-8 rounded-lg shadow-lg md:w-3/4 w-full h-[90%] relative">
                     <button id="close-modal" class="absolute top-2 right-2 text-red-500 text-3xl rounded-full"><i
                             class="bi bi-x-circle-fill"></i></button>
                     <div id="file-content" class="w-full h-full">

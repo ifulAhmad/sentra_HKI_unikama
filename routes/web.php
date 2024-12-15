@@ -92,6 +92,17 @@ Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () 
 Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () {
     Route::get('progress', [SubmissionProgressController::class, 'index'])->name('progress.index');
     Route::get('progress/{submission:uuid}/index.php', [SubmissionProgressController::class, 'detail'])->name('progress.detail');
+    // submission revisi
+    Route::get('progress/{submission:uuid}/revisi/submission', [SubmissionProgressController::class, 'submissionEdit'])->name('progress.submissionEdit');
+    Route::put('progress/{submission:uuid}/revisi/submission/update', [SubmissionProgressController::class, 'submissionUpdate'])->name('progress.submissionUpdate');
+    // applicant revisi
+    Route::get('progress/{submission:uuid}/revisi/applicant', [SubmissionProgressController::class, 'applicantAdd'])->name('progress.applicantAdd');
+    Route::get('progress/{submission:uuid}/check/nik', [SubmissionProgressController::class, 'checkNik'])->name('progress.check.nik');
+    Route::post('progress/{submission:uuid}/revisi/applicant', [SubmissionProgressController::class, 'applicantStore'])->name('progress.applicantStore');
+
+    // files update
+    Route::get('progress/{submission:uuid}/revisi/files', [SubmissionProgressController::class, 'filesEdit'])->name('progress.filesEdit');
+    Route::put('progress/{submission:uuid}/revisi/files/update', [SubmissionProgressController::class, 'filesUpdate'])->name('progress.filesUpdate');
 });
 
 // comment create applicant n admin
