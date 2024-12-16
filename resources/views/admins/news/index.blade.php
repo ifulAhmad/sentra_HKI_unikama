@@ -55,7 +55,7 @@
                     </td>
                     <td class="px-3 py-2 text-center">
                         <div class="flex justify-center space-x-2">
-                            <a href="#" class="text-blue-600 hover:underline">Detail</a>
+                            <a href="{{ route('admin.news.show', $n->uuid) }}" class="text-blue-600 hover:underline">Detail</a>
                             <a href="{{ route('admin.news.edit', $n->uuid) }}"
                                 class="text-yellow-600 hover:underline">Edit</a>
                             <form action="{{ route('admin.news.delete', $n->uuid) }}" method="POST"

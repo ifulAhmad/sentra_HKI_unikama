@@ -55,7 +55,8 @@ class ApplicantController extends Controller
                 return redirect()->route('profile.index');
             }
         }
-        return view('users.profile.check_nik');
+        $claimReject = ClaimApplicantData::where('user_id', auth()->user()->id)->where('status', 'rejected')->get();
+        return view('users.profile.check_nik', compact('claimReject'));
     }
     public function adjustmentCheck(Request $request)
     {

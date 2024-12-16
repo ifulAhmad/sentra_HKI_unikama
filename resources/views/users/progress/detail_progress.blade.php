@@ -36,15 +36,27 @@
                     class="px-4 py-2 rounded-md bg-purple-500 text-xs text-white uppercase duration-100 hover:bg-purple-600">Edit
                     File</a>
             </div>
+            <div class="mb-3 bg-amber-100 p-4 rounded-md">
+                <p class="text-sm text-amber-600"><strong>Note:</strong> Jika sudah selesai revisi silahkan klik tombol
+                    "Selesai Revisi" dibawah halaman ini!</p>
+            </div>
         @endif
+
         <div class="bg-white mb-3 p-4 shadow-md rounded-md">
+            <div class="bg-white my-2 text-sm pb-2 border-b">
+                @if ($submission->skema == 'lembaga')
+                    <p>Skema : <span class="font-semibold">UNIKAMA, UMKM, Lem.Pendidikan, Lem.pemerintahan </span></p>
+                @elseif($submission->skema == 'umum')
+                    <p>Skema : <span class="font-semibold">UMUM</span></p>
+                @endif
+            </div>
             <h3 class="font-semibold capitalize">{{ $submission->judul }}</h3>
-            <p class="text-sm py-3 ms-3">{{ $submission->deskripsi }}</p>
-            <div class="flex items-center gap-4 text-sm ms-1 my-3">
+            <p class="text-sm py-3 ms-3 mb-3 border-b">{{ $submission->deskripsi }}</p>
+            <div class="flex md:items-center flex-col md:flex-row gap-3 text-sm pb-2 ms-1 mb-3">
                 <p>Jenis : <span class="font-semibold">{{ $submission->subType->copyrightType->type }}</span></p>
                 <p>Sub Jenis : <span class="font-semibold">{{ $submission->subType->type }}</span></p>
             </div>
-            <div class="flex text-xs items-center justify-between">
+            <div class="flex text-xs md:items-center flex-col md:flex-row justify-between">
                 <div class="flex gap-2 items-center text-gray-600">
                     <p class="capitalize">
                         <i class="bi bi-geo"></i> {{ $submission->kota }}, {{ $submission->negara }}
@@ -62,7 +74,9 @@
                     @elseif($submission->status == 'diterima')
                         text-green-500
                     @elseif($submission->status == 'revisi')
-                        text-orange-400 @endif font-semibold">
+                        text-orange-400 
+                    @elseif ($submission->status == 'revisi selesai')
+                        text-indigo-600 @endif font-semibold">
                     {{ $submission->status }}
                 </p>
             </div>
@@ -202,8 +216,10 @@
                                                     {{ $comment->user->nama }}
                                                 </h5>
                                                 @if ($comment->user_id == auth()->user()->id)
-                                                    <form action="" method="post">
+                                                    <form action="{{ route('comment.delete', $comment->uuid) }}"
+                                                        method="post">
                                                         @csrf
+                                                        @method('delete')
                                                         <button type="submit"
                                                             onclick="return confirm('Yakin ingin menghapus?')"
                                                             class="text-red-600"><i class="bi bi-trash"></i></button>
@@ -234,6 +250,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="text-end">
+            <form action="{{ route('progress.revisiClear', $submission->uuid) }}" method="post">
+                @csrf
+                @method('put')
+                <button type="submit" class="px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700"
+                    onclick="return confirm('Apakah anda yakin menandai sebagai selesai?')">Selesai Revisi</button>
+            </form>
         </div>
     </div>
 

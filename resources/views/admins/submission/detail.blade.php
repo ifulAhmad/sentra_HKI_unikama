@@ -25,8 +25,15 @@
     @endif
     <div class="bg-indigo-100">
         <div class="bg-white mb-3 p-4 shadow-md rounded-md">
+            <div class="bg-white my-2 text-sm pb-2 border-b">
+                @if ($submission->skema == 'lembaga')
+                    <p>Skema : <span class="font-semibold">UNIKAMA, UMKM, Lem.Pendidikan, Lem.pemerintahan </span></p>
+                @elseif($submission->skema == 'umum')
+                    <p>Skema : <span class="font-semibold">UMUM</span></p>
+                @endif
+            </div>
             <h3 class="font-semibold capitalize">{{ $submission->judul }}</h3>
-            <p class="text-sm py-3 ms-3">{{ $submission->deskripsi }}</p>
+            <p class="text-sm py-3 mb-3 border-b ms-3">{{ $submission->deskripsi }}</p>
             <div class="flex items-center gap-4 text-sm ms-1 my-3">
                 <p>Jenis : <span class="font-semibold">{{ $submission->subType->copyrightType->type }}</span></p>
                 <p>Sub Jenis : <span class="font-semibold">{{ $submission->subType->type }}</span></p>
@@ -49,7 +56,9 @@
                 @elseif($submission->status == 'diterima')
                     text-green-500
                 @elseif($submission->status == 'revisi')
-                 text-orange-400 @endif font-semibold">
+                 text-orange-400 
+                 @elseif($submission->status == 'revisi selesai')
+                 text-indigo-600 @endif font-semibold">
                     {{ $submission->status }}
                 </p>
             </div>
@@ -194,9 +203,13 @@
 
                     <div class="flex items-center gap-3 mb-3">
                         <div class="flex-1 rounded-md overflow-hidden text-center">
-                            <a href="#" class="p-2 block bg-green-500 duration-100 hover:bg-green-600 text-white">
-                                Download Excel
-                            </a>
+                            <form action="{{ route('admin.submission.export', $submission->uuid) }}" method="get">
+                                @csrf
+                                <button type="submit"
+                                    class="p-2 w-full bg-green-500 duration-100 hover:bg-green-600 text-white">
+                                    Download Excel
+                                </button>
+                            </form>
                         </div>
                         <div class="flex-1 rounded-md overflow-hidden text-center">
                             <form action="{{ route('admin.submission.ditolak', $submission->uuid) }}" method="post"
@@ -213,53 +226,55 @@
                         </div>
                     </div>
 
-                    <div class="max-w-full mx-auto bg-white">
-                        <!-- Item -->
-                        <div class="border-b border-gray-200 shadow">
-                            <button
-                                class="w-full text-left py-2 px-4 font-medium text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
-                                <span>Berikan Sertifikat</span>
-                                <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div class="accordion-content hidden p-4 text-gray-600">
-                                <div class="mt-4 text-sm">
-                                    <form action="{{ route('admin.submission.diterima', $submission->uuid) }}"
-                                        method="post" class="flex flex-col gap-2" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="bg-white p-2 rounded-md flex flex-col gap-4">
-                                            <label for="link_certificate" class="font-semibold">Berikan Link
-                                                Sertifikat</label>
-                                            <input type="text" id="link_certificate" name="link_certificate"
-                                                class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
-                                                placeholder="link sertifikat">
-                                        </div>
-                                        <div class="flex items-center gap-2 my-4">
-                                            <hr class="w-full">
-                                            <p>Atau</p>
-                                            <hr class="w-full">
-                                        </div>
-                                        <div class="bg-white p-2 rounded-md flex flex-col gap-4">
-                                            <label for="file_certificate" class="font-semibold">Berikan file
-                                                Sertifikat</label>
-                                            <p id="file_certificate" class="text-xs text-gray-400">Upload 1 file yang
-                                                didukung: PDF. Maks 10 MB.</p>
-                                            <input type="file" id="file_certificate" name="file_certificate"
-                                                accept=".pdf"
-                                                class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
-                                                placeholder="file">
-                                        </div>
-                                        <button
-                                            class="text-white block p-2 font-semibold bg-indigo-600 rounded-md duration-100 hover:bg-indigo-700">Kirim</button>
-                                    </form>
+                    @if ($submission->status != 'ditolak')
+                        <div class="max-w-full mx-auto bg-white">
+                            <!-- Item -->
+                            <div class="border-b border-gray-200 shadow">
+                                <button
+                                    class="w-full text-left py-2 px-4 font-medium text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
+                                    <span>Berikan Sertifikat</span>
+                                    <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                <div class="accordion-content hidden p-4 text-gray-600">
+                                    <div class="mt-4 text-sm">
+                                        <form action="{{ route('admin.submission.diterima', $submission->uuid) }}"
+                                            method="post" class="flex flex-col gap-2" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="bg-white p-2 rounded-md flex flex-col gap-4">
+                                                <label for="link_certificate" class="font-semibold">Berikan Link
+                                                    Sertifikat</label>
+                                                <input type="text" id="link_certificate" name="link_certificate"
+                                                    class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
+                                                    placeholder="link sertifikat">
+                                            </div>
+                                            <div class="flex items-center gap-2 my-4">
+                                                <hr class="w-full">
+                                                <p>Atau</p>
+                                                <hr class="w-full">
+                                            </div>
+                                            <div class="bg-white p-2 rounded-md flex flex-col gap-4">
+                                                <label for="file_certificate" class="font-semibold">Berikan file
+                                                    Sertifikat</label>
+                                                <p id="file_certificate" class="text-xs text-gray-400">Upload 1 file yang
+                                                    didukung: PDF. Maks 10 MB.</p>
+                                                <input type="file" id="file_certificate" name="file_certificate"
+                                                    accept=".pdf"
+                                                    class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
+                                                    placeholder="file">
+                                            </div>
+                                            <button
+                                                class="text-white block p-2 font-semibold bg-indigo-600 rounded-md duration-100 hover:bg-indigo-700">Kirim</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="max-w-full mx-auto bg-white">
                         <!-- Item -->
                         <div class="border-b border-gray-200 shadow">

@@ -9,6 +9,8 @@ use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use App\Notifications\ClearRevisiFromUserApplicant;
+use Illuminate\Support\Facades\Notification;
 
 class SubmissionProgressController extends Controller
 {
@@ -170,5 +172,15 @@ class SubmissionProgressController extends Controller
         }
         $submission->files->save();
         return redirect()->route('progress.detail', $submission->uuid)->with('success', 'Data file pengajuan berhasil diperbarui.');
+    }
+
+    public function revisiClear(Submission $submission)
+    {
+        $submission->update(['status' => 'revisi selesai']);
+        $admins = User::where('role', 'admin')->get();
+        foreach ($admins as $admin) {
+            Notification::send($admin, new ClearRevisiFromUserApplicant($submission));
+        }
+        return back()->with('success', 'Revisi telah diselesaikan.');
     }
 }

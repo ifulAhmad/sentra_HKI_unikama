@@ -28,7 +28,8 @@
                 <div class="my-2">
                     <p class="text-xs text-gray-400 flex items-center gap-2">
                         <span>{{ \Carbon\Carbon::parse($n->created_at)->format('d F Y') }}</span> <i
-                            class="bi bi-person-fill"> </i> <span><i class="bi bi-chat-fill"></i> 0</span>
+                            class="bi bi-person-fill"> </i>
+                        <!-- <span><i class="bi bi-chat-fill"></i> 0</span> -->
                     </p>
                 </div>
                 <div class="text-end">

@@ -69,7 +69,9 @@
                                                 @elseif($submission->status == 'diterima')
                                                     text-green-500
                                                 @elseif($submission->status == 'revisi')
-                                                    text-orange-400 @endif font-semibold">
+                                                    text-orange-400
+                                                @elseif ($submission->status == 'revisi selesai')
+                                                    text-indigo-600 @endif font-semibold">
                                 {{ $submission->status }}
                             </p>
                         </td>

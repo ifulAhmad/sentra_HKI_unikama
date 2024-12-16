@@ -24,8 +24,36 @@
     </div>
 </div>
 @endif
-<div class="p-4 min-h-64">
-    <h1 class="text-lg font-semibold">Lengkapi Form</h1>
+
+<div class="p-4 min-h-64 bg-white">
+    @if ($claimReject)
+    <h1 class="font-semibold text-lg mb-3">Klaim Yang diajukan sebelumnya</h1>
+    <div class="rounded-lg overflow-y-auto mb-4">
+        <table class="w-full table-sm table-auto">
+            <thead>
+                <tr>
+                    <th class="px-3 py-2 bg-indigo-200 text-sm">NIK</th>
+                    <th class="px-3 py-2 bg-indigo-200 text-sm">Nama</th>
+                    <th class="px-3 py-2 bg-indigo-200 text-sm">Email</th>
+                    <th class="px-3 py-2 bg-indigo-200 text-sm">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($claimReject as $claim)
+                <tr>
+                    <td class="px-3 py-2 bg-indigo-100 text-center text-sm">{{ $claim->applicant->nik }}</td>
+                    <td class="px-3 py-2 bg-indigo-100 text-center text-sm">{{ $claim->applicant->nama }}</td>
+                    <td class="px-3 py-2 bg-indigo-100 text-center text-sm">{{ $claim->applicant->email }}</td>
+                    <td class="px-3 py-2 bg-indigo-100 text-center text-sm">
+                        <p class="text-red-600 font-semibold">{{ $claim->status }}</p>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    @endif
+    <h1 class="text-lg font-semibold">Isi Formulir</h1>
     <div class="bg-amber-600 h-[3px] rounded w-28 mt-2 mb-4"></div>
     <form action="{{ route('profile.adjustment.check') }}" method="POST" class="flex justify-center md:mt-10">
         @csrf

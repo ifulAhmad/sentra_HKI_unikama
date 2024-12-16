@@ -103,13 +103,11 @@ Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () 
     // files update
     Route::get('progress/{submission:uuid}/revisi/files', [SubmissionProgressController::class, 'filesEdit'])->name('progress.filesEdit');
     Route::put('progress/{submission:uuid}/revisi/files/update', [SubmissionProgressController::class, 'filesUpdate'])->name('progress.filesUpdate');
+
+    // revisi clear
+    Route::put('progress/{submission:uuid}/revisi/clear', [SubmissionProgressController::class, 'revisiClear'])->name('progress.revisiClear');
 });
 
-// comment create applicant n admin
-Route::prefix('/')->middleware(['role:pemohon,admin'])->group(function () {
-    Route::post('comment/create/{submission:uuid}', [CommentController::class, 'store'])->name('comment.store');
-    Route::delete('comment/create/{comment:uuid}/delete', [CommentController::class, 'delete'])->name('comment.delete');
-});
 
 // Notification
 Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () {
@@ -126,6 +124,12 @@ Route::prefix('users')->middleware(['auth', 'role:pemohon'])->group(function () 
 });
 
 
+// comment create applicant n admin
+Route::prefix('/')->middleware(['role:pemohon,admin'])->group(function () {
+    Route::post('comment/create/{submission:uuid}', [CommentController::class, 'store'])->name('comment.store');
+    Route::delete('comment/create/{comment:uuid}/delete', [CommentController::class, 'delete'])->name('comment.delete');
+});
+
 
 // ADMINS
 Route::get('admin/index', [AdminDashboardController::class, 'index'])->name('admin.dashboard.index')->middleware(['auth', 'role:admin']);
@@ -140,9 +144,12 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('submission/index', [AdminSubmissionAccessController::class, 'index'])->name('admin.submission.index');
     Route::get('submission/{submission:uuid}/show', [AdminSubmissionAccessController::class, 'detail'])->name('admin.submission.detail');
+    // submission status
     Route::put('submission/{submission:uuid}/revisi', [AdminSubmissionAccessController::class, 'statusRevisi'])->name('admin.submission.revisi');
     Route::put('submission/{submission:uuid}/ditolak', [AdminSubmissionAccessController::class, 'statusDitolak'])->name('admin.submission.ditolak');
     Route::post('submission/{submission:uuid}/diterima', [AdminSubmissionAccessController::class, 'statusDiterima'])->name('admin.submission.diterima');
+    // export excel
+    Route::get('submission/{submission:uuid}/export', [AdminSubmissionAccessController::class, 'export'])->name('admin.submission.export');
 });
 
 // claim applicant
@@ -156,6 +163,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 // news
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('news', [NewsController::class, 'index'])->name('admin.news.index');
+    ROute::get('news/{news:uuid}/detail.php', [NewsController::class, 'show'])->name('admin.news.show');
     Route::get('news/create', [NewsController::class, 'create'])->name('admin.news.create');
     Route::post('news/create', [NewsController::class, 'store'])->name('admin.news.store');
     Route::get('news/access/{news:uuid}/edit', [NewsController::class, 'edit'])->name('admin.news.edit');

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('negara')->default('Indonesia');
             $table->string('kota');
-            $table->enum('status', ['diterima', 'ditolak', 'menunggu', 'proses', 'revisi'])->default('menunggu');
+            $table->enum('status', ['diterima', 'ditolak', 'menunggu', 'proses', 'revisi', 'revisi selesai'])->default('menunggu');
             $table->timestamps();
         });
     }

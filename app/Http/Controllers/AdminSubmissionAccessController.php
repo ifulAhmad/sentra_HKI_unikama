@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SubmissionData;
 use App\Mail\AdminSubmissionAccept;
 use App\Mail\AdminSubmissionReject;
 use App\Mail\AdminSubmissionRevisi;
@@ -14,6 +15,7 @@ use App\Notifications\SubmissionAcceptFromAdmin;
 use App\Notifications\SubmissionRejectFromAdmin;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminSubmissionAccessController extends Controller
 {
@@ -90,5 +92,10 @@ class AdminSubmissionAccessController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menerima data ' . $e->getMessage());
         }
+    }
+
+    public function export(Submission $submission)
+    {
+        return Excel::download(new SubmissionData($submission), $submission->judul . '.xlsx');
     }
 }

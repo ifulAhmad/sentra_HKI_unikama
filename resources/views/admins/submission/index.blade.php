@@ -52,14 +52,15 @@
                         <td class="border-b border-gray-200 px-5 py-2 truncate">
                             {{ $submission->applicants->first()->email }}
                         </td>
-                        <td class="border-b border-gray-200 px-5 py-2 text-center">
+                        <td class="border-b border-gray-200 px-3 py-2 text-center">
                             <span
-                                class="px-2 py-1 rounded-full text-sm font-semibold
-                                @if ($submission->status == 'proses') bg-yellow-100 text-yellow-600
-                                @elseif($submission->status == 'menunggu') bg-gray-100 text-gray-500
-                                @elseif($submission->status == 'ditolak') bg-red-100 text-red-600
-                                @elseif($submission->status == 'diterima') bg-green-100 text-green-600
-                                @elseif($submission->status == 'revisi') bg-orange-100 text-orange-600 @endif">
+                                class="text-sm font-semibold
+                                @if ($submission->status == 'proses')text-yellow-600
+                                @elseif($submission->status == 'menunggu') text-gray-500
+                                @elseif($submission->status == 'ditolak') text-red-600
+                                @elseif($submission->status == 'diterima') text-green-600
+                                @elseif($submission->status == 'revisi') text-orange-600
+                                @elseif($submission->status == 'revisi selesai')text-indigo-600 @endif">
                                 {{ $submission->status }}
                             </span>
                         </td>
