@@ -40,7 +40,7 @@
                     class="flex items-center {{ request()->routeIs(['admin.applicant.index', 'admin.applicant.detail']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">
                     <i class="bi bi-person-lines-fill text-xl"></i>
                     <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Rekap Data
-                        Pemohon</span>
+                        Pencipta</span>
                 </a>
                 <a href="{{ route('admin.claim.index') }}"
                     :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"

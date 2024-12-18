@@ -48,8 +48,8 @@ class RequestFromUserForClaimApplicantData extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Pengajuan Klaim Data Pemohon',
-            'body' => '<strong>' . $this->data->user->nama . ' memohon untuk mengklaim sebuah data pemoghon dengan NIK <strong>' . $this->data->applicant->nik . '</strong>',
+            'title' => 'Pengajuan Klaim Data Pencipta',
+            'body' => '<strong>' . $this->data->user->nama . ' Ingin melakukan klaim sebuah data Pencipta dengan NIK <strong>' . $this->data->applicant->nik . '</strong>',
             'link' => route('admin.claim.detail', $this->data->uuid)
         ];
     }

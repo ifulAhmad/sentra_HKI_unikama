@@ -16,6 +16,7 @@ return new class extends Migration
             $table->enum('skema', ['umum', 'lembaga']);
             $table->string('judul');
             $table->text('deskripsi');
+            $table->date('publikasi');
             $table->string('negara')->default('Indonesia');
             $table->string('kota');
             $table->enum('status', ['diterima', 'ditolak', 'menunggu', 'proses', 'revisi', 'revisi selesai'])->default('menunggu');

@@ -52,6 +52,7 @@ class SubmissionProgressController extends Controller
             'skema' => 'required',
             'judul' => 'required',
             'deskripsi' => 'required',
+            'publikasi' => 'required|date',
             'negara' => 'required',
             'kota' => 'required',
             'copyright_sub_type_uuid' => 'required'
@@ -59,6 +60,7 @@ class SubmissionProgressController extends Controller
             'skema.required' => 'Skema harus diisi',
             'judul.required' => 'Judul harus diisi',
             'deskripsi.required' => 'Deskripsi harus diisi',
+            'publikasi.required' => 'Waktu Publikasi harus diisi',
             'negara.required' => 'Negara harus diisi',
             'kota.required' => 'Kota harus diisi',
             'copyright_sub_type_uuid.required' => 'Jenis hak cipta wajib diisi'

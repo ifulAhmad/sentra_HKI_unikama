@@ -63,68 +63,6 @@
         </div>
     </section>
     @endif
-
-    <section class="mb-3">
-        <div class=" mx-3">
-            <h1 class="font-bold text-2xl">FAQs</h1>
-            <div class="bg-amber-600 w-28 h-[4px] rounded my-3"></div>
-        </div>
-        <div class="max-w-full mx-auto bg-white p-4 rounded-lg shadow-md">
-            <!-- Item -->
-            <div class="border-b border-gray-200">
-                <button
-                    class="w-full text-left py-4 text-lg font-medium text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
-                    <span>question 1</span>
-                    <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div class="accordion-content hidden p-4 text-gray-600">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam, est ex ut debitis at sunt
-                    deleniti ea aspernatur sapiente laborum?
-                </div>
-            </div>
-            <div class="border-b border-gray-200">
-                <button
-                    class="w-full text-left py-4 text-lg font-medium text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
-                    <span>question 2</span>
-                    <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div class="accordion-content hidden p-4 text-gray-600">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt sapiente placeat aperiam optio sit
-                    delectus hic deleniti laboriosam, velit esse consectetur beatae praesentium quae perferendis illum
-                    dignissimos aliquam enim odio veritatis corrupti, quia mollitia. Ipsam dolorum minus beatae, ipsa
-                    delectus velit, distinctio quidem saepe, praesentium sed natus qui expedita odit!
-                </div>
-            </div>
-            <div class="border-b border-gray-200">
-                <button
-                    class="w-full text-left py-4 text-lg font-medium text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
-                    <span>question 3</span>
-                    <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div class="accordion-content hidden p-4 text-gray-600">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi excepturi illo dolores harum
-                    consectetur ea consequuntur.
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
 
-<script>
-    $(document).ready(function() {
-        $(".accordion-header").click(function() {
-            $(this).next(".accordion-content").slideToggle(200);
-            $(this).find(".accordion-icon").toggleClass("transform rotate-180");
-        });
-    });
-</script>
 @endsection

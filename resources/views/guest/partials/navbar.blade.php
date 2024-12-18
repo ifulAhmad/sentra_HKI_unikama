@@ -2,9 +2,9 @@
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
-                <div class="flex-shrink-0">
-                    <a href="{{ route('home') }}">
-                        <h1 class="font-bold text-3xl">LOGO <span class="text-amber-600">HERE</span></h1>
+                <div class="flex-shrink-0 w-[150px] overflow-hidden">
+                    <a href="{{ route('home') }}" class="w-28">
+                        <img src="{{ asset('assets/images/logo-hki.jpg') }}" alt="" class="w-full h-full object-cover">
                     </a>
                 </div>
             </div>

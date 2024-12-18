@@ -55,6 +55,16 @@
             @enderror
         </div>
         <div class="flex flex-col gap-2">
+            <label for="publikasi" class="font-semibold">Waktu Publikasi <span class="text-red-600">*</span></label>
+            <input type="date" id="publikasi" name="publikasi" value="{{ old('publikasi', $submission->publikasi) }}"
+                class="w-full px-2 py-2 outline-0 border-b-2 @error('publikasi') border-red-400 @enderror focus:border-indigo-600 text-gray-700" />
+            @error('publikasi')
+            <div class="text-red-600 text-sm">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="flex flex-col gap-2">
             <label for="deskripsi" class="font-semibold">Deskripsi <span class="text-red-600">*</span></label>
             <textarea id="deskripsi" name="deskripsi" rows="4"
                 class="w-full px-2 py-2 outline-0 border-b-2 @error('deskripsi') border-red-400 @enderror focus:border-indigo-600 text-gray-700"

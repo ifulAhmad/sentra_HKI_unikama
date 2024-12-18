@@ -3,7 +3,7 @@
 @section('admin-content')
 <div class="bg-indigo-100">
     <div class="bg-white flex justify-between items-center mb-3 p-4 shadow-md rounded-md">
-        <h3 class="font-semibold capitalize">Data Pemohon {{ $applicant->nama }}</h3>
+        <h3 class="font-semibold capitalize">Data Pencipta {{ $applicant->nama }}</h3>
         @if (!$applicant->user_id == null)
         <p class="text-sm text-indigo-600">&check; Sudah Terkait ke User</p>
         @else
@@ -11,7 +11,7 @@
         @endif
     </div>
     <div class="max-w-4xl mx-auto bg-gradient-to-r from-blue-50 via-white to-blue-50 p-6 rounded-lg shadow-lg border border-gray-200">
-        <h2 class="text-xl font-bold text-center text-blue-600 mb-5">Detail Data Pemohon</h2>
+        <h2 class="text-xl font-bold text-center text-blue-600 mb-5">Detail Data Pencipta</h2>
         <div class="grid grid-cols-1">
             <div class="flex items-center gap-3 mb-4">
                 <p class="w-28 text-gray-600 font-medium">Nama</p>
@@ -41,6 +41,10 @@
             <div class="flex items-center gap-3 mb-4">
                 <p class="w-28 text-gray-600 font-medium">Alamat</p>
                 <h3 class="font-semibold text-gray-800">: {{ $applicant->alamat }}</h3>
+            </div>
+            <div class="flex items-center gap-3 mb-4">
+                <p class="w-28 text-gray-600 font-medium">Kode Pos</p>
+                <h3 class="font-semibold text-gray-800">: {{ $applicant->kode_pos }}</h3>
             </div>
         </div>
 

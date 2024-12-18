@@ -55,6 +55,9 @@
             <div class="flex md:items-center flex-col md:flex-row gap-3 text-sm pb-2 ms-1 mb-3">
                 <p>Jenis : <span class="font-semibold">{{ $submission->subType->copyrightType->type }}</span></p>
                 <p>Sub Jenis : <span class="font-semibold">{{ $submission->subType->type }}</span></p>
+                <p>Waktu Publikasi : <span
+                        class="font-semibold">{{ \Carbon\Carbon::parse($submission->publikasi)->format('d F Y') }}</span>
+                </p>
             </div>
             <div class="flex text-xs md:items-center flex-col md:flex-row justify-between">
                 <div class="flex gap-2 items-center text-gray-600">
@@ -130,6 +133,10 @@
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Alamat</div>
                                             <div class="">: {{ $applicant->alamat }}</div>
+                                        </div>
+                                        <div class="flex gap-6 mb-3">
+                                            <div class="w-20">Kode Pos</div>
+                                            <div class="">: {{ $applicant->kode_pos }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -251,7 +258,9 @@
                 </div>
             </div>
         </div>
-        <div class="text-end">
+    </div>
+    @if ($submission->status == 'revisi')
+        <div class="text-end py-5 bg-indigo-100">
             <form action="{{ route('progress.revisiClear', $submission->uuid) }}" method="post">
                 @csrf
                 @method('put')
@@ -259,7 +268,7 @@
                     onclick="return confirm('Apakah anda yakin menandai sebagai selesai?')">Selesai Revisi</button>
             </form>
         </div>
-    </div>
+    @endif
 
     <script>
         $(document).ready(function() {

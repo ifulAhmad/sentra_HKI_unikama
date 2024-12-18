@@ -37,6 +37,9 @@
             <div class="flex items-center gap-4 text-sm ms-1 my-3">
                 <p>Jenis : <span class="font-semibold">{{ $submission->subType->copyrightType->type }}</span></p>
                 <p>Sub Jenis : <span class="font-semibold">{{ $submission->subType->type }}</span></p>
+                <p>Waktu Publikasi : <span
+                        class="font-semibold">{{ \Carbon\Carbon::parse($submission->publikasi)->format('d F Y') }}</span>
+                </p>
             </div>
             <div class="flex text-xs my-2 items-center justify-between">
                 <div class="flex gap-3 items-center text-gray-600">
@@ -108,6 +111,10 @@
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Alamat</div>
                                             <div class="">: {{ $applicant->alamat }}</div>
+                                        </div>
+                                        <div class="flex gap-6 mb-3">
+                                            <div class="w-20">Kode Pos</div>
+                                            <div class="">: {{ $applicant->kode_pos }}</div>
                                         </div>
                                     </div>
                                 </div>

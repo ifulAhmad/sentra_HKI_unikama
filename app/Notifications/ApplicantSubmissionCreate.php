@@ -49,7 +49,7 @@ class ApplicantSubmissionCreate extends Notification
     {
         return [
             'title' => 'Pemberitahuan Pengajuan',
-            'body' => 'Pemohon melakukan pengajuan dengan judul <strong>' . $this->data->judul . '</strong>, yang beranggotakan <strong>' . $this->data->applicants->count() . '</strong> orang.',
+            'body' => 'Pencipta melakukan pengajuan dengan judul <strong>' . $this->data->judul . '</strong>, yang beranggotakan <strong>' . $this->data->applicants->count() . '</strong> orang.',
             'link' => route('admin.submission.detail', $this->data->uuid),
         ];
     }

@@ -44,6 +44,10 @@
             {{ $news->links() }}
         </div>
     </section>
+    @else
+    <div class="text-center my-10">
+        <p class="text-gray-600 text-lg">Tidak ada berita</p>
+    </div>
     @endif
 </div>
 @endsection

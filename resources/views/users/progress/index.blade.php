@@ -44,7 +44,7 @@
                         <th class="text-start p-3 border-b border-indigo-200">No</th>
                         <th class="text-start p-3 border-b border-indigo-200">Judul</th>
                         <th class="text-start p-3 border-b border-indigo-200">Email Penc.1</th>
-                        <th class="text-start p-3 border-b border-indigo-200">Waktu</th>
+                        <th class="text-start p-3 border-b border-indigo-200">Publikasi</th>
                         <th class="text-start p-3 border-b border-indigo-200">Status</th>
                         <th class="text-start p-3 border-b border-indigo-200">Menu</th>
                     </tr>
@@ -56,7 +56,7 @@
                         <td class="p-3 border-b border-indigo-200">{!! $submission->judul !!}</td>
                         <td class="p-3 border-b border-indigo-200">{{ $applicant->email }}</td>
                         <td class="p-3 border-b border-indigo-200">
-                            {{ $submission->created_at->format('d F Y') }}
+                            {{ \Carbon\Carbon::parse($submission->publikasi)->format('d F Y') }}
                         </td>
                         <td class="p-3 border-b border-indigo-200 text-xs">
                             <p

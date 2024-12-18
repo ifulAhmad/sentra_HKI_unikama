@@ -26,7 +26,7 @@
 
 <div class="bg-indigo-100 mb-5">
     <div class="bg-white flex gap-5 items-center mb-3 p-4 shadow-md rounded-md">
-        <h3 class="font-semibold capitalize">Status Data Pemohon: </h3>
+        <h3 class="font-semibold capitalize">Status Data Pencipta: </h3>
         @if (!$applicant->user_id == null)
         <p class="text-sm text-indigo-600">Sudah terkait dengan pengguna</p>
         @else
@@ -36,8 +36,8 @@
     <div class="p-3 bg-white rounded-md mb-3">
         <h3 class="font-semibold mb-3">NOTE;</h3>
         <p class="ms-3">Pengguna baru dengan email <span class="font-semibold">{{ $claimData->user->email }}</span>,
-            ingin mengajukan klaim data pemohon yang sudah terdaftar sebelumnya di sistem dengan NIK <span
-                class="font-semibold">{{ $claimData->applicant->nik }}</span>, Informasi lengkap terkait data pemohon
+            ingin mengajukan klaim data pencipta yang sudah terdaftar sebelumnya di sistem dengan NIK <span
+                class="font-semibold">{{ $claimData->applicant->nik }}</span>, Informasi lengkap terkait data pencipta
             dapat Anda lihat di bawah ini.</p>
     </div>
     <div class="p-3 bg-white rounded-md mb-3">

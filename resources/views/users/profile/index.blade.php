@@ -26,6 +26,9 @@
 <div class="my-4 p-4">
     <h1 class="text-lg font-semibold">Profil {{ $applicant ? $applicant->nama : $user->nama }}</h1>
     <div class="bg-amber-600 h-[3px] rounded w-28 mt-2 mb-4"></div>
+    <div class="my-3 p-3 rounded-md bg-amber-100 text-amber-600">
+        <p><span class="font-semibold">NOTE : </span> NIK Dan Email tidak dapat diubah jika sudah terdaftar pada sistem</p>
+    </div>
     <div>
         <form action="{{ route('profile.update', $applicant->nik) }}" method="post">
             @method('PUT')
