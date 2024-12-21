@@ -7,6 +7,7 @@ use App\Models\CopyrightType;
 use App\Models\User;
 use App\Models\Submission;
 use App\Models\SubmissionFiles;
+use App\Models\Letter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;

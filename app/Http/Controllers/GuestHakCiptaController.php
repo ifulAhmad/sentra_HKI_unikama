@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Letter;
+use Illuminate\Support\Facades\Storage;
 
 class GuestHakCiptaController extends Controller
 {
@@ -14,12 +16,13 @@ class GuestHakCiptaController extends Controller
     {
         return view('guest.hak_cipta.prosedur_pengajuan');
     }
-    public function jenisCiptaan()
-    {
-        return view('guest.hak_cipta.jenis_ciptaan');
-    }
     public function syaratLampiran()
     {
-        return view('guest.hak_cipta.syarat_lampiran');
+        $letters = Letter::all();
+        return view('guest.hak_cipta.syarat_lampiran', compact('letters'));
+    }
+    public function download(Letter $letter)
+    {
+        return Storage::download($letter->file_letter, $letter->type . '.pdf');
     }
 }

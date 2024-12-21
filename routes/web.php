@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminApplicantClaimController;
 use App\Http\Controllers\AdminApplicantsAccessController;
 use App\Http\Controllers\AdminSubmissionAccessController;
 use App\Http\Controllers\AdminNotificationsController;
+use App\Http\Controllers\LetterController;
 use App\Http\Controllers\NewsForGuestController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ChangeAccountController;
@@ -26,8 +27,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::prefix('hak-cipta')->group(function () {
     Route::get('pengenalan', [GuestHakCiptaController::class, 'pengenalan'])->name('pengenalan');
     Route::get('prosedur-pengajuan', [GuestHakCiptaController::class, 'prosedurPengajuan'])->name('prosedurPengajuan');
-    Route::get('jenis-ciptaan', [GuestHakCiptaController::class, 'jenisCiptaan'])->name('jenisCiptaan');
     Route::get('syarat-lampiran', [GuestHakCiptaController::class, 'syaratLampiran'])->name('syaratLampiran');
+    Route::post('syarat-lampiran/{letter:id}/download', [GuestHakCiptaController::class, 'download'])->name('letter.download');
 });
 
 Route::get('paten/pengenalan', function () {
@@ -160,10 +161,19 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::post('claim/data/{claimData:uuid}/reject', [AdminApplicantClaimController::class, 'reject'])->name('admin.claim.reject');
 });
 
+// letters template
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('letter', [LetterController::class, 'index'])->name('admin.letter.index');
+    Route::get('letter/create', [LetterController::class, 'create'])->name('admin.letter.create');
+    Route::post('letter/create', [LetterController::class, 'store'])->name('admin.letter.store');
+    Route::get('letter/{letter:type}/edit', [LetterController::class, 'edit'])->name('admin.letter.edit');
+    Route::put('letter/{letter:id}/update', [LetterController::class, 'update'])->name('admin.letter.update');
+});
+
 // news
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('news', [NewsController::class, 'index'])->name('admin.news.index');
-    ROute::get('news/{news:uuid}/detail.php', [NewsController::class, 'show'])->name('admin.news.show');
+    Route::get('news/{news:uuid}/detail.php', [NewsController::class, 'show'])->name('admin.news.show');
     Route::get('news/create', [NewsController::class, 'create'])->name('admin.news.create');
     Route::post('news/create', [NewsController::class, 'store'])->name('admin.news.store');
     Route::get('news/access/{news:uuid}/edit', [NewsController::class, 'edit'])->name('admin.news.edit');

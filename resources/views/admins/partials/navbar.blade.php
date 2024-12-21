@@ -42,6 +42,7 @@
                     <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Rekap Data
                         Pencipta</span>
                 </a>
+
                 <a href="{{ route('admin.claim.index') }}"
                     :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
                     class="flex items-center {{ request()->routeIs(['admin.claim.index', 'admin.claim.detail']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">
@@ -49,9 +50,15 @@
                     <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Permohonan
                         Klaim</span>
                 </a>
+                <a href="{{ route('admin.letter.index') }}"
+                    :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
+                    class="flex items-center {{ request()->routeIs(['admin.letter.index', 'admin.letter.create']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">
+                    <i class="bi bi-envelope-exclamation-fill text-xl"></i>
+                    <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Template surat</span>
+                </a>
                 <a href="{{ route('admin.news.index') }}"
                     :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
-                    class="flex items-center {{ request()->routeIs(['admin.news.index', 'admin.news.create', 'admin.news.edit']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">
+                    class="flex items-center {{ request()->routeIs(['admin.news.index', 'admin.news.show' , 'admin.news.create', 'admin.news.edit']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">
                     <i class="bi bi-card-heading text-xl"></i>
                     <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Kelola Berita</span>
                 </a>

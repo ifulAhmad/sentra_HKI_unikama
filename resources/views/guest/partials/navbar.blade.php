@@ -52,10 +52,6 @@
                                         class="hover:bg-indigo-100 text-gray-700 block px-4 py-2 text-sm"
                                         role="menuitem" tabindex="-1" id="user-menu-item-0">Pengajuan</a>
 
-                                    <a href="{{ route('jenisCiptaan') }}"
-                                        class="{{ request()->routeIs('jenisCiptaan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }} block px-4 py-2 text-sm"
-                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Jenis Ciptaan</a>
-
                                     <a href="{{ route('syaratLampiran') }}"
                                         class="{{ request()->routeIs('syaratLampiran') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }} block px-4 py-2 text-sm"
                                         role="menuitem" tabindex="-1" id="user-menu-item-0">Syarat Lampiran</a>
@@ -221,10 +217,6 @@
 
                     <a href="{{ route('submission.index') }}"
                         class="block px-4 py-2 text-base font-medium hover:bg-indigo-100 text-gray-700">Pengajuan</a>
-
-                    <a href="{{ route('jenisCiptaan') }}"
-                        class="block px-4 py-2 text-base font-medium {{ request()->routeIs('jenisCiptaan') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }}">Jenis
-                        Ciptaan</a>
 
                     <a href="{{ route('syaratLampiran') }}"
                         class="block px-4 py-2 text-base font-medium {{ request()->routeIs('syaratLampiran') ? 'text-amber-600' : 'hover:bg-indigo-100 text-gray-700' }}">Syarat

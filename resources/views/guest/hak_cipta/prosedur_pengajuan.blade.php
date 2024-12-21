@@ -12,11 +12,11 @@
             <ul class="list-decimal ms-8 mb-2 flex flex-col gap-2">
                 <li>Mengisi formulir permohonan pendaftaran hak cipta</li>
                 <li>Membuat surat pernyataan kepemilikan ciptaan yang di tandatangani oleh semua pemegang hak cipta
-                    (template bisa di donwload pada menu <span class="text-amber-600 hover:underline">Template</span> )
+                    (template bisa di donwload pada menu <a href="{{ route('syaratLampiran') }}" class="text-amber-600 hover:underline">Template</a> )
                 </li>
                 <li>Membuat surat pengalihan hak cipta yang di tandatangani semua pencipta dan pemegang hak cipta (jika
-                    di alihkan dan template bisa di donwload pada menu <span
-                        class="text-amber-600 hover:underline">Template</span> )</li>
+                    di alihkan dan template bisa di donwload pada menu <a href="{{ route('syaratLampiran') }}"
+                        class="text-amber-600 hover:underline">Template</a> )</li>
                 <li>Melampirkan contoh ciptaan</li>
                 <li>Membuat uraian ciptaan</li>
                 <li>Melampirkan bukti kewarganegaraan pencipta (KTP)</li>
