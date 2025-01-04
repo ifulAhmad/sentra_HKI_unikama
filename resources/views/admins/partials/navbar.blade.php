@@ -56,6 +56,12 @@
                     <i class="bi bi-envelope-exclamation-fill text-xl"></i>
                     <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Template surat</span>
                 </a>
+                <a href="{{ route('admin.users.index') }}"
+                    :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
+                    class="flex items-center {{ request()->routeIs(['admin.users.index']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">
+                    <i class="bi bi-person-vcard-fill text-xl"></i>
+                    <span :class="{ 'hidden': !isOpen }" class="transition-opacity duration-200 ease-in-out">Kelola Pengguna</span>
+                </a>
                 <a href="{{ route('admin.news.index') }}"
                     :class="{ 'border-none hover:bg-indigo-500': isOpen, 'hover:bg-indigo-500': !isOpen }"
                     class="flex items-center {{ request()->routeIs(['admin.news.index', 'admin.news.show' , 'admin.news.create', 'admin.news.edit']) ? 'bg-indigo-500' : '' }} gap-4 block px-3 py-2 text-sm font-medium rounded-md duration-200 ease-in-out">

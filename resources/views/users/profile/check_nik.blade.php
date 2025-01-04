@@ -27,7 +27,7 @@
 
 <div class="p-4 min-h-64 bg-white">
     @if ($claimReject)
-    <h1 class="font-semibold text-lg mb-3">Klaim Yang diajukan sebelumnya</h1>
+    <h1 class="font-semibold text-lg mb-3">Riwayat Klaim</h1>
     <div class="rounded-lg overflow-y-auto mb-4">
         <table class="w-full table-sm table-auto">
             <thead>

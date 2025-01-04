@@ -10,6 +10,4 @@ class Letter extends Model
     use HasFactory;
     protected $table = 'letters';
     protected $guarded = ['id'];
-    protected $primaryKey = 'id';
-    protected $keyType = 'string';
 }

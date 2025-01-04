@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminApplicantClaimController;
 use App\Http\Controllers\AdminApplicantsAccessController;
 use App\Http\Controllers\AdminSubmissionAccessController;
 use App\Http\Controllers\AdminNotificationsController;
+use App\Http\Controllers\UsersAccessController;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\NewsForGuestController;
 use App\Http\Controllers\SearchController;
@@ -179,6 +180,12 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('news/access/{news:uuid}/edit', [NewsController::class, 'edit'])->name('admin.news.edit');
     Route::put('news/access/{news:uuid}/update', [NewsController::class, 'update'])->name('admin.news.update');
     Route::delete('news/access/{news:uuid}/delete', [NewsController::class, 'delete'])->name('admin.news.delete');
+});
+
+// users access
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('users', [UsersAccessController::class, 'index'])->name('admin.users.index');
+    Route::delete('users/delete', [UsersAccessController::class, 'delete'])->name('admin.users.delete');
 });
 
 // notification
