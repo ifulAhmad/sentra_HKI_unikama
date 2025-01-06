@@ -21,6 +21,11 @@ class Applicant extends Model
         return $this->belongsToMany(Submission::class, 'submission_applicant', 'applicant_id', 'submission_uuid')->withTimestamps();
     }
 
+    public function orderOfCreators()
+    {
+        return $this->hasMany(OrderOfCreator::class);
+    }
+
     public function claim()
     {
         return $this->hasOne(ClaimApplicantData::class);

@@ -77,11 +77,11 @@
                         </div>
                         <div class="max-w-full mx-auto bg-white rounded-lg shadow-md">
                             <!-- Item -->
-                            @foreach ($submission->applicants->sortBy('created_at') as $applicant)
+                            @foreach ($submission->orderOfCreators->sortBy('order') as $orderOfCreator)
                                 <div class="border-b border-gray-200 px-4">
                                     <button
                                         class="w-full text-left py-2 font-medium text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
-                                        <span>Pencipta {{ $loop->iteration }}</span>
+                                        <span>Pencipta {{ $orderOfCreator->order }}</span>
                                         <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor">
@@ -92,29 +92,29 @@
                                     <div class="accordion-content capitalize hidden p-4 text-gray-600">
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Nama</div>
-                                            <div class="">: {{ $applicant->nama }}</div>
+                                            <div class="">: {{ $orderOfCreator->applicant->nama }}</div>
                                         </div>
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Tgl Lahir</div>
                                             <div class="">:
-                                                {{ \Carbon\Carbon::parse($applicant->tgl_lahir)->format('d F Y') }}
+                                                {{ \Carbon\Carbon::parse($orderOfCreator->applicant->tgl_lahir)->format('d F Y') }}
                                             </div>
                                         </div>
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Email</div>
-                                            <div class="">: {{ $applicant->email }}</div>
+                                            <div class="">: {{ $orderOfCreator->applicant->email }}</div>
                                         </div>
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">No Telp</div>
-                                            <div class="">: {{ $applicant->kontak }}</div>
+                                            <div class="">: {{ $orderOfCreator->applicant->kontak }}</div>
                                         </div>
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Alamat</div>
-                                            <div class="">: {{ $applicant->alamat }}</div>
+                                            <div class="">: {{ $orderOfCreator->applicant->alamat }}</div>
                                         </div>
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Kode Pos</div>
-                                            <div class="">: {{ $applicant->kode_pos }}</div>
+                                            <div class="">: {{ $orderOfCreator->applicant->kode_pos }}</div>
                                         </div>
                                     </div>
                                 </div>

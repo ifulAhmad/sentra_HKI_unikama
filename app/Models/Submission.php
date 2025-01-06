@@ -19,6 +19,11 @@ class Submission extends Model
         return $this->belongsToMany(Applicant::class, 'submission_applicant', 'submission_uuid', 'applicant_id')->withTimestamps();
     }
 
+    public function orderOfCreators()
+    {
+        return $this->hasMany(OrderOfCreator::class);
+    }
+
     public function subtype()
     {
         return $this->belongsTo(CopyrightSubType::class, 'copyright_sub_type_uuid', 'uuid');

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Submission;
 use App\Models\SubmissionFiles;
 use App\Models\Letter;
+use App\Models\OrderOfCreator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
@@ -30,6 +31,7 @@ class SubmissionController extends Controller
 
     public function submissionCreate(Request $request)
     {
+        // dd($request->all());
         // Validasi data submission
         $validatedSubmission = $request->validate([
             'skema' => 'required',
@@ -48,6 +50,8 @@ class SubmissionController extends Controller
             'kota.required' => 'Kota harus diisi',
             'copyright_sub_type_uuid.required' => 'Jenis hak cipta wajib diisi'
         ]);
+
+        $validatedOrders = $request->input('order');
 
         // Validasi data applicants
         $validatedApplicant = $request->validate([
@@ -78,34 +82,51 @@ class SubmissionController extends Controller
             'file_bukti_pembayaran' => 'required|file|mimes:pdf,jpg,jpeg,png|max:3072',
         ];
 
+
         try {
+
+
             // submission create
             $submission = Submission::create($validatedSubmission);
 
             // applicant
             foreach ($validatedApplicant['applicant']['nama'] as $index => $nama) {
-
+                // Buat atau ambil data Applicant berdasarkan NIK
                 $applicant = Applicant::firstOrCreate(
                     [
                         'nik' => $validatedApplicant['applicant']['nik'][$index],
                     ],
                     [
                         'nama' => $nama,
-                        'email' => $validatedApplicant['applicant']['email'][$index],
-                        'tgl_lahir' => $validatedApplicant['applicant']['tgl_lahir'][$index],
-                        'kontak' => $validatedApplicant['applicant']['kontak'][$index],
-                        'alamat' => $validatedApplicant['applicant']['alamat'][$index],
-                        'kewarganegaraan' => $validatedApplicant['applicant']['kewarganegaraan'][$index],
-                        'kode_pos' => $validatedApplicant['applicant']['kode_pos'][$index],
+                        'email' => $validatedApplicant['applicant']['email'][$index] ?? null,
+                        'tgl_lahir' => $validatedApplicant['applicant']['tgl_lahir'][$index] ?? null,
+                        'kontak' => $validatedApplicant['applicant']['kontak'][$index] ?? null,
+                        'alamat' => $validatedApplicant['applicant']['alamat'][$index] ?? null,
+                        'kewarganegaraan' => $validatedApplicant['applicant']['kewarganegaraan'][$index] ?? null,
+                        'kode_pos' => $validatedApplicant['applicant']['kode_pos'][$index] ?? null,
                     ]
                 );
 
+                // Tambahkan relasi antara Submission dan Applicant
                 DB::table('submission_applicant')->insert([
                     'submission_uuid' => $submission->uuid,
                     'applicant_id' => $applicant->id,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
+
+                // Pastikan indeks $validatedOrders ada sebelum digunakan
+                if (isset($validatedOrders[$index])) {
+                    // Buat data OrderOfCreator
+                    OrderOfCreator::create([
+                        'order' => $validatedOrders[$index],
+                        'submission_uuid' => $submission->uuid,
+                        'applicant_id' => $applicant->id,
+                    ]);
+                } else {
+                    // Handle error jika order tidak ditemukan
+                    throw new \Exception("Order untuk applicant dengan nama $nama tidak ditemukan.");
+                }
             }
             // create file submission
             $validatedSubmissionFiles = $request->validate($rulesFile);

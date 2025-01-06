@@ -70,7 +70,7 @@
                                     </td>
                                     <td class="px-3 py-2 text-center">
                                         @if ($user->applicant != null)
-                                            <a href="#" class="text-indigo-600 hover:underline">Detail</a>
+                                            <a href="{{ route('admin.applicant.detail', $user->applicant->nik) }}" class="text-indigo-600 hover:underline">Detail</a>
                                         @else
                                             <p><i>Belum terkait</i></p>
                                         @endif

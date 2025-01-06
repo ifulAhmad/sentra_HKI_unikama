@@ -99,7 +99,7 @@
                                     <span class="text-red-600">*</span></label>
                                 <input type="text" id="judul" name="judul"
                                     class="w-full px-1 py-2 outline-0 border-b-2 @error('judul') border-red-400 @enderror focus:border-amber-600"
-                                    placeholder="Judul Ciptaan..." />
+                                    placeholder="Judul Ciptaan..." value="{{ old('judul') }}" />
                                 @error('judul')
                                     <div class="text-red-600 text-sm">
                                         {{ $message }}
@@ -112,7 +112,8 @@
                                 <label for="publikasi" class="font-semibold">Waktu Publikasi
                                     <span class="text-red-600">*</span></label>
                                 <input type="date" id="publikasi" name="publikasi"
-                                    class="w-full h-full px-1 py-3 outline-0 border-b-2 @error('publikasi') border-red-400 @enderror focus:border-amber-600"></input>
+                                    class="w-full h-full px-1 py-3 outline-0 border-b-2 @error('publikasi') border-red-400 @enderror focus:border-amber-600"
+                                    value="{{ old('publikasi') }}"></input>
                                 @error('publikasi')
                                     <div class="text-red-600 text-sm">
                                         {{ $message }}
@@ -128,7 +129,7 @@
                                     <span class="text-red-600">*</span></label>
                                 <input type="text" id="negara" name="negara"
                                     class="w-full px-1 py-2 outline-0 border-b-2 @error('negara') border-red-400 @enderror focus:border-amber-600"
-                                    placeholder="Negara..." />
+                                    placeholder="Negara..." value="{{ old('negara') }}" />
                                 @error('negara')
                                     <div class="text-red-600 text-sm">
                                         {{ $message }}
@@ -142,7 +143,7 @@
                                     <span class="text-red-600">*</span></label>
                                 <input type="text" id="kota" name="kota"
                                     class="w-full px-1 py-2 outline-0 border-b-2 @error('kota') border-red-400 @enderror focus:border-amber-600"
-                                    placeholder="Kota..." />
+                                    placeholder="Kota..." value="{{ old('kota') }}" />
                                 @error('kota')
                                     <div class="text-red-600 text-sm">
                                         {{ $message }}
@@ -157,7 +158,7 @@
                                 <span class="text-red-600">*</span></label>
                             <textarea id="deskripsi" name="deskripsi"
                                 class="w-full h-full px-1 py-1 outline-0 border-b-2 @error('deskripsi') border-red-400 @enderror focus:border-amber-600"
-                                placeholder="Deskripsi Produk..."></textarea>
+                                placeholder="Deskripsi Produk...">{{ old('deskripsi') }}</textarea>
                             @error('deskripsi')
                                 <div class="text-red-600 text-sm">
                                     {{ $message }}
@@ -183,7 +184,7 @@
                         <div class="accordion-item">
                             <div
                                 class="w-full p-4 bg-white text-left text-lg hover:text-indigo-600 focus:outline-none flex justify-between items-center accordion-header">
-                                <span>Pencipta 1</span>
+                                <span>Data Pencipta</span>
                                 <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
@@ -193,6 +194,14 @@
                             </div>
                             <div class="accordion-content hidden p-4 text-gray-600">
                                 <div class="mb-4 text-sm flex flex-col gap-3 p-1">
+                                    <div class="flex-1">
+                                        <div class="bg-white flex gap-7 items-center shadow-md px-4 py-4 rounded-md">
+                                            <label for="order" class="font-semibold">Pencipta ke : </label>
+                                            <input type="number" id="order" name="order[]" min="1"
+                                                class="outline-0 bg-gray-100 p-2 rounded-md focus:border-amber-600"
+                                                placeholder="123..." required />
+                                        </div>
+                                    </div>
                                     <div class="flex flex-col md:flex-row gap-3">
                                         <div class="flex-1">
                                             <div class="bg-white shadow-md px-4 py-4 rounded-md flex flex-col gap-7">
@@ -474,7 +483,7 @@
         <div class="accordion-item">
             <div
                 class="w-full p-4 bg-white text-left text-lg hover:text-indigo-600 focus:outline-none flex justify-between items-center accordion-header">
-                <span>Pencipta ${counter}</span>
+                <span>Data pencipta</span>
                 <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -482,6 +491,14 @@
             </div>
             <div class="accordion-content hidden p-4 text-gray-600">
                 <div class="mb-4 text-sm flex flex-col gap-3 p-1">
+                    <div class="flex-1">
+                        <div class="bg-white flex gap-7 items-center shadow-md px-4 py-4 rounded-md">
+                            <label for="order-${counter}" class="font-semibold">Pencipta ke : </label>
+                            <input type="number" id="order-${counter}" name="order[]" min="1"
+                                class="outline-0 bg-gray-100 p-2 rounded-md focus:border-amber-600"
+                                placeholder="123..." required />
+                        </div>
+                    </div>
                     <div class="flex flex-col md:flex-row gap-3">
                         <div class="flex-1">
                             <div class="bg-white shadow-md px-4 py-4 rounded-md flex flex-col gap-7">
@@ -561,7 +578,7 @@
                                 name="applicant[kode_pos][]"
                                 class="px-1 py-2 outline-0 border-b-2 focus:border-amber-600"
                                 placeholder="Kode Pos..."
-                                value="${data ? data.kode_pos : ""}" />
+                                value="${data ? data.kode_pos : ""}">
                         </div>
                     </div>
                 </div>

@@ -6,6 +6,7 @@ use App\Models\Applicant;
 use App\Models\CopyrightType;
 use App\Models\Submission;
 use App\Models\Comment;
+use App\Models\OrderOfCreator;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class SubmissionProgressController extends Controller
 
     public function detail(Submission $submission)
     {
-        $applicants = $submission->applicants;
+        $orderOfCreators = Submission::with(['orderOfCreators.applicant'])->where('uuid', $submission->uuid)->first();
         $files = $submission->files;
         $subtype = $submission->subtype;
         $userId = User::where('id', auth()->user()->id)->first()->id;
@@ -35,7 +36,7 @@ class SubmissionProgressController extends Controller
             ->with('user')
             ->orderBy('created_at', 'asc')
             ->get();
-        return view('users.progress.detail_progress', compact('submission', 'applicants', 'files', 'subtype', 'comments'));
+        return view('users.progress.detail_progress', compact('submission', 'orderOfCreators', 'files', 'subtype', 'comments'));
     }
 
     public function submissionEdit(Submission $submission)
@@ -99,7 +100,13 @@ class SubmissionProgressController extends Controller
                 if ($hasRelation) {
                     return redirect()->back()->with('error', 'Data Pencipta sudah terkait di pengajuan ini!');
                 }
+                $orderValidate = $request->validate(['order' => 'required|numeric']);
                 $submission->applicants()->attach($applicantNik);
+                OrderOfCreator::create([
+                    'order' => $orderValidate['order'],
+                    'applicant_id' => $applicantNik->id,
+                    'submission_uuid' => $submission->uuid
+                ]);
                 return redirect()->route('progress.detail', $submission->uuid)->with('success', 'Pencipta berhasil ditambahkan.');
             } else {
                 $validatedApplicant = $request->validate([
@@ -112,8 +119,14 @@ class SubmissionProgressController extends Controller
                     'kewarganegaraan' => 'required|string',
                     'kode_pos' => 'required|string',
                 ]);
+                $orderValidate = $request->validate(['order' => 'required|numeric']);
                 $applicant = Applicant::create($validatedApplicant);
                 $submission->applicants()->attach($applicant);
+                OrderOfCreator::create([
+                    'order' => $orderValidate['order'],
+                    'applicant_id' => $applicant->id,
+                    'submission_uuid' => $submission->uuid
+                ]);
                 return redirect()->route('progress.detail', $submission->uuid)->with('success', 'Pencipta baru berhasil ditambahkan.');
             }
         } catch (\Illuminate\Validation\ValidationException $e) {

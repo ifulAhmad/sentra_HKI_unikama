@@ -26,6 +26,15 @@
     <form method="POST" action="{{ route('progress.applicantStore', $submission->uuid) }}" class="flex flex-col gap-4">
         @csrf
         <div>
+            <label for="order" class="text-sm font-medium text-gray-700">Pencipta ke :</label>
+            <input type="number" id="order" name="order" min="2" placeholder="Masukkan urutan pencipta"
+                class="w-full px-3 py-2 border rounded-md outline-0 focus:ring-indigo-500 
+                    focus:border-indigo-500 @error('order') border-red-500 @enderror" />
+            @error('order')
+            <p class="text-red-500 ms-2">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
             <label for="nik" class="text-sm font-medium text-gray-700">NIK</label>
             <input type="text" id="nik" name="nik" value="{{ old('nik', $applicant->nik ?? '') }}"
                 class="w-full px-3 py-2 border rounded-md outline-0 focus:ring-indigo-500 
@@ -102,7 +111,8 @@
             @enderror
         </div>
         <div class="flex justify-end gap-2 mt-4">
-            <a href="{{ route('progress.detail', $submission->uuid) }}" class="px-4 py-2 mx-3 bg-gray-300 rounded-md hover:bg-gray-400">Batal</a>
+            <a href="{{ route('progress.detail', $submission->uuid) }}"
+                class="px-4 py-2 mx-3 bg-gray-300 rounded-md hover:bg-gray-400">Batal</a>
             <button type="submit"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Simpan</button>
         </div>

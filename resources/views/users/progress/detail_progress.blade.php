@@ -64,7 +64,7 @@
                     <p class="capitalize">
                         <i class="bi bi-geo"></i> {{ $submission->kota }}, {{ $submission->negara }}
                     </p> |
-                    <p><i class="bi bi-person"></i> {{ $applicants->count() }}</p> |
+                    <p><i class="bi bi-person"></i> {{ $orderOfCreators->orderOfCreators->count() }}</p> |
                     <p>{{ $submission->created_at->diffForHumans() }}</p>
                 </div>
                 <p
@@ -95,11 +95,11 @@
                         </div>
                         <div class="max-w-full mx-auto bg-white rounded-lg shadow-md">
                             <!-- Item -->
-                            @foreach ($applicants as $applicant)
+                            @foreach ($orderOfCreators->orderOfCreators as $order)
                                 <div class="border-b border-gray-200 px-4">
                                     <button
                                         class="w-full text-left py-2 font-medium text-gray-700 hover:text-amber-600 focus:outline-none flex justify-between items-center accordion-header">
-                                        <span>Pencipta {{ $loop->iteration }}</span>
+                                        <span>Pencipta {{ $order->order }}</span>
                                         <svg class="w-5 h-5 transform transition-transform duration-200 accordion-icon"
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor">
@@ -110,33 +110,33 @@
                                     <div class="accordion-content hidden p-4 text-gray-600">
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">NIK</div>
-                                            <div class="">: {{ $applicant->nik }}</div>
+                                            <div class="">: {{ $order->applicant->nik }}</div>
                                         </div>
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Nama</div>
-                                            <div class="">: {{ $applicant->nama }}</div>
+                                            <div class="">: {{ $order->applicant->nama }}</div>
                                         </div>
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Tgl Lahir</div>
                                             <div class="">:
-                                                {{ \Carbon\Carbon::parse($applicant->tgl_lahir)->format('d F Y') }}
+                                                {{ \Carbon\Carbon::parse($order->applicant->tgl_lahir)->format('d F Y') }}
                                             </div>
                                         </div>
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Email</div>
-                                            <div class="">: {{ $applicant->email }}</div>
+                                            <div class="">: {{ $order->applicant->email }}</div>
                                         </div>
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">No Telp</div>
-                                            <div class="">: {{ $applicant->kontak }}</div>
+                                            <div class="">: {{ $order->applicant->kontak }}</div>
                                         </div>
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Alamat</div>
-                                            <div class="">: {{ $applicant->alamat }}</div>
+                                            <div class="">: {{ $order->applicant->alamat }}</div>
                                         </div>
                                         <div class="flex gap-6 mb-3">
                                             <div class="w-20">Kode Pos</div>
-                                            <div class="">: {{ $applicant->kode_pos }}</div>
+                                            <div class="">: {{ $order->applicant->kode_pos }}</div>
                                         </div>
                                     </div>
                                 </div>

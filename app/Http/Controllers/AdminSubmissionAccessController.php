@@ -43,7 +43,6 @@ class AdminSubmissionAccessController extends Controller
         if ($submission->status == 'menunggu') {
             $submission->update(['status' => 'proses']);
         }
-
         $comments = Comment::where('submission_uuid', $submission->uuid)
             ->with('user')
             ->orderBy('created_at', 'asc')
