@@ -33,8 +33,10 @@ class NewsController extends Controller
             'title' => 'required',
             'content' => 'required',
         ]);
-        if ($request->file('image1') || $request->file('image2')) {
+        if ($request->file('image1')) {
             $validatedNewsData['image1'] = $request->file('image1')->store('news-images');
+        }
+        if ($request->file('image2')) {
             $validatedNewsData['image2'] = $request->file('image2')->store('news-images');
         }
         News::create($validatedNewsData);
