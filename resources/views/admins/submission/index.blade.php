@@ -46,7 +46,8 @@
                                     <td class="border-b border-gray-200 px-5 py-2 text-center">{{ $loop->iteration }}</td>
                                     <td class="border-b border-gray-200 px-5 py-2 truncate">{{ $submission->judul }}</td>
                                     <td class="border-b border-gray-200 px-5 py-2">
-                                        {{ \Carbon\Carbon::parse($submission->created_at)->format('d F Y') }}
+                                        {{-- {{ \Carbon\Carbon::parse($submission->created_at)->format('d F Y') }} --}}
+                                        {{ $submission->created_at->diffForHumans() }}
                                     </td>
                                     <td class="border-b border-gray-200 px-3 py-2 text-center">
                                         <span
