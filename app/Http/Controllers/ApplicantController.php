@@ -154,7 +154,7 @@ class ApplicantController extends Controller
             'tgl_lahir' => 'required|date',
             'kewarganegaraan' => 'required',
             'alamat' => 'required',
-            'kode_pos' => 'required',
+            'kode_pos' => 'required|numeric',
         ], [
             'nama.required' => 'Nama harus diisi',
             'kontak.required' => 'Kontak harus diisi',

@@ -131,7 +131,7 @@
             <div class="flex flex-col mb-4">
                 <label for="kode_pos" class="font-semibold text-sm ms-3 mb-5">Kode Pos<span
                         class="text-red-600 text-lg">*</span></label>
-                <input type="text" id="kode_pos" name="kode_pos"
+                <input type="number" id="kode_pos" name="kode_pos"
                     value="{{ old('kode_pos', $applicant->kode_pos ?? '') }}"
                     class="border-b-2 border-indigo-100 @error('kode_pos') border-red-400 @enderror py-2 px-3 focus:border-amber-600 outline-0">
                 @error('kode_pos')

@@ -435,7 +435,7 @@
                 // Tutup modal cek NIK
                 $("#btn-close-nik-modal").click(function() {
                     $("#nik-check-modal").addClass("hidden");
-                    $("#check-nik").val(""); // Reset input NIK
+                    $("#check-nik").val(""); 
                 });
 
                 // Proses pengecekan NIK
@@ -448,7 +448,7 @@
                     }
 
                     $.ajax({
-                        url: "{{ route('check.nik') }}", // Endpoint untuk pengecekan NIK
+                        url: "{{ route('check.nik') }}", 
                         method: "POST",
                         data: {
                             nik: nik,
